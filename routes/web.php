@@ -4,7 +4,8 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
-use App\Livewire\Users\Index;
+use App\Livewire\Users\Create as UserCreate;
+use App\Livewire\Users\Index as UserIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -38,5 +39,6 @@ Route::middleware(['auth'])->group(function () {
 require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'can:users'])->group(function () {
-    Route::get('/usuarios', Index::class)->name('users.index');
+    Route::get('/usuarios', UserIndex::class)->name('users.index');
+    Route::get('/usuarios/crear', UserCreate::class)->name('users.create');
 });
