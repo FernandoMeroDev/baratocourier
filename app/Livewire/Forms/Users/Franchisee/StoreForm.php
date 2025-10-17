@@ -31,7 +31,7 @@ class StoreForm extends BaseStoreForm
         $rules = parent::rules();
         $rules['phone_number'] = 'required|string|size:10';
         $rules['courier_name'] = 'required|string|max:255';
-        $rules['logo'] = 'nullable|image|max:10240'; // 10MB max;
+        $rules['logo'] = 'required|image|max:10240|dimensions:ratio=1/1'; // 10MB max;
         // Address
         $rules['address_line'] = 'required|string|max:255';
         $rules['state'] = 'required|string';
@@ -52,7 +52,7 @@ class StoreForm extends BaseStoreForm
             . ', ' . $validated['state']
             . ', ' . $validated['city']
             . ', Código: ' . $validated['zip_code'];
-        $inputs['logo'] = $this->saveLogo();
+        $validated['logo'] = $this->saveLogo();
         Franchisee::create($validated);
     }
 
