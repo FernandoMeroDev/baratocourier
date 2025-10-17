@@ -32,6 +32,7 @@ class StoreForm extends Form
     public function store()
     {
         $validated = $this->validate();
-        event(new Registered((User::create($validated))));
+        event(new Registered(($user = User::create($validated))));
+        return ['validated' => $validated, 'user' => $user];
     }
 }

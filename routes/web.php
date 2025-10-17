@@ -5,6 +5,7 @@ use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\TwoFactor;
 use App\Livewire\Users\Create as UserCreate;
+use App\Livewire\Users\Franchisee\Create as UserFranchiseeCreate;
 use App\Livewire\Users\Index as UserIndex;
 use App\Livewire\Clients\Index as ClientIndex;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,8 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'can:users'])->group(function () {
     Route::get('/usuarios', UserIndex::class)->name('users.index');
-    Route::get('/usuarios/crear', UserCreate::class)->name('users.create');
+    Route::view('/usuarios/crear/tipos', 'users.create-types')->name('users.create-types');
+    Route::get('/usuarios/franquiciado/crear', UserFranchiseeCreate::class)->name('users.franchisee.create');
 });
 
 Route::middleware(['auth', 'can:clients'])->group(function () {

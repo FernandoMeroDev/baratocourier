@@ -2,7 +2,7 @@
 <div>
     <div class="flex mb-3">
         <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
-        <a href="{{route('users.create')}}">
+        <a href="{{route('users.create-types')}}">
             <flux:button>Nuevo</flux:button>
         </a>
         {{-- <flux:modal.trigger name="create-product">
