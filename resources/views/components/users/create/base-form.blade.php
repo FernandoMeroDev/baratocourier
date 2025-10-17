@@ -11,7 +11,7 @@
     required
     autofocus
     autocomplete="name"
-    :placeholder="__('Full name')"
+    placeholder="Nombre Representativo"
 />
 
 <!-- Email Address -->

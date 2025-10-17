@@ -7,11 +7,15 @@ use App\Models\User\Franchisee;
 
 class StoreForm extends BaseStoreForm
 {
+    public $phone_number = '';
+
     public $courier_name = '';
 
     public $logo;
 
     // Address
+    public $address_line = '';
+
     public $state = '';
 
     public $city = '';
@@ -25,14 +29,16 @@ class StoreForm extends BaseStoreForm
     public function rules(): array
     {
         $rules = parent::rules();
-        $rules['courier_name'] = 'required|string';
+        $rules['phone_number'] = 'required|string|size:10';
+        $rules['courier_name'] = 'required|string|max:255';
         $rules['logo'] = 'nullable|image|max:10240'; // 10MB max;
         // Address
+        $rules['address_line'] = 'required|string|max:255';
         $rules['state'] = 'required|string';
-        $rules['city'] = 'required|string';
-        $rules['zip_code'] = 'required|string';
-        $rules['guide_domain'] = 'required|string';
-        $rules['client_domain'] = 'required|string';
+        $rules['city'] = 'required|string|max:50';
+        $rules['zip_code'] = 'required|string|max:20';
+        $rules['guide_domain'] = 'required|string|max:20';
+        $rules['client_domain'] = 'required|string|max:20';
         return $rules;
     }
 
@@ -42,7 +48,8 @@ class StoreForm extends BaseStoreForm
         extract($stored);
         $user->assignRole('franchisee');
         $validated['user_id'] = $user->id;
-        $validated['address'] = $validated['state']
+        $validated['address'] = $validated['address_line']
+            . ', ' . $validated['state']
             . ', ' . $validated['city']
             . ', Código: ' . $validated['zip_code'];
         $inputs['logo'] = $this->saveLogo();

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('franchisees', function (Blueprint $table) {
             $table->id();
+            $table->string('phone_number', 10);
             $table->string('courier_name');
             $table->string('logo');
             $table->string('address', 500);

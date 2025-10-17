@@ -6,6 +6,13 @@
         <x-users.create.base-form />
 
         <flux:input
+            wire:model="form.phone_number"
+            label="Número de Teléfono"
+            required
+            placeholder="0999999999"
+        />
+
+        <flux:input
             wire:model="form.courier_name"
             label="Nombre de Courier"
             required
@@ -33,6 +40,13 @@
                 Dirección
             </span>
             <div class="grid grid-cols-2 gap-3">
+                <div class="col-span-2">
+                    <flux:input
+                        wire:model="form.address_line"
+                        required
+                    />
+                </div>
+
                 <flux:field>
                     <flux:label>Estado</flux:label>
 
@@ -80,5 +94,7 @@
                 <flux:button>Cancelar</flux:button>
             </a>
         </div>
+
+        <flux:error name="form.*" />
     </form>
 </div>
