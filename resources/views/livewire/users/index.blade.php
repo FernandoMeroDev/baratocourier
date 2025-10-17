@@ -2,9 +2,15 @@
 <div>
     <div class="flex mb-3">
         <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
-        <a href="{{route('users.create-types')}}">
-            <flux:button>Nuevo</flux:button>
-        </a>
+        @if(Auth::user()->hasRole('administrator'))
+            <a href="{{route('users.franchisee.create')}}">
+                <flux:button>Nuevo</flux:button>
+            </a>
+        @elseif(Auth::user()->hasRole('franchisee'))
+            <a href="#"> {{-- route('users.employee.create') --}}
+                <flux:button>Nuevo</flux:button>
+            </a>
+        @endif
         {{-- <flux:modal.trigger name="create-product">
             <flux:button>Nuevo</flux:button>
         </flux:modal.trigger> --}}
@@ -39,7 +45,7 @@
                 </td>
                 <td class="p-3">
                     @forelse($user->getRoleNames() as $role)
-                        {{Translator::role($role) . ', '}}
+                        {{Translator::role($role) . ' '}}
                     @empty
                         Ninguno...
                     @endforelse

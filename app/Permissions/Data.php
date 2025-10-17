@@ -6,8 +6,8 @@ class Data
 {
     public static array $roles = [
         'administrator',
-        'franchisee_manager',
         'franchisee',
+        'employee',
     ];
 
     public static array $permissions = [
@@ -17,8 +17,8 @@ class Data
 
     public static array $roleTranslations = [
         'administrator' => 'Administrador',
-        'franchisee_manager' => 'Jefe de Franquicia',
-        'franchisee' => 'Franquiciado'
+        'franchisee' => 'Franquiciado',
+        'employee' => 'Empleado'
     ];
 
     public static array $permissionTranslations = [

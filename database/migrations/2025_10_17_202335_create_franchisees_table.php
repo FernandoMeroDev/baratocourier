@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('phone_number', 10);
             $table->string('courier_name');
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('address', 500);
             $table->string('guide_domain', 20);
             $table->string('client_domain', 20);

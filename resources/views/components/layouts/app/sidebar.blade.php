@@ -13,9 +13,11 @@
 
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
+                    @can('clients')
                     <flux:navlist.item icon="user-circle" :href="route('clients.index')" :current="request()->routeIs('clients.index')">
                         Clientes
                     </flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
             </flux:navlist>
 

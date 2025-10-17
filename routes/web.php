@@ -40,8 +40,8 @@ require __DIR__.'/auth.php';
 
 Route::middleware(['auth', 'can:users'])->group(function () {
     Route::get('/usuarios', UserIndex::class)->name('users.index');
-    Route::view('/usuarios/crear/tipos', 'users.create-types')->name('users.create-types');
-    Route::get('/usuarios/franquiciado/crear', UserFranchiseeCreate::class)->name('users.franchisee.create');
+    Route::get('/usuarios/franquiciado/crear', UserFranchiseeCreate::class)->name('users.franchisee.create')
+        ->middleware(['role:administrator']);
 });
 
 Route::middleware(['auth', 'can:clients'])->group(function () {

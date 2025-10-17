@@ -8,7 +8,7 @@
         <flux:input
             wire:model="form.phone_number"
             label="Número de Teléfono"
-            required
+            required maxlength="10"
             placeholder="0999999999"
         />
 

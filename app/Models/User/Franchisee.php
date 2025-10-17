@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Franchisee extends Model
 {
     protected $fillable = [
+        'phone_number',
         'courier_name',
         'logo',
         'address',

@@ -23,10 +23,10 @@ class RolePermissionSeeder extends Seeder
         foreach(Data::$permissions as $permission)
             Permission::create(['name' => $permission]);
 
-        $franchisse_manager_role = Role::create(['name' => 'franchisee_manager']);
-        $franchisse_manager_role->givePermissionTo('users');
-
         $franchisee_role = Role::create(['name' => 'franchisee']);
         $franchisee_role->givePermissionTo('clients');
+        $franchisee_role->givePermissionTo('users');
+
+        $franchisee_role = Role::create(['name' => 'employee']);
     }
 }
