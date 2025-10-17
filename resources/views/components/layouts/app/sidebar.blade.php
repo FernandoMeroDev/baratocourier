@@ -19,15 +19,17 @@
 
             <flux:spacer />
 
-            {{-- <flux:navlist variant="outline">
-                <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                {{ __('Repository') }}
+            @can('users')
+            <flux:navlist variant="outline">
+                <flux:navlist.item icon="user" href="{{route('users.index')}}">
+                    Usuarios
                 </flux:navlist.item>
 
-                <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                {{-- <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
-                </flux:navlist.item>
-            </flux:navlist> --}}
+                </flux:navlist.item> --}}
+            </flux:navlist>
+            @endcan
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">
