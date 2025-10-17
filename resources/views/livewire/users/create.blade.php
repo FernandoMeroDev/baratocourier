@@ -1,4 +1,3 @@
-@use('Spatie\Permission\Models\Role')
 @use('App\Permissions\Translator')
 
 <div>
@@ -55,7 +54,7 @@
             <flux:label>Rol</flux:label>
 
             <flux:select wire:model="form.role" placeholder="Seleccione...">
-                @foreach(Role::all() as $role)
+                @foreach($roles as $role)
                     <flux:select.option value="{{$role->name}}">
                         {{Translator::role($role->name)}}
                     </flux:select.option>
