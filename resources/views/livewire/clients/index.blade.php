@@ -61,7 +61,7 @@
         @endforelse
         <x-table.tr>
             <td class="p-3">
-                <flux:button {{-- x-on:click="$flux.modal('create-inventory-record').show()" --}} icon="plus"></flux:button>
+                <flux:button x-on:click="$flux.modal('create-client').show()" icon="plus"></flux:button>
             </td>
             <td class="p-3">
                 Nuevo Registro
@@ -74,4 +74,8 @@
     </x-table>
 
     <x-pagination :paginator="$clients" />
+
+    <flux:modal name="create-client" x-on:created-client.window="$flux.modal('create-client').close()" class="md:w-96">
+        <livewire:clients.create />
+    </flux:modal>
 </div>
