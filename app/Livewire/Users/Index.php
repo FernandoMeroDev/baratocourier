@@ -28,7 +28,9 @@ class Index extends Component
         if($current_user->hasRole('franchisee')){
             $query = $query->join(
                 'employees', 'employees.user_id', '=', 'users.id'
-            )->where('employees.franchisee_id', $current_user->franchisee->id);
+            )->where(
+                'employees.franchisee_id', $current_user->franchisee->id
+            )->select('users.*');
         }
 
         $users = $query->orderBy('name')->paginate(15, pageName: 'users_page');

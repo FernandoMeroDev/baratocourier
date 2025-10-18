@@ -24,12 +24,11 @@ class UserSeeder extends Seeder
             RolePermissionSeeder::class
         ]);
 
-        $franchisee = User::factory()->create([
+        $franchisee_user = User::factory()->create([
             'name' => 'Jefe de Franquicia',
             'email' => 'franquiciado@baratocourier.com',
         ]);
-
-        $franchisee->assignRole('franchisee');
+        $franchisee_user->assignRole('franchisee');
         Franchisee::create([
             'phone_number' => '0999999999',
             'courier_name' => 'CourierA',
@@ -37,16 +36,17 @@ class UserSeeder extends Seeder
             'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 132222',
             'guide_domain' => 'BTC',
             'client_domain' => 'BTA',
-            'user_id' => $franchisee->id,
+            'user_id' => $franchisee_user->id,
         ]);
 
-        $employee = User::factory()->create([
+        $employee_user = User::factory()->create([
             'name' => 'Empleado',
             'email' => 'empleado@baratocourier.com',
         ]);
+        $employee_user->assignRole('employee');
         Employee::create([
-            'user_id' => $employee->id,
-            'franchisee_id' => $franchisee->franchisee->id
+            'user_id' => $employee_user->id,
+            'franchisee_id' => $franchisee_user->franchisee->id
         ]);
     }
 }
