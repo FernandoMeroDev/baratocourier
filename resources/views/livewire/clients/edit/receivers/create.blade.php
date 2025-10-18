@@ -8,7 +8,7 @@
         <div class="space-y-2">
             <flux:input wire:model="form.names" label="Nombres" maxlength="255" />
 
-            <flux:input wire:model="form.lastnames" label="Nombres" maxlength="255" />
+            <flux:input wire:model="form.lastnames" label="Apellidos" maxlength="255" />
 
             <flux:input wire:model="form.identity_card" label="Cédula" maxlength="30" />
         </div>

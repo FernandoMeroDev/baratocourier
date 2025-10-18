@@ -53,7 +53,7 @@
         @endforelse
         <x-table.tr>
             <td class="p-3">
-                <flux:button {{-- x-on:click="$flux.modal('create-client').show()" --}} icon="plus"></flux:button>
+                <flux:button x-on:click="$flux.modal('create-family-core-member').show()" icon="plus"></flux:button>
             </td>
             <td class="p-3">
                 Nuevo Registro
@@ -63,5 +63,12 @@
     </x-table>
 
     <x-pagination :paginator="$members" />
+
+    <flux:modal 
+        name="create-family-core-member"  class="md:w-96"
+        x-on:created-family-core-member.window="$wire.$refresh(); $flux.modal('create-family-core-member').close()"
+    >
+        <livewire:clients.edit.family-core-members.create :$client />
+    </flux:modal>
 </div>
 

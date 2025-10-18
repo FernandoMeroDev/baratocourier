@@ -51,7 +51,7 @@ class Index extends Component
             'names' => 'names',
             'lastnames' => 'lastnames',
             'identity_card' => 'identity_card',
-            default => 'identity_card'
+            default => 'names'
         };
     }
 }

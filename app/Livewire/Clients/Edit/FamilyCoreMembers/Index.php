@@ -35,12 +35,9 @@ class Index extends Component
 
     private function query()
     {
-        $current_user = User::find(Auth::user()->id);
         $search_field = $this->validateColumn($this->search_field);
-        $query = FamilyCoreMember::where($search_field, 'LIKE', "%$this->search%");
-
-        if($current_user->hasRole('franchisee'))
-            $query = $query->where('client_id', $this->client->id);
+        $query = FamilyCoreMember::where($search_field, 'LIKE', "%$this->search%")
+            ->where('client_id', $this->client->id);
 
         $members = $query->orderBy($search_field)->paginate(10, pageName: 'members_page');
 
@@ -56,7 +53,7 @@ class Index extends Component
             'names' => 'names',
             'lastnames' => 'lastnames',
             'identity_card' => 'identity_card',
-            default => 'identity_card'
+            default => 'names'
         };
     }
 }
