@@ -7,6 +7,7 @@ use App\Models\Province;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class ShippingAddress extends Model
 {
@@ -33,5 +34,10 @@ class ShippingAddress extends Model
     public function client(): BelongsTo
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function target(): HasOne
+    {
+        return $this->hasOne(ShippingTarget::class);
     }
 }

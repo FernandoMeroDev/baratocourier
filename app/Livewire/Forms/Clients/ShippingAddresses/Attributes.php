@@ -13,4 +13,13 @@ trait Attributes
     public $zip_code;
 
     public $province_id;
+
+    // Shipping Target Attributes:
+    public $name;
+
+    public $lastname;
+
+    public $identity_card;
+
+    public $phone_number;
 }

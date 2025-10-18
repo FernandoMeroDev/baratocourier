@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Clients\FamilyCoreMember;
 use App\Models\Clients\Receiver;
 use App\Models\Clients\ShippingAddress;
+use App\Models\Clients\ShippingTarget;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -25,9 +26,14 @@ class ClientSeeder extends Seeder
             Receiver::factory(10)->create([
                 'client_id' => $client->id
             ]);
-            ShippingAddress::factory(4)->create([
+            $shipping_addresses = ShippingAddress::factory(4)->create([
                 'client_id' => $client->id
             ]);
+            foreach($shipping_addresses as $address){
+                ShippingTarget::factory()->create([
+                    'shipping_address_id' => $address->id
+                ]);
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ class Create extends Component
 
     public function mount(Client $client)
     {
-        $this->form->setClient($client);
+        $this->form->setClient($client, set_attributes: false);
     }
 
     public function render()

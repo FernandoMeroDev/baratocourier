@@ -15,7 +15,7 @@ class Edit extends Component
 
     public function mount(Client $client)
     {
-        $this->form->setClient($client);
+        $this->form->setClient($client, set_attributes: false);
     }
 
     public function render()
@@ -29,7 +29,6 @@ class Edit extends Component
     public function openModal($id)
     {
         $shippingAddress = ShippingAddress::find($id);
-        // [TODO]: Validate that belongs to current client
         if($shippingAddress){
             if($this->form->client->id == $shippingAddress->client_id){
                 $this->form->setShippingAddress($shippingAddress);

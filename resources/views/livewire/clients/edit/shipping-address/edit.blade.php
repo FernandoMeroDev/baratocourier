@@ -6,6 +6,16 @@
         </div>
 
         <div class="space-y-2">
+            <x-fieldset.simple title="Enviar a:" class="my-6">
+                <flux:input wire:model="form.name" label="Nombres" maxlength="255" />
+
+                <flux:input wire:model="form.lastname" label="Apellidos" maxlength="255" />
+
+                <flux:input wire:model="form.identity_card" label="Cédula" maxlength="30" />
+
+                <flux:input wire:model="form.phone_number" label="Número de Teléfono" maxlength="10" />
+            </x-fieldset.simple>
+
             <flux:input wire:model="form.line_1" label="Dirección" maxlength="255" />
 
             <flux:input wire:model="form.line_2" label="Referencia" maxlength="255" />

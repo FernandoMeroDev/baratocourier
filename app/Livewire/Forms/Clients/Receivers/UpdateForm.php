@@ -18,7 +18,7 @@ class UpdateForm extends Form
         return [
             'names' => 'required|string|max:255',
             'lastnames' => 'required|string|max:255',
-            'identity_card' => 'required|string|max:10',
+            'identity_card' => 'required|string|max:30',
         ];
     }
 

@@ -5,6 +5,15 @@
             <x-table.th>
                 Dirección
             </x-table.th>
+            <x-table.th>
+                Enviar a:
+            </x-table.th>
+            <x-table.th>
+                Cédula
+            </x-table.th>
+            <x-table.th>
+                Teléfono
+            </x-table.th>
         </x-slot:thead>
 
         @forelse ($addresses as $address)
@@ -20,6 +29,18 @@
                         . ', ' . $address->province->name
                         . ', Código: ' . $address->zip_code . '.'
                     }}
+                </td>
+                <td class="p-3">
+                    {{
+                        $address->target->name
+                        . ', ' . $address->target->lastname
+                    }}
+                </td>
+                <td class="p-3">
+                    {{$address->target->identity_card}}
+                </td>
+                <td class="p-3">
+                    {{$address->target->phone_number}}
                 </td>
             </x-table.tr>
         @empty
