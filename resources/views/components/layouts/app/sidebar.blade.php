@@ -12,10 +12,13 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group :heading="__('Platform')" class="grid">
+                <flux:navlist.group heading="Clientes" expandable class="grid">
                     @can('clients')
+                    <flux:navlist.item icon="plus" :href="route('clients.create')" :current="request()->routeIs('clients.create')">
+                        Registro de Clientes
+                    </flux:navlist.item>
                     <flux:navlist.item icon="user-circle" :href="route('clients.index')" :current="request()->routeIs('clients.index')">
-                        Clientes
+                        Mis Clientes
                     </flux:navlist.item>
                     @endcan
                 </flux:navlist.group>
@@ -23,17 +26,17 @@
 
             <flux:spacer />
 
-            @can('users')
             <flux:navlist variant="outline">
+                @can('users')
                 <flux:navlist.item icon="user" href="{{route('users.index')}}">
                     Usuarios
                 </flux:navlist.item>
+                @endcan
 
                 {{-- <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
                 {{ __('Documentation') }}
                 </flux:navlist.item> --}}
             </flux:navlist>
-            @endcan
 
             <!-- Desktop User Menu -->
             <flux:dropdown class="hidden lg:block" position="bottom" align="start">

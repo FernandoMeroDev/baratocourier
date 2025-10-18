@@ -8,6 +8,7 @@ use App\Livewire\Users\Franchisee\Create as UserFranchiseeCreate;
 use App\Livewire\Users\Employee\Create as UserEmployeeCreate;
 use App\Livewire\Users\Index as UserIndex;
 use App\Livewire\Clients\Index as ClientIndex;
+use App\Livewire\Clients\Create as ClientCreate;
 use App\Livewire\Clients\Edit\Main as ClientEdit;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -49,5 +50,6 @@ Route::middleware(['auth', 'can:users'])->group(function () {
 
 Route::middleware(['auth', 'can:clients'])->group(function () {
     Route::get('/clientes', ClientIndex::class)->name('clients.index');
+    Route::get('/clientes/crear', ClientCreate::class)->name('clients.create');
     Route::get('/clientes/{client}/editar', ClientEdit::class)->name('clients.edit');
 });
