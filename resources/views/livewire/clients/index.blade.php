@@ -33,7 +33,9 @@
         @forelse ($clients as $client)
             <x-table.tr>
                 <td class="w-5 px-3 py-1">
-                    <flux:button icon="pencil" x-on:click="$dispatch('edit-client', { client_id: {{$client->id}} })"></flux:button>
+                    <a href="{{route('clients.edit', $client->id)}}">
+                        <flux:button icon="pencil"></flux:button>
+                    </a>
                 </td>
                 <td class="p-3">
                     {{$client->identity_card}}

@@ -9,15 +9,7 @@ use Livewire\Form;
 
 class StoreForm extends Form
 {
-    public $name;
-
-    public $identity_card;
-
-    public $phone_number;
-
-    public $residential_address;
-
-    public $email;
+    use ClientAttributes;
 
     protected function rules(): array
     {
