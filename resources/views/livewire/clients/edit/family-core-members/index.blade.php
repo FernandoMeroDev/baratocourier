@@ -29,9 +29,7 @@
         @forelse ($members as $member)
             <x-table.tr>
                 <td class="w-5 px-3 py-1">
-                    <a href="#"> {{-- {{route('members.edit', $member->id)}} --}}
-                        <flux:button icon="pencil"></flux:button>
-                    </a>
+                    <flux:button icon="pencil" x-on:click="$dispatch('edit-family-core-member', { id: {{$member->id}} })"></flux:button>
                 </td>
                 <td class="p-3">
                     {{$member->names}}
@@ -69,6 +67,15 @@
         x-on:created-family-core-member.window="$wire.$refresh(); $flux.modal('create-family-core-member').close()"
     >
         <livewire:clients.edit.family-core-members.create :$client />
+    </flux:modal>
+
+    <flux:modal 
+        name="edit-family-core-member"  class="md:w-96"
+        x-on:edited-family-core-member.window="$wire.$refresh(); $flux.modal('edit-family-core-member').close()"
+        x-on:deleted-family-core-member.window="$wire.$refresh(); $flux.modal('edit-family-core-member').close()"
+        x-on:edit-family-core-member.window="$flux.modal('edit-family-core-member').show()"
+    >
+        <livewire:clients.edit.family-core-members.edit :$client />
     </flux:modal>
 </div>
 

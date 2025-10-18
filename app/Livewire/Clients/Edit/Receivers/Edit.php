@@ -26,7 +26,6 @@ class Edit extends Component
     public function openModal($id)
     {
         $receiver = Receiver::find($id);
-        // [TODO]: Validate that belongs to current client
         if($receiver){
             if($this->form->client->id == $receiver->client_id){
                 $this->form->setReceiver($receiver);
