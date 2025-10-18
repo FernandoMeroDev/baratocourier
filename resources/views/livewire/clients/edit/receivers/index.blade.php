@@ -53,7 +53,7 @@
         @endforelse
         <x-table.tr>
             <td class="p-3">
-                <flux:button x-on:click="$flux.modal('create-client').show()" icon="plus"></flux:button>
+                <flux:button x-on:click="$flux.modal('create-receiver').show()" icon="plus"></flux:button>
             </td>
             <td class="p-3">
                 Nuevo Registro
@@ -63,4 +63,11 @@
     </x-table>
 
     <x-pagination :paginator="$receivers" />
+
+    <flux:modal 
+        name="create-receiver"  class="md:w-96"
+        x-on:created-receiver.window="$wire.$refresh(); $flux.modal('create-receiver').close()"
+    >
+        <livewire:clients.edit.receivers.create :$client />
+    </flux:modal>
 </div>

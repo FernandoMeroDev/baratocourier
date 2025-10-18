@@ -4,8 +4,6 @@ namespace App\Livewire\Clients\Edit\Receivers;
 
 use App\Models\Client;
 use App\Models\Clients\Receiver;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -35,12 +33,9 @@ class Index extends Component
 
     private function query()
     {
-        $current_user = User::find(Auth::user()->id);
         $search_field = $this->validateColumn($this->search_field);
-        $query = Receiver::where($search_field, 'LIKE', "%$this->search%");
-
-        if($current_user->hasRole('franchisee'))
-            $query = $query->where('client_id', $this->client->id);
+        $query = Receiver::where($search_field, 'LIKE', "%$this->search%")
+            ->where('client_id', $this->client->id);
 
         $receivers = $query->orderBy($search_field)->paginate(10, pageName: 'receivers_page');
 

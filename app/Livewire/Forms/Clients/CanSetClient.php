@@ -10,14 +10,16 @@ trait CanSetClient
     #[Locked]
     public Client $client;
 
-    public function setClient(Client $client)
+    public function setClient(Client $client, bool $set_attributes = true)
     {
         $this->client = $client;
-        $this->name = $this->client->name;
-        $this->lastname = $this->client->lastname;
-        $this->identity_card = $this->client->identity_card;
-        $this->phone_number = $this->client->phone_number;
-        $this->residential_address = $this->client->residential_address;
-        $this->email = $this->client->email;
+        if($set_attributes){
+            $this->name = $this->client->name;
+            $this->lastname = $this->client->lastname;
+            $this->identity_card = $this->client->identity_card;
+            $this->phone_number = $this->client->phone_number;
+            $this->residential_address = $this->client->residential_address;
+            $this->email = $this->client->email;
+        }
     }
 }
