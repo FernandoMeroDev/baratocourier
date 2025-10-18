@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Province;
+use Database\Seeders\Data\ECProvinces;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,6 +15,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        foreach(ECProvinces::$data as $province_name)
+            Province::create(['name' => $province_name]);
+
         $this->call([
             UserSeeder::class,
             ClientSeeder::class

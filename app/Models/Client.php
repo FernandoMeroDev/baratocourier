@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Clients\FamilyCoreMember;
 use App\Models\Clients\Receiver;
+use App\Models\Clients\ShippingAddress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,5 +40,10 @@ class Client extends Model
     public function receivers(): HasMany
     {
         return $this->hasMany(Receiver::class);
+    }
+
+    public function shippingAddresses(): HasMany
+    {
+        return $this->hasMany(ShippingAddress::class);
     }
 }

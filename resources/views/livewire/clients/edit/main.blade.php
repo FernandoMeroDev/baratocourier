@@ -28,6 +28,15 @@
 
     <x-accordion.simple>
         <x-slot:title>
+            <div class="flex"><flux:icon.paper-airplane class="mr-2" /> Direcciones de Envío</div>
+        </x-slot:title>
+        <livewire:clients.edit.shipping-address.index :client="$form->client" />
+    </x-accordion.simple>
+
+    <hr class="my-10">
+
+    <x-accordion.simple>
+        <x-slot:title>
             <div class="flex"><flux:icon.folder class="mr-2" /> Destinatarios</div>
         </x-slot:title>
         <livewire:clients.edit.receivers.index :client="$form->client" />
