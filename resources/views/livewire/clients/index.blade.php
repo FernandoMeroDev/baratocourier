@@ -3,7 +3,8 @@
         <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
         <flux:select title="Seleccione para ordenar y buscar por campo" wire:model.live="search_field" placeholder="Seleccione Campo...">
             <flux:select.option selected value="identity_card">Cédula</flux:select.option>
-            <flux:select.option value="name">Nombre</flux:select.option>
+            <flux:select.option value="name">Nombres</flux:select.option>
+            <flux:select.option value="lastname">Apellidos</flux:select.option>
             <flux:select.option value="residential_address">Dirección de Residencia</flux:select.option>
             <flux:select.option value="email">Email</flux:select.option>
             <flux:select.option value="phone_number">Teléfono</flux:select.option>
@@ -17,7 +18,10 @@
                 Cédula
             </x-table.th>
             <x-table.th>
-                Nombre
+                Nombres
+            </x-table.th>
+            <x-table.th>
+                Apellidos
             </x-table.th>
             <x-table.th>
                 Dir. Residencia
@@ -42,6 +46,9 @@
                 </td>
                 <td class="p-3">
                     {{$client->name}}
+                </td>
+                <td class="p-3">
+                    {{$client->lastname}}
                 </td>
                 <td class="p-3">
                     {{$client->residential_address}}

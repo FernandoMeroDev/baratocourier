@@ -6,6 +6,8 @@ trait ClientAttributes
 {
     public $name;
 
+    public $lastname;
+
     public $identity_card;
 
     public $phone_number;

@@ -45,6 +45,7 @@ class Index extends Component
     {
         return match($column){
             'name' => 'name',
+            'lastname' => 'lastname',
             'identity_card' => 'identity_card',
             'phone_number' => 'phone_number',
             'residential_address' => 'residential_address',

@@ -6,7 +6,9 @@
         </div>
 
         <div class="space-y-2">
-            <flux:input wire:model="form.name" label="Nombre" maxlength="255" />
+            <flux:input wire:model="form.name" label="Nombres" maxlength="255" />
+
+            <flux:input wire:model="form.lastname" label="Apellidos" maxlength="255" />
 
             <flux:input wire:model="form.identity_card" label="Cédula" required maxlength="500" />
 

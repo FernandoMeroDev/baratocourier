@@ -23,7 +23,8 @@ class ClientFactory extends Factory
         $role = Role::where('name', 'franchisee')->first();
         $users_ids = $role->users->pluck('id')->toArray();
         return [
-            'name' => fake()->name(),
+            'name' => fake()->firstName() . ' ' . fake()->firstName(),
+            'lastname' => fake()->lastName() . ' ' . fake()->lastName(),
             'identity_card' => $this->randomNumber(10),
             'phone_number' => '09' . $this->randomNumber(8),
             'residential_address' => fake()->address(),

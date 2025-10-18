@@ -15,6 +15,7 @@ class StoreForm extends Form
     {
         return [
             'name' => 'string|max:255',
+            'lastname' => 'string|max:255',
             'identity_card' => 'required|string|max:30',
             'phone_number' => 'required|string|size:10',
             'residential_address' => 'required|string|max:500',
