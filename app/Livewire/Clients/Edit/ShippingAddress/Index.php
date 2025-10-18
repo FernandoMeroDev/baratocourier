@@ -31,19 +31,14 @@ class Index extends Component
 
     private function query()
     {
-        $current_user = User::find(Auth::user()->id);
         $addresses = null;
 
-        if( ! $current_user->hasRole('administrator') ){
-            $addresses = ShippingAddress::join(
-                'clients', 'clients.id', '=', 'shipping_addresses.client_id'
-            )->where(
-                'clients.id', $this->client->id
-            )->select('shipping_addresses.*')
-                ->paginate(5, pageName: 'addresses_page');
-        } else {
-            $addresses = ShippingAddress::paginate(15, pageName: 'addresses_page');
-        }
+        $addresses = ShippingAddress::join(
+            'clients', 'clients.id', '=', 'shipping_addresses.client_id'
+        )->where(
+            'clients.id', $this->client->id
+        )->select('shipping_addresses.*')
+            ->paginate(5, pageName: 'addresses_page');
 
         if($addresses->isEmpty() && $addresses->currentPage() !== 1)
             $this->resetPage('addresses_page');

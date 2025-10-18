@@ -15,6 +15,10 @@
                 <td class="p-3">
                     {{
                         $address->line_1
+                        . ', ' . $address->line_2
+                        . ', ' . $address->city_name
+                        . ', ' . $address->province->name
+                        . ', Código: ' . $address->zip_code . '.'
                     }}
                 </td>
             </x-table.tr>
@@ -28,7 +32,7 @@
         @endforelse
         <x-table.tr>
             <td class="p-3">
-                <flux:button {{-- x-on:click="$flux.modal('create-address').show()" --}} icon="plus"></flux:button>
+                <flux:button x-on:click="$flux.modal('create-shipping-address').show()" icon="plus"></flux:button>
             </td>
             <td class="p-3">
                 Nuevo Registro
@@ -38,4 +42,11 @@
     </x-table>
 
     <x-pagination :paginator="$addresses" />
+
+    <flux:modal 
+        name="create-shipping-address"  class="md:w-96"
+        x-on:created-shipping-address.window="$flux.modal('create-shipping-address').close(); $refresh"
+    >
+        <livewire:clients.edit.shipping-address.create :$client />
+    </flux:modal>
 </div>

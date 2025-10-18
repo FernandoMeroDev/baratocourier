@@ -8,7 +8,7 @@ use Livewire\Form;
 
 class UpdateForm extends Form
 {
-    use ClientAttributes;
+    use ClientAttributes, CanSetClient;
 
     protected function rules(): array
     {
@@ -20,20 +20,6 @@ class UpdateForm extends Form
             'residential_address' => 'required|string|max:500',
             'email' => 'required|string|max:500',
         ];
-    }
-
-    #[Locked]
-    public Client $client;
-
-    public function setClient(Client $client)
-    {
-        $this->client = $client;
-        $this->name = $this->client->name;
-        $this->lastname = $this->client->lastname;
-        $this->identity_card = $this->client->identity_card;
-        $this->phone_number = $this->client->phone_number;
-        $this->residential_address = $this->client->residential_address;
-        $this->email = $this->client->email;
     }
 
     public function update()
