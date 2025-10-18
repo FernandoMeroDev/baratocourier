@@ -23,4 +23,18 @@
             <flux:button wire:click="delete" variant="danger">Eliminar</flux:button>
         </div>
     </form>
+
+    <hr class="my-10">
+
+    <x-accordion.simple title="Destinatarios">
+        <livewire:clients.edit.receivers.index :client="$form->client" />
+    </x-accordion.simple>
+
+    <hr class="my-10">
+
+    <x-accordion.simple title="Núcleo Familiar">
+        <livewire:clients.edit.family-core-members.index :client="$form->client" />
+    </x-accordion.simple>
+
+    <hr class="my-10">
 </div>

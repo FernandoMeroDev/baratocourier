@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Database\Factories\Traits\GenerateRandomNumber;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Spatie\Permission\Models\Role;
 
@@ -10,6 +11,8 @@ use Spatie\Permission\Models\Role;
  */
 class ClientFactory extends Factory
 {
+    use GenerateRandomNumber;
+
     /**
      * Define the model's default state.
      *
@@ -17,22 +20,15 @@ class ClientFactory extends Factory
      */
     public function definition(): array
     {
-        $user = Role::where('name', 'franchisee')->first();
+        $role = Role::where('name', 'franchisee')->first();
+        $users_ids = $role->users->pluck('id')->toArray();
         return [
             'name' => fake()->name(),
             'identity_card' => $this->randomNumber(10),
             'phone_number' => '09' . $this->randomNumber(8),
             'residential_address' => fake()->address(),
             'email' => fake()->email(),
-            'user_id' => $user->id
+            'user_id' => fake()->randomElement($users_ids)
         ];
-    }
-
-    private function randomNumber(int $n_digits): string
-    {
-        $number = '';
-        for($i = 0; $i < $n_digits; $i++)
-            $number .= fake()->randomDigit();
-        return $number;
     }
 }

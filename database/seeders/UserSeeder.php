@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         ]);
 
         $franchisee_user = User::factory()->create([
-            'name' => 'Jefe de Franquicia',
+            'name' => 'Franquiciado A',
             'email' => 'franquiciado@baratocourier.com',
         ]);
         $franchisee_user->assignRole('franchisee');
@@ -47,6 +47,21 @@ class UserSeeder extends Seeder
         Employee::create([
             'user_id' => $employee_user->id,
             'franchisee_id' => $franchisee_user->franchisee->id
+        ]);
+
+        $franchisee_b_user = User::factory()->create([
+            'name' => 'Franquiciado B',
+            'email' => 'franquiciado.b@baratocourier.com',
+        ]);
+        $franchisee_b_user->assignRole('franchisee');
+        Franchisee::create([
+            'phone_number' => '0999999999',
+            'courier_name' => 'CourierB',
+            'logo' => null,
+            'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 130222',
+            'guide_domain' => 'TVC',
+            'client_domain' => 'VTA',
+            'user_id' => $franchisee_b_user->id,
         ]);
     }
 }
