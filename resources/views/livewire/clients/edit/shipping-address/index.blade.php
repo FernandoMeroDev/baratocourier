@@ -10,7 +10,7 @@
         @forelse ($addresses as $address)
             <x-table.tr>
                 <td class="w-5 px-3 py-1">
-                    <flux:button icon="pencil" {{-- x-on:click="$dispatch('edit-address', { address_id: {{$address->id}} })" --}}></flux:button>
+                    <flux:button icon="pencil" x-on:click="$dispatch('edit-shipping-address', { id: {{$address->id}} })"></flux:button>
                 </td>
                 <td class="p-3">
                     {{
@@ -45,8 +45,17 @@
 
     <flux:modal 
         name="create-shipping-address"  class="md:w-96"
-        x-on:created-shipping-address.window="$flux.modal('create-shipping-address').close(); $refresh"
+        x-on:created-shipping-address.window="$wire.$refresh(); $flux.modal('create-shipping-address').close()"
     >
         <livewire:clients.edit.shipping-address.create :$client />
+    </flux:modal>
+
+    <flux:modal 
+        name="edit-shipping-address"  class="md:w-96"
+        x-on:edited-shipping-address.window="$wire.$refresh(); $flux.modal('edit-shipping-address').close()"
+        x-on:deleted-shipping-address.window="$wire.$refresh(); $flux.modal('edit-shipping-address').close()"
+        x-on:edit-shipping-address.window="$flux.modal('edit-shipping-address').show()"
+    >
+        <livewire:clients.edit.shipping-address.edit :$client />
     </flux:modal>
 </div>
