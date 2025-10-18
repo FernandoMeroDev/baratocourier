@@ -5,20 +5,14 @@ namespace App\Models\User;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Franchisee extends Model
+class Employee extends Model
 {
-    protected $table = 'franchisees';
+    protected $table = 'employees';
 
     protected $fillable = [
-        'phone_number',
-        'courier_name',
-        'logo',
-        'address',
-        'guide_domain',
-        'client_domain',
         'user_id',
+        'franchisee_id'
     ];
 
     public $timestamps = false;
@@ -28,8 +22,8 @@ class Franchisee extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function employee(): HasMany
+    public function franchisee(): BelongsTo
     {
-        return $this->hasMany(Employee::class);
+        return $this->belongsTo(Franchisee::class);
     }
 }

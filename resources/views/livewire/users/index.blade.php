@@ -7,16 +7,11 @@
                 <flux:button>Nuevo</flux:button>
             </a>
         @elseif(Auth::user()->hasRole('franchisee'))
-            <a href="#"> {{-- route('users.employee.create') --}}
+            <a href="{{route('users.employee.create')}}">
                 <flux:button>Nuevo</flux:button>
             </a>
         @endif
-        {{-- <flux:modal.trigger name="create-product">
-            <flux:button>Nuevo</flux:button>
-        </flux:modal.trigger> --}}
     </div>
-
-    {{-- <livewire:products.create @created="$refresh" /> --}}
 
     <x-table class="w-full mb-3">
         <x-slot:thead>

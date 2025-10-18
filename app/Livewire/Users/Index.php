@@ -25,9 +25,11 @@ class Index extends Component
         $current_user = User::find(Auth::user()->id);
         $query = User::where('name', 'LIKE', "%$this->search%");
 
-        if($current_user->hasRole('franchisee'))
-            // [TODO] Consultar los empleados que han sido creados por este franquiciado
-            $query = $query->where('id', $current_user->id);
+        if($current_user->hasRole('franchisee')){
+            $query = $query->join(
+                'employees', 'employees.user_id', '=', 'users.id'
+            )->where('employees.franchisee_id', $current_user->franchisee->id);
+        }
 
         $users = $query->orderBy('name')->paginate(15, pageName: 'users_page');
 
