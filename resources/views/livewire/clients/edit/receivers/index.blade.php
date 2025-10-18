@@ -19,10 +19,10 @@
                 Nombres
             </x-table.th>
             <x-table.th>
-                Cédula
+                Apellidos
             </x-table.th>
             <x-table.th>
-                Apellidos
+                Cédula
             </x-table.th>
         </x-slot:thead>
 

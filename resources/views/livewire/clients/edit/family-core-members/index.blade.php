@@ -19,10 +19,10 @@
                 Nombres
             </x-table.th>
             <x-table.th>
-                Cédula
+                Apellidos
             </x-table.th>
             <x-table.th>
-                Apellidos
+                Cédula
             </x-table.th>
         </x-slot:thead>
 
@@ -53,7 +53,7 @@
         @endforelse
         <x-table.tr>
             <td class="p-3">
-                <flux:button {{-- x-on:click="$flux.modal('create-client').show()" icon="plus" --}}></flux:button>
+                <flux:button {{-- x-on:click="$flux.modal('create-client').show()" --}} icon="plus"></flux:button>
             </td>
             <td class="p-3">
                 Nuevo Registro
