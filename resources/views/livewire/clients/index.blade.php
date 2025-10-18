@@ -1,7 +1,7 @@
 <div>
     <div class="flex mb-3">
         <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
-        <flux:select wire:model.live="search_field" placeholder="Seleccione Campo...">
+        <flux:select title="Seleccione para ordenar y buscar por campo" wire:model.live="search_field" placeholder="Seleccione Campo...">
             <flux:select.option selected value="identity_card">Cédula</flux:select.option>
             <flux:select.option value="name">Nombre</flux:select.option>
             <flux:select.option value="residential_address">Dirección de Residencia</flux:select.option>
@@ -59,6 +59,18 @@
                 </td>
             </x-table.tr>
         @endforelse
+        <x-table.tr>
+            <td class="p-3">
+                <flux:button {{-- x-on:click="$flux.modal('create-inventory-record').show()" --}} icon="plus"></flux:button>
+            </td>
+            <td class="p-3">
+                Nuevo Registro
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </x-table.tr>
     </x-table>
 
     <x-pagination :paginator="$clients" />
