@@ -29,9 +29,7 @@
         @forelse ($receivers as $receiver)
             <x-table.tr>
                 <td class="w-5 px-3 py-1">
-                    <a href="#"> {{-- {{route('receivers.edit', $receiver->id)}} --}}
-                        <flux:button icon="pencil"></flux:button>
-                    </a>
+                    <flux:button icon="pencil" x-on:click="$dispatch('edit-receiver', { id: {{$receiver->id}} })"></flux:button>
                 </td>
                 <td class="p-3">
                     {{$receiver->names}}
@@ -69,5 +67,14 @@
         x-on:created-receiver.window="$wire.$refresh(); $flux.modal('create-receiver').close()"
     >
         <livewire:clients.edit.receivers.create :$client />
+    </flux:modal>
+
+    <flux:modal 
+        name="edit-receiver"  class="md:w-96"
+        x-on:edited-receiver.window="$wire.$refresh(); $flux.modal('edit-receiver').close()"
+        x-on:deleted-receiver.window="$wire.$refresh(); $flux.modal('edit-receiver').close()"
+        x-on:edit-receiver.window="$flux.modal('edit-receiver').show()"
+    >
+        <livewire:clients.edit.receivers.edit :$client />
     </flux:modal>
 </div>
