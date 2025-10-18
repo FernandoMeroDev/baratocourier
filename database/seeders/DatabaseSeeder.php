@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
 use App\Models\User;
 use App\Models\User\Franchisee;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class
         ]);
+
+        Client::factory(count: 20)->create();
     }
 }
