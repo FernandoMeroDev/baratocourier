@@ -5,7 +5,7 @@
 
     <div class="flex mb-3">
         <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
-        <flux:select title="Seleccione para ordenar y buscar por campo" wire:model.live="search_field" placeholder="Seleccione Campo...">
+        <flux:select title="Seleccione para ordenar y buscar por campo" wire:model.live="search_field" placeholder="Ordenar por...">
             <flux:select.option value="names">Nombres</flux:select.option>
             <flux:select.option value="lastnames">Apellidos</flux:select.option>
             <flux:select.option selected value="identity_card">Cédula</flux:select.option>
@@ -29,7 +29,9 @@
         @forelse ($members as $member)
             <x-table.tr>
                 <td class="p-3 flex justify-center items-center">
-                    <input wire:model="choosed_id" type="radio" value="{{$member->id}}" class="size-5" id="family-core-member-{{$member->id}}" />
+                    <input 
+                        x-on:click="$dispatch('person-selected')"
+                        wire:model="choosed_id" type="radio" value="{{$member->id}}" class="size-5" id="family-core-member-{{$member->id}}" />
                 </td>
                 <td class="p-3">
                     <label for="family-core-member-{{$member->id}}">

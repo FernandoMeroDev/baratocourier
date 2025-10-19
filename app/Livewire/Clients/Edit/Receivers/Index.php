@@ -34,8 +34,14 @@ class Index extends Component
     protected function query()
     {
         $search_field = $this->validateColumn($this->search_field);
-        $query = Receiver::where($search_field, 'LIKE', "%$this->search%")
-            ->where('client_id', $this->client->id);
+        $query = Receiver::where('client_id', $this->client->id)
+            ->where(function($query) {
+                $query->where('identity_card', 'LIKE', "%$this->search%")
+                    ->orWhere('names', 'LIKE', "%$this->search%")
+                    ->orWhere('lastnames', 'LIKE', "%$this->search%")
+                    ->orWhereRaw("CONCAT(names, ' ', lastnames) LIKE ?", ["%$this->search%"])
+                    ->orWhereRaw("CONCAT(lastnames, ' ', names) LIKE ?", ["%$this->search%"]);
+            });
 
         $receivers = $query->orderBy($search_field)->paginate(10, pageName: 'receivers_page');
 

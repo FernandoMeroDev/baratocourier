@@ -16,6 +16,16 @@
             class="grid grid-cols-2 gap-x-3 gap-y-6"
         >
             {{-- Row 1 --}}
+            <div class="col-span-2">
+                <flux:label>Opciones</flux:label>
+                <flux:field variant="inline">
+                    <flux:checkbox wire:model="form.individual" />
+                    <flux:label>Un solo paquete</flux:label>
+                    <flux:error name="form.individual" />
+                </flux:field>
+            </div>
+
+            {{-- Row 2 --}}
             <flux:input label="Número de Seguimiento:" placeholder="JSJSN" wire:model="form.tracking_number" maxlength="500" />
 
             <flux:field>
@@ -32,12 +42,12 @@
                 <flux:error name="form.shop_id" />
             </flux:field>
 
-            {{-- Row 2 --}}
+            {{-- Row 3 --}}
             <div class="col-span-2">
                 <flux:input label="Referencia:" wire:model="form.reference" maxlength="500" />
             </div>
 
-            {{-- Row 3 --}}
+            {{-- Row 4 --}}
             <flux:input 
                 label="Precio de compra del paquete (USD):" placeholder="0.00" icon="currency-dollar" 
                 x-on:change="checkCategoryAviability()"
@@ -54,7 +64,7 @@
                 <flux:error name="form.weight" />
             </flux:field>
 
-            {{-- Row 4 --}}
+            {{-- Row 5 --}}
             <flux:input label="Cantidad de Items:" placeholder="0" wire:model="form.items_count" type="number" required min="1" step="1" max="9999" />
 
             <flux:field>
@@ -73,8 +83,13 @@
                 <flux:error name="form.shop_id" />
             </flux:field>
 
-            <div class="col-span-2">
-                <x-fieldset.simple title="Datos Personales:">
+            <div class="col-span-2" x-on:person-selected.window="handlePersonSelected()">
+                <flux:button 
+                    icon:trailing="chevron-down" 
+                    x-on:click="personal_data_visible = true" x-show=" ! personal_data_visible">
+                    Datos Personales
+                </flux:button>
+                <x-fieldset.simple title="Datos Personales:" x-show="personal_data_visible">
                     <p x-show=" ! personal_data_enabled ">Selecciones categoría...</p>
                     <flux:radio.group 
                         wire:model="form.person_type" variant="segmented"
@@ -92,13 +107,13 @@
                             <flux:button icon="arrow-path">Cambiar Cliente</flux:button>
                         </a>
                         <div class="grid grid-cols-2 gap-3 mt-3">
-                            <flux:input label="Nombres" value="{{$client->name}}" name="client_name" />
-                            <flux:input label="Apellidos" value="{{$client->lastname}}" name="client_lastname" />
+                            <flux:input label="Nombres" value="{{$client->name}}" readonly name="client_name" />
+                            <flux:input label="Apellidos" value="{{$client->lastname}}" readonly name="client_lastname" />
                         </div>
-                        <flux:input label="Cédula" value="{{$client->identity_card}}" name="client_identity_card" />
-                        <flux:input label="Teléfono" value="{{$client->phone_number}}" name="client_phone_number" />
-                        <flux:input label="Dir. Residencial" value="{{$client->residential_address}}" name="client_residential_address" />
-                        <flux:input label="Email" value="{{$client->email}}" name="client_email" />
+                        <flux:input label="Cédula" value="{{$client->identity_card}}" readonly name="client_identity_card" />
+                        <flux:input label="Teléfono" value="{{$client->phone_number}}" readonly name="client_phone_number" />
+                        <flux:input label="Dir. Residencial" value="{{$client->residential_address}}" readonly name="client_residential_address" />
+                        <flux:input label="Email" value="{{$client->email}}" readonly name="client_email" />
                     </div>
                     {{-- Receivers --}}
                     <div x-show="$wire.form.person_type == 'receiver'" id="receivers-panel">
@@ -112,16 +127,6 @@
             </div>
 
             {{-- Row 6 --}}
-            <div class="col-span-2">
-                <flux:label>Opciones</flux:label>
-                <flux:field variant="inline">
-                    <flux:checkbox wire:model="form.individual" />
-                    <flux:label>Un solo paquete</flux:label>
-                    <flux:error name="form.individual" />
-                </flux:field>
-            </div>
-
-            {{-- Row 7 --}}
             <flux:field class="col-span-2">
                 <flux:label>Descripción del paquete</flux:label>
                 <flux:description><strong>NOTA:</strong> Detalle del contenido de su paquete, ejemplo: blusas, pantalones, pares de zapatos, barbies, perfume.</flux:description>

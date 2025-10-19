@@ -15,7 +15,7 @@ const validator = (categories) => ({
     },
 
     // Component Logic
-    init() {
+    async init() {
         let dict = {};
         for(let category of categories)
             dict[category.code] = {id: category.id, name: category.name}
@@ -86,6 +86,23 @@ const validator = (categories) => ({
     },
 
     personal_data_enabled: false,
+
+    personal_data_visible: true,
+
+    async handlePersonSelected() {
+        this.personal_data_visible = false;
+        const savePerson = async () => {
+            this.wire().$call(
+                'savePersonSelected',
+                await this.get('form.person_id'),
+                await this.get('form.person_type'),
+            );
+        };
+        let person_id = await this.get('form.person_id');
+        if(person_id === null) setTimeout(savePerson, 300);
+        else savePerson();
+
+    },
 
     async checkPersonTypeAviability(event) {
         const category_id = event.target.value;
