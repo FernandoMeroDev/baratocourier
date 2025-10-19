@@ -4,8 +4,6 @@ namespace App\Livewire\Clients\Edit\FamilyCoreMembers;
 
 use App\Models\Client;
 use App\Models\Clients\FamilyCoreMember;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -33,7 +31,7 @@ class Index extends Component
         ]);
     }
 
-    private function query()
+    protected function query()
     {
         $search_field = $this->validateColumn($this->search_field);
         $query = FamilyCoreMember::where($search_field, 'LIKE', "%$this->search%")
@@ -47,7 +45,7 @@ class Index extends Component
         return $members;
     }
 
-    private function validateColumn($column): string
+    protected function validateColumn($column): string
     {
         return match($column){
             'names' => 'names',

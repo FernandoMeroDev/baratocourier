@@ -23,7 +23,7 @@ class Index extends Component
         ]);
     }
 
-    private function query()
+    protected function query()
     {
         $current_user = User::find(Auth::user()->id);
         // $query = User::where('name', 'LIKE', "%$this->search%");
@@ -41,7 +41,7 @@ class Index extends Component
         return $clients;
     }
 
-    private function validateColumn($column): string
+    protected function validateColumn($column): string
     {
         return match($column){
             'name' => 'name',

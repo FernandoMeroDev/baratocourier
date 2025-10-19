@@ -10,6 +10,8 @@ use App\Livewire\Users\Index as UserIndex;
 use App\Livewire\Clients\Index as ClientIndex;
 use App\Livewire\Clients\Create as ClientCreate;
 use App\Livewire\Clients\Edit\Main as ClientEdit;
+use App\Livewire\Packages\Create\Main as PackageCreate;
+use App\Livewire\Packages\ChooseClient as PackageChooseClient;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 
@@ -52,4 +54,9 @@ Route::middleware(['auth', 'can:clients'])->group(function () {
     Route::get('/clientes', ClientIndex::class)->name('clients.index');
     Route::get('/clientes/crear', ClientCreate::class)->name('clients.create');
     Route::get('/clientes/{client}/editar', ClientEdit::class)->name('clients.edit');
+});
+
+Route::middleware(['auth', 'can:packages'])->group(function () {
+    Route::get('/paquetes/seleccionar-cliente', PackageChooseClient::class)->name('packages.choose-client');
+    Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
 });

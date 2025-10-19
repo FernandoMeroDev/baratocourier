@@ -11,18 +11,33 @@
                 <x-app-logo />
             </a>
 
+            @canany(['clients', 'packages'])
             <flux:navlist variant="outline">
-                <flux:navlist.group heading="Clientes" expandable class="grid">
-                    @can('clients')
+                @can('packages')
+                <flux:navlist.group 
+                    heading="Bodega" expandable class="grid"
+                    :expanded="request()->routeIs(['packages.*'])"
+                >
+                    <flux:navlist.item icon="plus" :href="route('packages.create')" :current="request()->routeIs('packages.create')">
+                        Registro de Paquetes
+                    </flux:navlist.item>
+                </flux:navlist.group>
+                @endcan
+                @can('clients')
+                <flux:navlist.group 
+                    heading="Clientes" expandable class="grid"
+                    :expanded="request()->routeIs(['clients.*'])"
+                >
                     <flux:navlist.item icon="plus" :href="route('clients.create')" :current="request()->routeIs('clients.create')">
                         Registro de Clientes
                     </flux:navlist.item>
                     <flux:navlist.item icon="user-circle" :href="route('clients.index')" :current="request()->routeIs('clients.index')">
                         Mis Clientes
                     </flux:navlist.item>
-                    @endcan
                 </flux:navlist.group>
+                @endcan
             </flux:navlist>
+            @endcanany
 
             <flux:spacer />
 
@@ -32,10 +47,6 @@
                     Usuarios
                 </flux:navlist.item>
                 @endcan
-
-                {{-- <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                {{ __('Documentation') }}
-                </flux:navlist.item> --}}
             </flux:navlist>
 
             <!-- Desktop User Menu -->

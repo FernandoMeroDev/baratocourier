@@ -31,7 +31,7 @@ class Index extends Component
         ]);
     }
 
-    private function query()
+    protected function query()
     {
         $search_field = $this->validateColumn($this->search_field);
         $query = Receiver::where($search_field, 'LIKE', "%$this->search%")
@@ -45,7 +45,7 @@ class Index extends Component
         return $receivers;
     }
 
-    private function validateColumn($column): string
+    protected function validateColumn($column): string
     {
         return match($column){
             'names' => 'names',

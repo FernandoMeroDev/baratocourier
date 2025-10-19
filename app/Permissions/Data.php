@@ -13,6 +13,7 @@ class Data
     public static array $permissions = [
         'users',
         'clients',
+        'packages'
     ];
 
     public static array $roleTranslations = [
@@ -24,5 +25,6 @@ class Data
     public static array $permissionTranslations = [
         'users' => 'Usuarios',
         'clients' => 'Clientes',
+        'packages' => 'Paquetes'
     ];
 }
