@@ -89,19 +89,10 @@ const validator = (categories) => ({
 
     personal_data_visible: true,
 
-    async handlePersonSelected() {
+    async handlePersonSelected(event) {
         this.personal_data_visible = false;
-        const savePerson = async () => {
-            this.wire().$call(
-                'savePersonSelected',
-                await this.get('form.person_id'),
-                await this.get('form.person_type'),
-            );
-        };
-        let person_id = await this.get('form.person_id');
-        if(person_id === null) setTimeout(savePerson, 300);
-        else savePerson();
-
+        let el = document.getElementById('current_person_selected');
+        el.textContent = 'Persona: ' + event.detail.name + ', Cédula: ' + event.detail.identity_card;
     },
 
     async checkPersonTypeAviability(event) {

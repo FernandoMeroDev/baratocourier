@@ -83,12 +83,15 @@
                 <flux:error name="form.shop_id" />
             </flux:field>
 
-            <div class="col-span-2" x-on:person-selected.window="handlePersonSelected()">
-                <flux:button 
-                    icon:trailing="chevron-down" 
-                    x-on:click="personal_data_visible = true" x-show=" ! personal_data_visible">
-                    Datos Personales
-                </flux:button>
+            <div class="col-span-2" x-on:person-selected.window="handlePersonSelected($event)">
+                <div x-show=" ! personal_data_visible" class="flex items-center">
+                    <flux:button 
+                        icon:trailing="arrow-path" 
+                        x-on:click="personal_data_visible = true">
+                        Datos Personales
+                    </flux:button>
+                    <p id="current_person_selected" class="ml-2 font-bold"></p>
+                </div>
                 <x-fieldset.simple title="Datos Personales:" x-show="personal_data_visible">
                     <p x-show=" ! personal_data_enabled ">Selecciones categoría...</p>
                     <flux:radio.group 

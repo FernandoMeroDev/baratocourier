@@ -30,7 +30,10 @@
             <x-table.tr>
                 <td class="p-3 flex justify-center items-center">
                     <input 
-                        x-on:click="$dispatch('person-selected')"
+                        x-on:click="$dispatch('person-selected', {
+                            name: '{{$receiver->names}} {{$receiver->lastnames}}', 
+                            identity_card: '{{$receiver->identity_card}}' 
+                        })"
                         wire:model="choosed_id" type="radio" value="{{$receiver->id}}" class="size-5" id="receiver-{{$receiver->id}}" />
                 </td>
                 <td class="p-3">
