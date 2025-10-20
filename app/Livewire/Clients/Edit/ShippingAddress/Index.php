@@ -4,8 +4,6 @@ namespace App\Livewire\Clients\Edit\ShippingAddress;
 
 use App\Models\Client;
 use App\Models\Clients\ShippingAddress;
-use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,6 +14,8 @@ class Index extends Component
 
     #[Locked]
     public Client $client;
+
+    public $search;
 
     public function mount(Client $client)
     {
@@ -29,15 +29,31 @@ class Index extends Component
         ]);
     }
 
-    private function query()
+    protected function query()
     {
         $addresses = null;
 
         $addresses = ShippingAddress::join(
             'clients', 'clients.id', '=', 'shipping_addresses.client_id'
+        )->join(
+            'provinces', 'provinces.id', '=', 'shipping_addresses.province_id'
         )->where(
             'clients.id', $this->client->id
-        )->select('shipping_addresses.*')
+        )->where(function($query) {
+                $query->where('shipping_addresses.line_1', 'LIKE', "%$this->search%")
+                    ->orWhere('shipping_addresses.line_2', 'LIKE', "%$this->search%")
+                    ->orWhere('shipping_addresses.city_name', 'LIKE', "%$this->search%")
+                    ->orWhere('shipping_addresses.zip_code', 'LIKE', "%$this->search%")
+                    ->orWhere('provinces.name', 'LIKE', "%$this->search%")
+                    ->orWhereRaw("CONCAT(
+                        shipping_addresses.line_1, ', ', 
+                        shipping_addresses.line_2, ', ', 
+                        shipping_addresses.city_name, ', ', 
+                        provinces.name, ', ', 
+                        provinces.name, ', Código: ', 
+                        shipping_addresses.zip_code, '.'
+                    ) LIKE ?", ["%$this->search%"]);
+        })->select('shipping_addresses.*')
             ->paginate(5, pageName: 'addresses_page');
 
         if($addresses->isEmpty() && $addresses->currentPage() !== 1)

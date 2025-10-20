@@ -1,4 +1,8 @@
 <div>
+    <div class="flex mb-3">
+        <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mr-2" />
+    </div>
+
     <x-table class="w-full mb-3">
         <x-slot:thead>
             <x-table.th></x-table.th>

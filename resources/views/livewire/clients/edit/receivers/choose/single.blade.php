@@ -42,10 +42,14 @@
                     </label>
                 </td>
                 <td class="p-3">
-                    {{$receiver->lastnames}}
+                    <label for="receiver-{{$receiver->id}}">
+                        {{$receiver->lastnames}}
+                    </label>
                 </td>
                 <td class="p-3">
-                    {{$receiver->identity_card}}
+                    <label for="receiver-{{$receiver->id}}">
+                        {{$receiver->identity_card}}
+                    </label>
                 </td>
             </x-table.tr>
         @empty

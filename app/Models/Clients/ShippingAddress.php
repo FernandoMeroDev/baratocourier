@@ -40,4 +40,13 @@ class ShippingAddress extends Model
     {
         return $this->hasOne(ShippingTarget::class);
     }
+
+    public function completeAddress(): string
+    {
+        return $this->line_1
+            . ', ' . $this->line_2
+            . ', ' . $this->city_name
+            . ', ' . $this->province->name
+            . ', Código: ' . $this->zip_code . '.';
+    }
 }

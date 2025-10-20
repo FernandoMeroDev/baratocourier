@@ -42,10 +42,14 @@
                     </label>
                 </td>
                 <td class="p-3">
-                    {{$member->lastnames}}
+                    <label for="family-core-member-{{$member->id}}">
+                        {{$member->lastnames}}
+                    </label>
                 </td>
                 <td class="p-3">
-                    {{$member->identity_card}}
+                    <label for="family-core-member-{{$member->id}}">
+                        {{$member->identity_card}}
+                    </label>
                 </td>
             </x-table.tr>
         @empty

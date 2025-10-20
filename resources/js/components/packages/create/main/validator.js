@@ -1,4 +1,4 @@
-const validator = (categories) => ({
+const validator = (categories, current_client_id) => ({
     // Livewire Logic
     wire_component_name: 'packages.create.main',
 
@@ -19,10 +19,13 @@ const validator = (categories) => ({
         let dict = {};
         for(let category of categories)
             dict[category.code] = {id: category.id, name: category.name}
+        this.current_client_id = current_client_id;
         this.categories = dict;
     },
 
     weight_kg: 0,
+
+    current_client_id: null,
 
     categories: null,
     // Type:
@@ -89,7 +92,7 @@ const validator = (categories) => ({
 
     personal_data_visible: true,
 
-    async handlePersonSelected(event) {
+    handlePersonSelected(event) {
         this.personal_data_visible = false;
         let el = document.getElementById('current_person_selected');
         el.textContent = 'Persona: ' + event.detail.name + ', Cédula: ' + event.detail.identity_card;
@@ -148,11 +151,19 @@ const validator = (categories) => ({
 
     async checkPersonTypeSelection(event) {
         let type_name = event.target.value;
-        if('client' == type_name)
-            // [TODO] set true current Client ID
-            await this.set('form.person_id', 1);
-        else
+        if('client' == type_name){
+            console.log(this.current_client_id);
+            await this.set('form.person_id', this.current_client_id);
+        } else
             await this.set('form.person_id', null); // Must search and select person
+    },
+
+    shipping_address_visible: true,
+
+    async handleAddressSelected(event) {
+        this.shipping_address_visible = false;
+        let el = document.getElementById('current_shipping_address_selected');
+        el.textContent = 'Dirección: ' + event.detail.address;
     },
 });
 

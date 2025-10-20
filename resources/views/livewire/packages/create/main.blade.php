@@ -12,7 +12,7 @@
                 {id: 4, name: 'Especial', code: 'special'},
                 {id: 5, name: 'G Migrante', code: 'g'},
                 {id: 6, name: 'D', code: 'd'},
-            ])" 
+            ], {{$client->id}})" 
             class="grid grid-cols-2 gap-x-3 gap-y-6"
         >
             {{-- Row 1 --}}
@@ -139,6 +139,21 @@
                 />
                 <flux:error name="form.individual" />
             </flux:field>
+
+            {{-- Row 7 --}}
+            <div class="col-span-2" x-on:address-selected.window="handleAddressSelected($event)">
+                <div x-show=" ! shipping_address_visible" class="flex items-center">
+                    <flux:button 
+                        icon:trailing="arrow-path" 
+                        x-on:click="shipping_address_visible = true">
+                        Dirección de Envío
+                    </flux:button>
+                    <p id="current_shipping_address_selected" class="ml-2 font-bold"></p>
+                </div>
+                <x-fieldset.simple title="Dirección de Envío:" x-show="shipping_address_visible">
+                    <livewire:clients.edit.shipping-address.choose.single :$client />
+                </x-fieldset.simple>
+            </div>
         </div>
 
         <div class="flex">
