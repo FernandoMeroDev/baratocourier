@@ -22,7 +22,7 @@ trait Attributes
 
     public $person_id;
 
-    public $individual;
-
     public $description;
+
+    public $shipping_address_id;
 }

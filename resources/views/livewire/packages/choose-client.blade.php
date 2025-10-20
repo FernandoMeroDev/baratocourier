@@ -87,8 +87,16 @@
     <x-pagination :paginator="$clients" />
 
     <div class="flex">
-        <flux:button type="submit" variant="primary">Seleccionar</flux:button>
+        <flux:button type="submit" x-on:click="$wire.packages_amount = 'single'">Registrar un solo Paquete</flux:button>
 
         <flux:spacer />
     </div>
+
+    <div class="flex">
+        <flux:button type="submit" variant="primary" x-on:click="$wire.packages_amount = 'multiple'">Fraccionar Paquete</flux:button>
+
+        <flux:spacer />
+    </div>
+
+    <flux:error name="*" />
 </form>

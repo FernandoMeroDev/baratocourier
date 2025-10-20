@@ -9,8 +9,10 @@ class ChooseClient extends Index
 {
     protected $per_page = 5;
 
-    #[Validate('required|exists:clients,id')]
+    #[Validate('required|exists:clients,id', ['choosed_id' => 'Cliente'])]
     public $choosed_id;
+
+    public $packages_amount = null; // 'single' | 'multiple';
 
     public function render()
     {
@@ -23,6 +25,9 @@ class ChooseClient extends Index
     {
         $this->validate();
         session(['warehouse-client-choosed' => $this->choosed_id]);
-        $this->redirect(route('packages.create'));
+        if($this->packages_amount == 'single')
+            $this->redirect(route('packages.create'));
+        else
+            $this->redirect(route('packages.create-multiple'));
     }
 }

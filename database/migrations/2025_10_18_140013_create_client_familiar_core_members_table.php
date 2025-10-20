@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('names');
             $table->string('lastnames');
             $table->string('identity_card', 30);
+            $table->timestamp('last_use_at')->nullable();
 
             $table->foreignId('client_id')->constrained()->cascadeOnDelete();
         });

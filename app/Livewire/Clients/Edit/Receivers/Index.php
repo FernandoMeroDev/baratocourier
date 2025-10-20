@@ -12,6 +12,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    protected $page_name = 'receivers_page';
+
     public $search;
 
     public $search_field;
@@ -43,10 +45,10 @@ class Index extends Component
                     ->orWhereRaw("CONCAT(lastnames, ' ', names) LIKE ?", ["%$this->search%"]);
             });
 
-        $receivers = $query->orderBy($search_field)->paginate(10, pageName: 'receivers_page');
+        $receivers = $query->orderBy($search_field)->paginate(10, pageName: $this->page_name);
 
         if($receivers->isEmpty() && $receivers->currentPage() !== 1)
-            $this->resetPage('receivers_page');
+            $this->resetPage($this->page_name);
 
         return $receivers;
     }

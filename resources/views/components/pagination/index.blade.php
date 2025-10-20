@@ -1,5 +1,6 @@
 @props([
-    'paginator'
+    'paginator',
+    'idSuffix' => null
 ])
 
 <div class="flex items-center">
@@ -13,7 +14,7 @@
     <flux:select
         x-data="selectPage({{$paginator->currentPage()}})"
         x-on:change="$wire.setPage($el.value, '{{$paginator->getPageName()}}')"
-        id="{{$paginator->getPageName()}}"
+        id="{{$paginator->getPageName() . $idSuffix}}"
     >
         @for ($i = 1; $i <= $paginator->lastPage(); $i++)
             <flux:select.option value="{{$i}}" wire:key="{{$i}}">
@@ -33,7 +34,7 @@
         Alpine.data('selectPage', (currentPage) => ({
             // Select the option that match with the current page
             init() {
-                const element = document.getElementById('{{$paginator->getPageName()}}');
+                const element = document.getElementById('{{$paginator->getPageName() . $idSuffix}}');
                 for(let option of element.options)
                     if(option.value == currentPage) option.selected = true;
             }

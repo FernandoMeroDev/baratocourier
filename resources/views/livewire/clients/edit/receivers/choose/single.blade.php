@@ -27,27 +27,29 @@
         </x-slot:thead>
 
         @forelse ($receivers as $receiver)
+            @php $id_suffix = isset($i) ? ($receiver->id . '-' . $i) : $receiver->id @endphp
             <x-table.tr>
                 <td class="p-3 flex justify-center items-center">
                     <input 
                         x-on:click="$dispatch('person-selected', {
                             name: '{{$receiver->completeName()}}', 
                             identity_card: '{{$receiver->identity_card}}' 
+                            {{isset($i) ? (', i: '. $i) : null}}
                         })"
-                        wire:model="choosed_id" type="radio" value="{{$receiver->id}}" class="size-5" id="receiver-{{$receiver->id}}" />
+                        wire:model="choosed_id" type="radio" value="{{$receiver->id}}" class="size-5" id="receiver-{{$id_suffix}}" />
                 </td>
                 <td class="p-3">
-                    <label for="receiver-{{$receiver->id}}">
+                    <label for="receiver-{{$id_suffix}}">
                         {{$receiver->names}}
                     </label>
                 </td>
                 <td class="p-3">
-                    <label for="receiver-{{$receiver->id}}">
+                    <label for="receiver-{{$id_suffix}}">
                         {{$receiver->lastnames}}
                     </label>
                 </td>
                 <td class="p-3">
-                    <label for="receiver-{{$receiver->id}}">
+                    <label for="receiver-{{$id_suffix}}">
                         {{$receiver->identity_card}}
                     </label>
                 </td>
@@ -62,5 +64,5 @@
         @endforelse
     </x-table>
 
-    <x-pagination :paginator="$receivers" />
+    <x-pagination :paginator="$receivers" :id-suffix="'-'.$i" />
 </div>

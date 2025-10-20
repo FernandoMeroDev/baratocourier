@@ -23,6 +23,7 @@ class FamilyCoreMemberFactory extends Factory
             'names' => fake()->name(),
             'lastnames' => fake()->lastName(),
             'identity_card' => $this->randomNumber(10),
+            'last_use_at' => null
             // 'client_id' => null
         ];
     }

@@ -5,7 +5,6 @@ namespace App\Livewire\Packages\Create;
 use App\Livewire\Forms\Packages\StoreForm;
 use App\Models\Client;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\Renderless;
 use Livewire\Component;
 
 class Main extends Component
@@ -23,24 +22,10 @@ class Main extends Component
             return;
         }
         $this->client = Client::find($client_id);
-        $this->form->person_type = session('warehouse-person-type-choosed');
-        $this->form->person_id = session('warehouse-person-id-choosed');
     }
 
     public function render()
     {
         return view('livewire.packages.create.main');
-    }
-
-    public function store()
-    {
-        $this->form->store();
-    }
-
-    #[Renderless]
-    public function savePersonSelected($person_type, $person_id)
-    {
-        session(['warehouse-person-type-choosed' => $person_type]);
-        session(['warehouse-person-id-choosed' => $person_id]);
     }
 }

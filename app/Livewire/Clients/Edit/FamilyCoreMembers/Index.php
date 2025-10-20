@@ -12,6 +12,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    protected $page_name = 'members_page';
+
     public $search;
 
     public $search_field;
@@ -43,10 +45,10 @@ class Index extends Component
                     ->orWhereRaw("CONCAT(lastnames, ' ', names) LIKE ?", ["%$this->search%"]);
             });
 
-        $members = $query->orderBy($search_field)->paginate(10, pageName: 'members_page');
+        $members = $query->orderBy($search_field)->paginate(10, pageName: $this->page_name);
 
         if($members->isEmpty() && $members->currentPage() !== 1)
-            $this->resetPage('members_page');
+            $this->resetPage($this->page_name);
 
         return $members;
     }
@@ -57,7 +59,8 @@ class Index extends Component
             'names' => 'names',
             'lastnames' => 'lastnames',
             'identity_card' => 'identity_card',
-            default => 'names'
+            'last_use_at' => 'last_use_at',
+            default => 'last_use_at'
         };
     }
 }

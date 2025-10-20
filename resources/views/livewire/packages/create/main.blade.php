@@ -23,16 +23,6 @@
             class="grid grid-cols-2 gap-x-3 gap-y-6"
         >
             {{-- Row 1 --}}
-            <div class="col-span-2">
-                <flux:label>Opciones</flux:label>
-                <flux:field variant="inline">
-                    <flux:checkbox wire:model="form.individual" />
-                    <flux:label>Un solo paquete</flux:label>
-                    <flux:error name="form.individual" />
-                </flux:field>
-            </div>
-
-            {{-- Row 2 --}}
             <flux:input label="Número de Seguimiento:" placeholder="JSJSN" wire:model="form.tracking_number" maxlength="500" />
 
             <flux:field>
@@ -49,12 +39,12 @@
                 <flux:error name="form.shop_id" />
             </flux:field>
 
-            {{-- Row 3 --}}
+            {{-- Row 2 --}}
             <div class="col-span-2">
                 <flux:input label="Referencia:" wire:model="form.reference" maxlength="500" />
             </div>
 
-            {{-- Row 4 --}}
+            {{-- Row 3 --}}
             <flux:input 
                 label="Precio de compra del paquete (USD):" placeholder="0.00" icon="currency-dollar" 
                 x-on:change="checkCategoryAviability()"
@@ -71,7 +61,7 @@
                 <flux:error name="form.weight" />
             </flux:field>
 
-            {{-- Row 5 --}}
+            {{-- Row 4 --}}
             <flux:input label="Cantidad de Items:" placeholder="0" wire:model="form.items_count" type="number" required min="1" step="1" max="9999" />
 
             <flux:field>
@@ -87,7 +77,7 @@
                     <flux:select.option id="package_category_d" value="6">D</flux:select.option>
                 </flux:select>
 
-                <flux:error name="form.shop_id" />
+                <flux:error name="form.category_id" />
             </flux:field>
 
             <div class="col-span-2" x-on:person-selected.window="handlePersonSelected($event)">
@@ -127,16 +117,16 @@
                     </div>
                     {{-- Receivers --}}
                     <div x-show="$wire.form.person_type == 'receiver'" id="receivers-panel">
-                        <livewire:clients.edit.receivers.choose.single wire:model="form.person_id" :$client />
+                        <livewire:clients.edit.receivers.choose.single wire:model="form.person_id" :data="$client" />
                     </div>
                     {{-- FamilyCoreMembers --}}
                     <div x-show="$wire.form.person_type == 'family_core_member'" id="family-core-panel">
-                        <livewire:clients.edit.family-core-members.choose.single wire:model="form.person_id" :$client />
+                        <livewire:clients.edit.family-core-members.choose.single wire:model="form.person_id" :data="$client" />
                     </div>
                 </x-fieldset.simple>
             </div>
 
-            {{-- Row 6 --}}
+            {{-- Row 5 --}}
             <flux:field class="col-span-2">
                 <flux:label>Descripción del paquete</flux:label>
                 <flux:description><strong>NOTA:</strong> Detalle del contenido de su paquete, ejemplo: blusas, pantalones, pares de zapatos, barbies, perfume.</flux:description>
@@ -147,7 +137,7 @@
                 <flux:error name="form.individual" />
             </flux:field>
 
-            {{-- Row 7 --}}
+            {{-- Row 6 --}}
             <div class="col-span-2" x-on:address-selected.window="handleAddressSelected($event)">
                 <div x-show=" ! shipping_address_visible" class="flex items-center">
                     <flux:button 
@@ -158,7 +148,7 @@
                     <p id="current_shipping_address_selected" class="ml-2 font-bold"></p>
                 </div>
                 <x-fieldset.simple title="Dirección de Envío:" x-show="shipping_address_visible">
-                    <livewire:clients.edit.shipping-address.choose.single :$client />
+                    <livewire:clients.edit.shipping-address.choose.single wire:model="form.shipping_address_id" :$client />
                 </x-fieldset.simple>
             </div>
         </div>

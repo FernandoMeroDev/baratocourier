@@ -17,6 +17,7 @@ class FamilyCoreMember extends Model
         'names',
         'lastnames',
         'identity_card',
+        'last_use_at',
         'client_id'
     ];
 
