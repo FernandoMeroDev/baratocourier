@@ -7,6 +7,8 @@ use Livewire\Attributes\Validate;
 
 class ChooseClient extends Index
 {
+    protected $per_page = 5;
+
     #[Validate('required|exists:clients,id')]
     public $choosed_id;
 

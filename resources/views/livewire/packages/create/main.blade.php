@@ -1,7 +1,14 @@
 <div>
     <form wire:submit="store" class="space-y-6">
         <div>
-            <flux:heading size="lg">Registro de Paquete</flux:heading>
+            <div class="flex items-center">
+                <flux:heading size="lg">Registro de Paquete</flux:heading>
+
+                <a href="{{route('packages.choose-client')}}" class="ml-3">
+                    <flux:button icon="arrow-path">Cambiar Cliente</flux:button>
+                </a>
+            </div>
+            <flux:text class="mt-2">Registre un paquete para: <strong>{{$client->completeName()}}</strong>.</flux:text>
         </div>
 
         <div 

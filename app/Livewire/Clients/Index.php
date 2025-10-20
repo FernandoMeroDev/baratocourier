@@ -12,6 +12,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    protected $per_page = 15;
+
     public $search;
 
     public $search_field;
@@ -33,7 +35,7 @@ class Index extends Component
         if($current_user->hasRole('franchisee'))
             $query = $query->where('user_id', $current_user->id);
 
-        $clients = $query->orderBy($search_field)->paginate(15, pageName: 'clients_page');
+        $clients = $query->orderBy($search_field)->paginate($this->per_page, pageName: 'clients_page');
 
         if($clients->isEmpty() && $clients->currentPage() !== 1)
             $this->resetPage('clients_page');

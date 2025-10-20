@@ -43,10 +43,11 @@ class ShippingAddress extends Model
 
     public function completeAddress(): string
     {
-        return $this->line_1
+        $result = $this->line_1
             . ', ' . $this->line_2
             . ', ' . $this->city_name
             . ', ' . $this->province->name
             . ', Código: ' . $this->zip_code . '.';
+        return str_replace("'", "\\'", $result);
     }
 }

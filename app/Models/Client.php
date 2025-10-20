@@ -47,4 +47,11 @@ class Client extends Model
     {
         return $this->hasMany(ShippingAddress::class);
     }
+
+    public function completeName(bool $identity_card = true): string
+    {
+        $result = $this->name . ' ' . $this->lastname;
+        if($identity_card) $result .= ', Cédula: ' . $this->identity_card;
+        return str_replace("'", "\\'", $result);
+    }
 }

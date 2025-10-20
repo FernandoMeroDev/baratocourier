@@ -26,4 +26,10 @@ class Receiver extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function completeName(): string
+    {
+        $result = $this->names . ' ' . $this->lastnames;
+        return str_replace("'", "\\'", $result);
+    }
 }
