@@ -23,10 +23,10 @@ return new class extends Migration
             $table->unsignedBigInteger('client_code');
             $table->timestamps();
 
-            $table->foreignId('shop_id')->constrained();
-            $table->foreignId('package_category_id')->constrained();
-            $table->foreignId('shipping_method_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('package_category_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('shipping_method_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         });
     }
 

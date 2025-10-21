@@ -46,7 +46,7 @@ class DownloadController extends Controller
                 $waybill_template = str_replace('{{logo}}', '<p class="no-logo">No tiene logo</p>', $waybill_template);
             }
             $waybill_template = str_replace('{{courier_name}}', $package->courier_name, $waybill_template);
-            $waybill_template = str_replace('{{address}}', $user->franchisee->address, $waybill_template);
+            $waybill_template = str_replace('{{address}}', $user->franchisee->readable_address(), $waybill_template);
             $waybill_template = str_replace(
                 '{{phone_number}}', $waybill->personalData->phone_number, $waybill_template
             );

@@ -16,6 +16,8 @@ use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
+use App\Livewire\Users\Franchisee\Edit\Main as UserFranchiseeEdit;
+use Illuminate\Support\Facades\Storage;
 
 Route::get('/', fn () => redirect('/login'))->name('home');
 
@@ -50,6 +52,11 @@ Route::middleware(['auth', 'can:users'])->group(function () {
         ->middleware(['role:administrator']);
     Route::get('/usuarios/empleado/crear', UserEmployeeCreate::class)->name('users.employee.create')
         ->middleware(['role:administrator|franchisee']);
+    Route::get('/usuarios/franquiciado/{franchisee}/editar', UserFranchiseeEdit::class)->name('users.franchisee.edit')
+        ->middleware(['role:administrator']);
+    Route::get('/usuarios/franquiciado/logo/{file}', function($file) {
+        return Storage::get("users/franchisee/logos/$file");
+    })->name('franchisees.logo');
 });
 
 Route::middleware(['auth', 'can:clients'])->group(function () {

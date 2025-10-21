@@ -33,7 +33,12 @@ class UserSeeder extends Seeder
             'phone_number' => '0999999999',
             'courier_name' => 'CourierA',
             'logo' => null,
-            'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 132222',
+            'address' => Franchisee::makeJSONAddress(
+                'Calle X Avenida Y, Intersección Z',
+                'CiudadA',
+                'Estado',
+                '132222'
+            ),
             'guide_domain' => 'BTC',
             'client_domain' => 'BTA',
             'waybill_text_reference' => '1 DE 1 MTC',
@@ -60,12 +65,22 @@ class UserSeeder extends Seeder
             'phone_number' => '0999999999',
             'courier_name' => 'CourierB',
             'logo' => null,
-            'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 130222',
+            'address' => Franchisee::makeJSONAddress(
+                'Calle X Avenida Y, Intersección Z',
+                'CiudadB',
+                'Estado',
+                '132222'
+            ),
             'guide_domain' => 'TVC',
             'client_domain' => 'VTA',
             'waybill_text_reference' => '1 DE 1 MTC',
             'user_id' => $franchisee_b_user->id,
             'logo' => 'VqR8UmnaxKxSceFCQ4DOqYR6i1i5bMjQiI3xG15g.webp'
         ]);
+    }
+
+    private function fakeJSONAddress(): string
+    {
+        return json_encode([]);
     }
 }

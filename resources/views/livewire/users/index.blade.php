@@ -30,7 +30,15 @@
         @forelse ($users as $user)
             <x-table.tr>
                 <td class="w-5 px-3 py-1">
-                    <flux:button icon="pencil" x-on:click="$dispatch('edit-user', { user_id: {{$user->id}} })"></flux:button>
+                    @if(Auth::user()->hasRole('administrator') && $user->hasRole('franchisee'))
+                        <a href="{{route('users.franchisee.edit', $user->franchisee->id)}}">
+                            <flux:button icon="pencil"></flux:button>
+                        </a>
+                    @else
+                        <a href="#">
+                            <flux:button icon="pencil"></flux:button>
+                        </a>
+                    @endif
                 </td>
                 <td class="p-3">
                     {{$user->name}}
