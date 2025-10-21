@@ -4,6 +4,8 @@ namespace App\Livewire\Packages\Create;
 
 use App\Livewire\Forms\Packages\StoreForm;
 use App\Models\Client;
+use App\Models\Packages\Category;
+use App\Models\Shop;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
@@ -26,6 +28,9 @@ class Main extends Component
 
     public function render()
     {
-        return view('livewire.packages.create.main');
+        return view('livewire.packages.create.main', [
+            'shops' => Shop::all(),
+            'categories' => Category::all()
+        ]);
     }
 }

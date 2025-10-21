@@ -7,6 +7,7 @@ namespace Database\Seeders;
 use App\Models\Province;
 use App\Models\Shop;
 use Database\Seeders\Data\ECProvinces;
+use Database\Seeders\Packages\CategorySeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,5 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Shop::factory(5)->create();
+
+        $this->call(CategorySeeder::class);
     }
 }

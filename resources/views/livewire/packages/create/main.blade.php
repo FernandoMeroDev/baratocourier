@@ -12,14 +12,7 @@
         </div>
 
         <div 
-            x-data="validator([
-                {id: 1, name: 'B 4X4', code: 'b'},
-                {id: 2, name: 'C', code: 'c'},
-                {id: 3, name: 'A (documentos) 4X4', code: 'a'},
-                {id: 4, name: 'Especial', code: 'special'},
-                {id: 5, name: 'G Migrante', code: 'g'},
-                {id: 6, name: 'D', code: 'd'},
-            ], {{$client->id}})" 
+            x-data="validator({{json_encode($categories)}}, {{$client->id}})" 
             class="grid grid-cols-2 gap-x-3 gap-y-6"
         >
             {{-- Row 1 --}}
@@ -30,10 +23,9 @@
 
                 <flux:select wire:model="form.shop_id" required>
                     <flux:select.option value="">Seleccione...</flux:select.option>
-                    <flux:select.option value="1">Tienda A</flux:select.option>
-                    <flux:select.option value="2">Tienda B</flux:select.option>
-                    <flux:select.option value="3">Tienda C</flux:select.option>
-                    <flux:select.option value="4">Tienda D</flux:select.option>
+                    @foreach($shops as $shop)
+                        <flux:select.option value="{{$shop->id}}">{{$shop->name}}</flux:select.option>
+                    @endforeach
                 </flux:select>
 
                 <flux:error name="form.shop_id" />
@@ -81,12 +73,11 @@
 
                 <flux:select x-on:change="checkPersonTypeAviability($event)" wire:model="form.category_id" required>
                     <flux:select.option value="">Seleccione...</flux:select.option>
-                    <flux:select.option id="package_category_b" value="1">B 4X4</flux:select.option>
-                    <flux:select.option id="package_category_c" value="2">C</flux:select.option>
-                    <flux:select.option id="package_category_a" value="3">A (documentos)</flux:select.option>
-                    <flux:select.option id="package_category_special" value="4">Especial</flux:select.option>
-                    <flux:select.option id="package_category_g" value="5">G Migrante</flux:select.option>
-                    <flux:select.option id="package_category_d" value="6">D</flux:select.option>
+                    @foreach($categories as $category)
+                        <flux:select.option id="package_category_{{$category->code}}" value="{{$category->id}}">
+                            {{$category->name}}
+                        </flux:select.option>
+                    @endforeach
                 </flux:select>
 
                 <flux:error name="form.category_id" />
