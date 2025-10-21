@@ -27,48 +27,57 @@ class DownloadController extends Controller
 
     private function generateHTML(Package $package): string
     {
-        $template = Storage::get('waybill_template.html');
+        $template = Storage::get('templates/waybill_base_template.html');
 
-        // Load logo
-        if($package->logo){
-            $logo_path = "/users/franchisee/logos/$package->logo";
-            $base64 = base64_encode(Storage::get($logo_path));
-            $mimeType = Storage::mimeType($logo_path);
-            $data = 'data:' . $mimeType . ';base64,' . $base64;
-            $logo = "<img class=\"logo\" src=\"$data\" />";
-            $template = str_replace('{{logo}}', $logo, $template);
-        } else {
-            $template = str_replace('{{logo}}', '<p class="no-logo">No tiene logo</p>', $template);
-        }
-
-        // Text variables
         $user = $package->user;
-        $waybill = $package->waybills->get(0);
-        $template = str_replace('{{courier_name}}', $package->courier_name, $template);
-        $template = str_replace('{{address}}', $user->franchisee->address, $template);
-        $template = str_replace(
-            '{{phone_number}}', $waybill->personalData->phone_number, $template
-        );
-        // [TODO] Add Barcode here
-        $template = str_replace('{{guide_domain}}', $package->guide_domain, $template);
-        $template = str_replace('{{waybill_number}}', $this->formatSequeltial($waybill->waybill_number, 6), $template);
-        $template = str_replace('{{waybill_text_reference}}', $user->franchisee->waybill_text_reference, $template);
-        $template = str_replace('{{weight}}', $waybill->weight, $template);
-        $template = str_replace('{{created_at}}', $package->created_at, $template);
+        $count = $package->waybills->count();
+        $i = 0;
+        foreach($package->waybills as $waybill){
+            $waybill_template = Storage::get('templates/waybill_template.html');
+            // Load logo
+            if($package->logo){
+                $logo_path = "/users/franchisee/logos/$package->logo";
+                $base64 = base64_encode(Storage::get($logo_path));
+                $mimeType = Storage::mimeType($logo_path);
+                $data = 'data:' . $mimeType . ';base64,' . $base64;
+                $logo = "<img class=\"logo\" src=\"$data\" />";
+                $waybill_template = str_replace('{{logo}}', $logo, $waybill_template);
+            } else {
+                $waybill_template = str_replace('{{logo}}', '<p class="no-logo">No tiene logo</p>', $waybill_template);
+            }
+            $waybill_template = str_replace('{{courier_name}}', $package->courier_name, $waybill_template);
+            $waybill_template = str_replace('{{address}}', $user->franchisee->address, $waybill_template);
+            $waybill_template = str_replace(
+                '{{phone_number}}', $waybill->personalData->phone_number, $waybill_template
+            );
+            // [TODO] Add Barcode here
+            $waybill_template = str_replace('{{guide_domain}}', $package->guide_domain, $waybill_template);
+            $waybill_template = str_replace('{{waybill_number}}', $this->formatSequeltial($waybill->waybill_number, 6), $waybill_template);
+            $waybill_template = str_replace('{{waybill_text_reference}}', $user->franchisee->waybill_text_reference, $waybill_template);
+            $waybill_template = str_replace('{{weight}}', $waybill->weight, $waybill_template);
+            $waybill_template = str_replace('{{created_at}}', $package->created_at, $waybill_template);
 
-        if($package->tracking_number)
-            $template = str_replace('{{tracking_number}}', $package->tracking_number, $template);
-        else $template = str_replace('{{tracking_number}}', 'Sin número de seguimiento', $template);
+            if($package->tracking_number)
+                $waybill_template = str_replace('{{tracking_number}}', $package->tracking_number, $waybill_template);
+            else $waybill_template = str_replace('{{tracking_number}}', 'Sin número de seguimiento', $waybill_template);
 
-        if($package->tracking_number)
-            $template = str_replace('{{reference}}', $package->reference, $template);
-        else $template = str_replace('{{reference}}', 'Sin referencia', $template);
+            if($package->tracking_number)
+                $waybill_template = str_replace('{{reference}}', $package->reference, $waybill_template);
+            else $waybill_template = str_replace('{{reference}}', 'Sin referencia', $waybill_template);
 
-        $template = str_replace('{{category}}', $package->category->name, $template);
-        $template = str_replace('{{shipping_address}}', $this->extractShippingAddress($package), $template); // [TODO] Add real shipping address
-        $template = str_replace('{{shipping_method}}', $package->shippingMethod->abbreviation, $template);
-        $template = str_replace('{{client_code}}', $package->client_code, $template);
-        $template = str_replace('{{client_name}}', $this->extractClientName($waybill->personalData),$template);
+            $waybill_template = str_replace('{{category}}', $package->category->name, $waybill_template);
+            $waybill_template = str_replace('{{shipping_address}}', $this->extractShippingAddress($package), $waybill_template); // [TODO] Add real shipping address
+            $waybill_template = str_replace('{{shipping_method}}', $package->shippingMethod->abbreviation, $waybill_template);
+            $waybill_template = str_replace('{{client_code}}', $package->client_code, $waybill_template);
+            $waybill_template = str_replace('{{client_name}}', $this->extractClientName($waybill->personalData),$waybill_template);
+
+            if($count > 1 && $i != ($count - 1))
+                $waybill_template .= '<div style="page-break-before: always;"></div>';
+            $template .= $waybill_template;
+            $i++;
+        }
+        
+        $template .= '</body></html>';
 
         return $template;
     }

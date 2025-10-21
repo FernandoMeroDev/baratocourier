@@ -1,3 +1,4 @@
 *
 !.gitignore
-!waybill_template.html
+!templates/
+!templates/**
