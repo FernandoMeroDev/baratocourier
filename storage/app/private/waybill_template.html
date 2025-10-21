@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Guía</title>
+</head>
+<body>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        /* General Styles */
+        .root {
+            text-align: center;
+        }
+
+        .root > p, .root > div {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        /* Logo */
+        .logo-container {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+        }
+
+        .logo, .no-logo {
+            margin-top: 0;
+            width: 150px;
+            height: 150px;
+        }
+
+        .logo { border-radius: 10px; }
+
+        .no-logo {
+            font-size: 30px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Text variables */
+        .courier-name {
+            font-size: 20px;
+        }
+
+        .address {
+            font-size: 10px;
+        }
+
+        .phone-number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .barcode {
+            font-size: 20px;
+        }
+
+        .guide-domain {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .waybill-number {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .waybill-text-reference {
+            font-size: 15px;
+        }
+
+        .weight {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .created_at {
+            font-size: 10px;
+        }
+
+        .tracking-number {
+            font-size: 10px;
+        }
+
+        .reference {
+            font-size: 15px;
+        }
+
+        .category {
+            font-size: 15px;
+        }
+
+        .shipping-address {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .shipping-method {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .client-code {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+    <div class="root">
+        <div class="logo-container">
+            {{logo}}
+        </div>
+        <p class="courier-name">{{courier_name}}</p>
+        <p class="address">{{address}}</p>
+        <p class="phone-number">{{phone_number}}</p>
+        <div class="barcode">{{barcode}}</div>
+        <p>
+            <span class="guide-domain">{{guide_domain}}</span><span class="waybill-number">{{waybill_number}}</span>
+        </p>
+        <div class="waybill-text-reference">{{waybill_text_reference}}</div>
+        <p>
+            <span class="weight">Peso: {{weight}} lb</span>
+            | <span class="created-at">Fecha: {{created_at}}</span>
+        </p>
+        <p class="tracking-number">{{tracking_number}}</p>
+        <p class="reference">{{reference}}</p>
+        <p class="category">Ref. SERVICIO: {{category}}</p>
+        <p class="shipping-address">{{shipping_address}}</p>
+        <p>
+            <span class="shipping-method">{{shipping_method}}</span>
+            - <span class="client-code">{{client_code}}</span>
+        </p>
+    </div>
+</body>
+</html>

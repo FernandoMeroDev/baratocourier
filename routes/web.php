@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Packages\DownloadController as PackageDownloadController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -61,4 +62,5 @@ Route::middleware(['auth', 'can:packages'])->group(function () {
     Route::get('/paquetes/seleccionar-cliente', PackageChooseClient::class)->name('packages.choose-client');
     Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
     Route::get('/paquetes/crear-multiples', PackageCreateMultiple::class)->name('packages.create-multiple');
+    Route::get('/paquetes/{package}/descargar', PackageDownloadController::class)->name('packages.download');
 });

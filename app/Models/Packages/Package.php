@@ -33,7 +33,7 @@ class Package extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class, 'package_category_id', 'id');
     }
 
     public function shippingMethod(): BelongsTo
@@ -41,7 +41,7 @@ class Package extends Model
         return $this->belongsTo(ShippingMethod::class);
     }
 
-    public function waybill(): HasMany
+    public function waybills(): HasMany
     {
         return $this->hasMany(Waybill::class);
     }

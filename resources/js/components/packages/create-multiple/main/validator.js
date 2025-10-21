@@ -141,9 +141,7 @@ class Validator extends Component
             for(const node of elements){
                 node.disabled = false;
             }
-            console.log(`Persona: ${type_name}; Disponible`);
         } else {
-            console.log(`Persona: ${type_name}; No Disponible`);
             let i = 0;
             for(const node of elements){
                 node.disabled = true;

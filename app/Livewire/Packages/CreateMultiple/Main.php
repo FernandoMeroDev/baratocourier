@@ -40,7 +40,8 @@ class Main extends Component
 
     public function store()
     {
-        $this->form->store($this->client);
+        $package = $this->form->store($this->client);
+        $this->dispatch('created-package', id: $package->id);
     }
 
     public function generatePackages()

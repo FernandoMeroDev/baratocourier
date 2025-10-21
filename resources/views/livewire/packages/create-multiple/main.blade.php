@@ -1,5 +1,10 @@
 <div>
-    <form wire:submit="store" class="space-y-6">
+    <form 
+        x-on:created-package.window="window.open(
+            `/paquetes/${$event.detail.id}/descargar`, '_blank'
+        )"
+        wire:submit="store" class="space-y-6"
+    >
         <div>
             <div class="flex items-center">
                 <flux:heading size="lg">Registro de Paquetes</flux:heading>

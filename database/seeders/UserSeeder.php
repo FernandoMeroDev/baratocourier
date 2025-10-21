@@ -38,6 +38,7 @@ class UserSeeder extends Seeder
             'client_domain' => 'BTA',
             'waybill_text_reference' => '1 DE 1 MTC',
             'user_id' => $franchisee_user->id,
+            'logo' => 'VqR8UmnaxKxSceFCQ4DOqYR6i1i5bMjQiI3xG15g.webp'
         ]);
 
         $employee_user = User::factory()->create([
@@ -64,6 +65,7 @@ class UserSeeder extends Seeder
             'client_domain' => 'VTA',
             'waybill_text_reference' => '1 DE 1 MTC',
             'user_id' => $franchisee_b_user->id,
+            'logo' => 'VqR8UmnaxKxSceFCQ4DOqYR6i1i5bMjQiI3xG15g.webp'
         ]);
     }
 }

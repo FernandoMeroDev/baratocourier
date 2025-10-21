@@ -89,8 +89,8 @@ class StoreForm extends Form
             $personal_data['identity_card'] = $person->identity_card;
             $personal_data['person_type'] = $validated['person_types'][$i];
             $personal_data['waybill_id'] = $waybill->id;
-            $personalData = PersonalData::create($personal_data);
+            PersonalData::create($personal_data);
         }
-        dump($validated);
+        return $package;
     }
 }
