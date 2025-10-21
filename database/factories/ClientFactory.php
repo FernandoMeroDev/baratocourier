@@ -29,6 +29,7 @@ class ClientFactory extends Factory
             'phone_number' => '09' . $this->randomNumber(8),
             'residential_address' => fake()->address(),
             'email' => fake()->email(),
+            'code' => fake()->randomNumber(3),
             'user_id' => fake()->randomElement($users_ids)
         ];
     }

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone_number', 10);
             $table->string('residential_address', 500);
             $table->string('email', 500);
+            $table->unsignedBigInteger('code');
 
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')
