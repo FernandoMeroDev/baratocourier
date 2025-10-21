@@ -17,11 +17,28 @@ class StoreForm extends Form
 {
     use Attributes;
 
+    protected function rules()
+    {
+        return [
+            'tracking_number' => 'string',
+            'shop_id' => 'required|string',
+            'reference' => 'string',
+            'shipping_method_id' => 'required|integer|exists:shipping_methods,id',
+            'shipping_address_id' => 'required|string',
+            'category_id' => 'required|integer|exists:package_categories,id',
+            // Variables for each package
+            'weights' => 'required|array',
+            'prices' => 'required|array',
+            'person_types' => 'required|array',
+            'person_ids' => 'required|array',
+            'items_counts' => 'required|array',
+            'descriptions' => 'required|array',
+        ];
+    }
+
     public function store(Client $client)
     {
-        $validated = $this->all(); // Dummy Validation
-        dd($validated);
-        // Package => Waybill => PersonalData
+        $validated = $this->validate(); // Dummy Validation
         $user = User::find(Auth::user()->id);
         $shippingAddress = ShippingAddress::find($validated['shipping_address_id']);
         $package = Package::create([
@@ -60,16 +77,16 @@ class StoreForm extends Form
                     $person = Receiver::find($validated['person_ids'][$i]);
                     $personal_data['name'] = $person->names;
                     $personal_data['lastname'] = $person->lastnames;
-                    $personal_data['phone_number'] = $person->phone_number ?? 'No registrado';
+                    $personal_data['phone_number'] = $person->phone_number ?? 'Ninguno';
                     break;
                 case 'family_core_member':
                     $person = FamilyCoreMember::find($validated['person_ids'][$i]);
                     $personal_data['name'] = $person->names;
                     $personal_data['lastname'] = $person->lastnames;
-                    $personal_data['phone_number'] = $person->phone_number ?? 'No registrado';
+                    $personal_data['phone_number'] = $person->phone_number ?? 'Ninguno';
                     break;
             }
-            $person['identity_card'] = $person->identity_card;
+            $personal_data['identity_card'] = $person->identity_card;
             $personal_data['person_type'] = $validated['person_types'][$i];
             $personal_data['waybill_id'] = $waybill->id;
             $personalData = PersonalData::create($personal_data);

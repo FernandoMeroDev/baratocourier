@@ -33,4 +33,9 @@ class Main extends Component
             'categories' => Category::all()
         ]);
     }
+
+    public function store()
+    {
+        $this->form->store($this->client);
+    }
 }
