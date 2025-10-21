@@ -5,9 +5,12 @@ namespace App\Models\Packages;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Category extends Model
+class ShippingMethod extends Model
 {
-    protected $table = 'package_categories';
+    protected $fillable = [
+        'name',
+        'abbreviation'
+    ];
 
     public $timestamps = false;
 

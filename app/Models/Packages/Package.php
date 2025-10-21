@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Models\Packages;
+
+use App\Models\Packages\Waybills\Waybill;
+use App\Models\Shop;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
+class Package extends Model
+{
+    protected $fillable = [
+        'tracking_number',
+        'courier_name',
+        'logo',
+        'address',
+        'reference',
+        'guide_domain',
+        'client_domain',
+        'client_code'
+    ];
+
+    public function shop(): BelongsTo
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function shippingMethod(): BelongsTo
+    {
+        return $this->belongsTo(ShippingMethod::class);
+    }
+
+    public function waybill(): HasMany
+    {
+        return $this->hasMany(Waybill::class);
+    }
+}
