@@ -50,4 +50,15 @@ class ShippingAddress extends Model
             . ', Código: ' . $this->zip_code . '.';
         return str_replace("'", "\\'", $result);
     }
+
+    public function jsonAddress(): string
+    {
+        return json_encode([
+            'line_1' => $this->line_1,
+            'line_2' => $this->line_2,
+            'city_name' => $this->city_name,
+            'province_name' => $this->province->name,
+            'zip_code' => $this->zip_code,
+        ]);
+    }
 }

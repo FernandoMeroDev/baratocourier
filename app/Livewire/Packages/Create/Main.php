@@ -5,6 +5,7 @@ namespace App\Livewire\Packages\Create;
 use App\Livewire\Forms\Packages\StoreForm;
 use App\Models\Client;
 use App\Models\Packages\Category;
+use App\Models\Packages\ShippingMethod;
 use App\Models\Shop;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -30,12 +31,14 @@ class Main extends Component
     {
         return view('livewire.packages.create.main', [
             'shops' => Shop::all(),
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'shipping_methods' => ShippingMethod::all()
         ]);
     }
 
     public function store()
     {
-        $this->form->store($this->client);
+        $package = $this->form->store($this->client);
+        $this->dispatch('created-package', id: $package->id);
     }
 }

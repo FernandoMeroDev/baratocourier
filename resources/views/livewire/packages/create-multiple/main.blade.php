@@ -46,7 +46,7 @@
                     <flux:select.option value="">Seleccione...</flux:select.option>
                     @foreach($shipping_methods as $shipping_method)
                         <flux:select.option value="{{$shipping_method->id}}">
-                            {{$shipping_method->name . "($shipping_method->abbreviation)" }}
+                            {{$shipping_method->name . " ($shipping_method->abbreviation)" }}
                         </flux:select.option>
                     @endforeach
                 </flux:select>

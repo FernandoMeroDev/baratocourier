@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('tracking_number', 500)->nullable();
             $table->string('courier_name');
             $table->string('logo');
-            $table->string('address');
+            $table->string('shipping_address');
             $table->string('reference', 500)->nullable();
             $table->string('guide_domain', 20);
             $table->string('client_domain', 20);

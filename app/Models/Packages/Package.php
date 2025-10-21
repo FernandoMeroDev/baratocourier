@@ -15,7 +15,7 @@ class Package extends Model
         'tracking_number',
         'courier_name',
         'logo',
-        'address',
+        'shipping_address',
         'reference',
         'guide_domain',
         'client_domain',

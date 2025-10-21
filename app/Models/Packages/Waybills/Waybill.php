@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Waybill extends Model
 {
     protected $fillable = [
+        'waybill_number',
         'price',
         'weight',
         'items_count',

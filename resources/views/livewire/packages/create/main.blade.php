@@ -1,5 +1,10 @@
 <div>
-    <form wire:submit="store" class="space-y-6">
+    <form 
+        x-on:created-package.window="window.open(
+            `/paquetes/${$event.detail.id}/descargar`, '_blank'
+        )"
+        wire:submit="store" class="space-y-6"
+    >
         <div>
             <div class="flex items-center">
                 <flux:heading size="lg">Registro de Paquete</flux:heading>
@@ -39,10 +44,11 @@
 
                 <flux:select wire:model="form.shipping_method_id" required>
                     <flux:select.option value="">Seleccione...</flux:select.option>
-                    <flux:select.option value="1">Método A</flux:select.option>
-                    <flux:select.option value="2">Método B</flux:select.option>
-                    <flux:select.option value="3">Método C</flux:select.option>
-                    <flux:select.option value="4">Método D</flux:select.option>
+                    @foreach($shipping_methods as $shipping_method)
+                        <flux:select.option value="{{$shipping_method->id}}">
+                            {{$shipping_method->name . " ($shipping_method->abbreviation)" }}
+                        </flux:select.option>
+                    @endforeach
                 </flux:select>
 
                 <flux:error name="form.shipping_method_id" />

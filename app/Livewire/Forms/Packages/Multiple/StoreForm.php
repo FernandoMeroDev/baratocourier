@@ -10,6 +10,7 @@ use App\Models\Packages\Package;
 use App\Models\Packages\Waybills\PersonalData;
 use App\Models\Packages\Waybills\Waybill;
 use App\Models\User;
+use App\Models\User\Franchisee;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Form;
 
@@ -20,9 +21,9 @@ class StoreForm extends Form
     protected function rules()
     {
         return [
-            'tracking_number' => 'string',
+            'tracking_number' => 'nullable|string',
             'shop_id' => 'required|string',
-            'reference' => 'string',
+            'reference' => 'nullable|string',
             'shipping_method_id' => 'required|integer|exists:shipping_methods,id',
             'shipping_address_id' => 'required|string',
             'category_id' => 'required|integer|exists:package_categories,id',
@@ -45,7 +46,7 @@ class StoreForm extends Form
             'tracking_number' => $validated['tracking_number'],
             'courier_name' => $user->franchisee->courier_name,
             'logo' => $user->franchisee->logo ?? 'No registrado',
-            'address' => $shippingAddress->completeAddress(),
+            'shipping_address' => $shippingAddress->jsonAddress(),
             'reference'  => $validated['reference'],
             'guide_domain' => $user->franchisee->guide_domain,
             'client_domain' => $user->franchisee->client_domain,
@@ -57,6 +58,7 @@ class StoreForm extends Form
         ]);
         for($i = 0; $i < count($validated['weights']); $i++){
             $waybill = Waybill::create([
+                'waybill_number' => $this->calcWaybillNumber($user->franchisee),
                 'price' => $validated['prices'][$i],
                 'weight' => $validated['weights'][$i],
                 'items_count' => $validated['items_counts'][$i],
@@ -71,26 +73,32 @@ class StoreForm extends Form
                     $person = Client::find($validated['person_ids'][$i]);
                     $personal_data['name'] = $person->name;
                     $personal_data['lastname'] = $person->lastname;
-                    $personal_data['phone_number'] = $person->phone_number;
                     break;
                 case 'receiver':
                     $person = Receiver::find($validated['person_ids'][$i]);
                     $personal_data['name'] = $person->names;
                     $personal_data['lastname'] = $person->lastnames;
-                    $personal_data['phone_number'] = $person->phone_number ?? 'Ninguno';
                     break;
                 case 'family_core_member':
                     $person = FamilyCoreMember::find($validated['person_ids'][$i]);
                     $personal_data['name'] = $person->names;
                     $personal_data['lastname'] = $person->lastnames;
-                    $personal_data['phone_number'] = $person->phone_number ?? 'Ninguno';
                     break;
             }
+            $personal_data['phone_number'] = $user->franchisee->phone_number;
             $personal_data['identity_card'] = $person->identity_card;
             $personal_data['person_type'] = $validated['person_types'][$i];
             $personal_data['waybill_id'] = $waybill->id;
             PersonalData::create($personal_data);
         }
         return $package;
+    }
+
+    private function calcWaybillNumber(Franchisee $franchisee): int
+    {
+        $current = $franchisee->next_waybill_number;
+        $franchisee->next_waybill_number++;
+        $franchisee->save();
+        return $current;
     }
 }

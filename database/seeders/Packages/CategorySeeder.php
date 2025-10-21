@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
             'code' => 'c'
         ],
         [
-            'name' => 'A (documentos) 4X4',
+            'name' => 'A (documentos)',
             'code' => 'a'
         ],
         [
