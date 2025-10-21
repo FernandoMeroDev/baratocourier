@@ -40,9 +40,21 @@
             </flux:field>
 
             {{-- Row 2 --}}
-            <div class="col-span-2">
-                <flux:input label="Referencia:" wire:model="form.reference" maxlength="500" />
-            </div>
+            <flux:input label="Referencia:" wire:model="form.reference" maxlength="500" />
+
+            <flux:field>
+                <flux:label>Método de Envío:</flux:label>
+
+                <flux:select wire:model="form.shipping_method_id" required>
+                    <flux:select.option value="">Seleccione...</flux:select.option>
+                    <flux:select.option value="1">Método A</flux:select.option>
+                    <flux:select.option value="2">Método B</flux:select.option>
+                    <flux:select.option value="3">Método C</flux:select.option>
+                    <flux:select.option value="4">Método D</flux:select.option>
+                </flux:select>
+
+                <flux:error name="form.shipping_method_id" />
+            </flux:field>
 
             {{-- Row 3 --}}
             <flux:input 

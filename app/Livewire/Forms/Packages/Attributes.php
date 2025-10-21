@@ -10,6 +10,8 @@ trait Attributes
 
     public $reference; // Nullable
 
+    public $shipping_method_id;
+
     public $items_count;
 
     public $price;
