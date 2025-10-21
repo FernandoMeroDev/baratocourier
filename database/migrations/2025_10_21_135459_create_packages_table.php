@@ -26,7 +26,6 @@ return new class extends Migration
             $table->foreignId('shop_id')->constrained();
             $table->foreignId('package_category_id')->constrained();
             $table->foreignId('shipping_method_id')->constrained();
-            $table->foreignId('waybill_id')->constrained();
             $table->foreignId('user_id')->constrained();
         });
     }

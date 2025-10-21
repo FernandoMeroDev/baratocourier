@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedInteger('items_count');
             $table->string('description', 1000);
             $table->string('status', 50);
+
+            $table->foreignId('package_id')->constrained();
         });
     }
 

@@ -1,5 +1,5 @@
 <div>
-    <form id="main-form" wire:submit="store" class="space-y-6">
+    <form wire:submit="store" class="space-y-6">
         <div>
             <div class="flex items-center">
                 <flux:heading size="lg">Registro de Paquetes</flux:heading>
@@ -37,15 +37,16 @@
             <flux:field>
                 <flux:label>Método de Envío:</flux:label>
 
-                <flux:select wire:model="form.shipping_method" required>
+                <flux:select wire:model="form.shipping_method_id" required>
                     <flux:select.option value="">Seleccione...</flux:select.option>
-                    <flux:select.option value="1">Método A</flux:select.option>
-                    <flux:select.option value="2">Método B</flux:select.option>
-                    <flux:select.option value="3">Método C</flux:select.option>
-                    <flux:select.option value="4">Método D</flux:select.option>
+                    @foreach($shipping_methods as $shipping_method)
+                        <flux:select.option value="{{$shipping_method->id}}">
+                            {{$shipping_method->name . "($shipping_method->abbreviation)" }}
+                        </flux:select.option>
+                    @endforeach
                 </flux:select>
 
-                <flux:error name="form.shipping_method" />
+                <flux:error name="form.shipping_method_id" />
             </flux:field>
 
             {{-- Row 3 --}}
@@ -172,7 +173,7 @@
 
                     {{-- Items Count --}}
                     <flux:input 
-                        label="Cantidad de Items:"  wire:model="form.items_counts" type="number" 
+                        label="Cantidad de Items:"  wire:model="form.items_counts.{{$i}}" type="number" 
                         placeholder="0" required min="1" step="1" max="9999" 
                         class="col-span-2"
                     />
@@ -181,10 +182,10 @@
                         <flux:label>Descripción del paquete</flux:label>
                         <flux:description><strong>NOTA:</strong> Detalle del contenido de su paquete, ejemplo: blusas, pantalones, pares de zapatos, barbies, perfume.</flux:description>
                         <flux:textarea 
-                            wire:model="form.description" resize="vertical" 
+                            wire:model="form.descriptions.{{$i}}" resize="vertical" 
                             placeholder="Ingrese los detalles de la compra, por ejemplo: blusas, pantalones, pares de zapatos, barbies, perfume." 
                         />
-                        <flux:error name="form.individual" />
+                        <flux:error name="form.descriptions.{{$i}}" />
                     </flux:field>
                 </x-fieldset.simple>
             @endfor

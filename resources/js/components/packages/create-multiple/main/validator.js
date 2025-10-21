@@ -54,7 +54,7 @@ class Validator extends Component
         else {
             el.hidden = true;
             await this.clearCategory(code);
-            this.checkPersonTypeAviability({target: {value: code}});
+            this.checkPersonTypeAviability({target: {value: await this.get('form.category_id')}});
         }
     }
 
@@ -78,10 +78,6 @@ class Validator extends Component
     personal_data_visible = {};
 
     async setPersonalDataVisible() {
-        let e = document.getElementById('main-form');
-        setTimeout(() => {
-            e.setAttribute('wire:ignore', 'true');
-        }, 1000)
         let packages_count = await this.get('packages_count'),
             category_id = await this.get('form.category_id');
         for(let i = 0; i < packages_count; i++)
@@ -141,11 +137,13 @@ class Validator extends Component
 
     async changePersonTypeAviability(type_name, available) {
         const elements = document.querySelectorAll(`.person_type_${type_name}`);
-        if(available)
+        if(available) {
             for(const node of elements){
                 node.disabled = false;
             }
-        else {
+            console.log(`Persona: ${type_name}; Disponible`);
+        } else {
+            console.log(`Persona: ${type_name}; No Disponible`);
             let i = 0;
             for(const node of elements){
                 node.disabled = true;
@@ -167,9 +165,9 @@ class Validator extends Component
     async checkPersonTypeSelection(event, i) {
         let type_name = event.target.value;
         if('client' == type_name)
-            await this.set(`form.persons_id.${i}`, this.current_client_id);
+            await this.set(`form.person_ids.${i}`, this.current_client_id);
         else
-            await this.set(`form.persons_id.${i}`, null); // Must search and select person
+            await this.set(`form.person_ids.${i}`, null); // Must search and select person
     }
 }
 

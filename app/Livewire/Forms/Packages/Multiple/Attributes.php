@@ -4,11 +4,11 @@ namespace App\Livewire\Forms\Packages\Multiple;
 
 trait Attributes
 {
-    public $tracking_number; // Nullable
+    public $tracking_number = null; // Nullable
 
     public $shop_id;
 
-    public $reference; // Nullable
+    public $reference = null; // Nullable
 
     public $shipping_method_id;
 

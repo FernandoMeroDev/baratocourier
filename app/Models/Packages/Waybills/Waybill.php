@@ -15,6 +15,7 @@ class Waybill extends Model
         'items_count',
         'description',
         'status',
+        'package_id',
     ];
 
     public $timestamps = false;

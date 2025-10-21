@@ -4,6 +4,7 @@ namespace App\Models\Packages;
 
 use App\Models\Packages\Waybills\Waybill;
 use App\Models\Shop;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -18,7 +19,11 @@ class Package extends Model
         'reference',
         'guide_domain',
         'client_domain',
-        'client_code'
+        'client_code',
+        'shop_id',
+        'package_category_id',
+        'shipping_method_id',
+        'user_id'
     ];
 
     public function shop(): BelongsTo
@@ -39,5 +44,10 @@ class Package extends Model
     public function waybill(): HasMany
     {
         return $this->hasMany(Waybill::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
