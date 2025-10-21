@@ -26,6 +26,8 @@ class StoreForm extends BaseStoreForm
 
     public $client_domain = '';
 
+    public $waybill_text_reference = '';
+
     public function rules(): array
     {
         $rules = parent::rules();
@@ -39,6 +41,7 @@ class StoreForm extends BaseStoreForm
         $rules['zip_code'] = 'required|string|max:20';
         $rules['guide_domain'] = 'required|string|max:20';
         $rules['client_domain'] = 'required|string|max:20';
+        $rules['waybill_text_reference'] = 'required|string|max:50';
         return $rules;
     }
 

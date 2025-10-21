@@ -84,6 +84,12 @@
             required
         />
 
+        <flux:input
+            wire:model="form.waybill_text_reference"
+            label="Referencia de Texto en Guía"
+            required
+        />
+
         <div class="flex justify-between">
             <flux:button type="submit" variant="primary">Registrar Usuario</flux:button>
 

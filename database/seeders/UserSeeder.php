@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
             'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 132222',
             'guide_domain' => 'BTC',
             'client_domain' => 'BTA',
+            'waybill_text_reference' => '1 DE 1 MTC',
             'user_id' => $franchisee_user->id,
         ]);
 
@@ -61,6 +62,7 @@ class UserSeeder extends Seeder
             'address' => 'Calle X Avenida Y, Intersección Z, Indiana, CiudadA, Código: 130222',
             'guide_domain' => 'TVC',
             'client_domain' => 'VTA',
+            'waybill_text_reference' => '1 DE 1 MTC',
             'user_id' => $franchisee_b_user->id,
         ]);
     }

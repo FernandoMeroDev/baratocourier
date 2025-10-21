@@ -18,6 +18,8 @@ class Franchisee extends Model
         'address',
         'guide_domain',
         'client_domain',
+        'next_waybill_number',
+        'waybill_text_reference',
         'user_id',
     ];
 

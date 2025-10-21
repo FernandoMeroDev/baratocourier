@@ -25,7 +25,6 @@ class StoreForm extends Form
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
-            // [TODO] Create role Rules
         ];
     }
 
