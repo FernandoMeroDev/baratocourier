@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Province;
+use App\Models\Shop;
 use Database\Seeders\Data\ECProvinces;
 use Illuminate\Database\Seeder;
 
@@ -22,5 +23,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ClientSeeder::class
         ]);
+
+        Shop::factory(5)->create();
     }
 }
