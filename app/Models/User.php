@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Packages\Package;
+use App\Models\Shipments\Shipment;
 use App\Models\User\Employee;
 use App\Models\User\Franchisee;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -87,5 +88,10 @@ class User extends Authenticatable
     public function packages(): HasMany
     {
         return $this->hasMany(Package::class);
+    }
+
+    public function shipments(): HasMany
+    {
+        return $this->hasMany(Shipment::class);
     }
 }

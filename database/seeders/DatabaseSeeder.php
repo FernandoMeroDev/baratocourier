@@ -5,11 +5,13 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Province;
+use App\Models\Shipments\ShipmentType;
 use App\Models\Shop;
 use Database\Seeders\Data\ECProvinces;
 use Database\Seeders\Packages\CategorySeeder;
 use Database\Seeders\Packages\PackageSeeder;
 use Database\Seeders\Packages\ShippingMethodSeeder;
+use Database\Seeders\Shipments\ShipmentSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -33,6 +35,13 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             ShippingMethodSeeder::class,
             PackageSeeder::class,
+        ]);
+
+        ShipmentType::create(['name' => 'Aéreo']);
+        ShipmentType::create(['name' => 'Marítimo']);
+
+        $this->call([
+            ShipmentSeeder::class
         ]);
     }
 }

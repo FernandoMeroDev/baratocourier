@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
+            $table->string('status', 50);
             $table->string('tracking_number', 500)->nullable();
             $table->string('courier_name');
             $table->string('logo');

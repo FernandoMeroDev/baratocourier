@@ -43,6 +43,7 @@ class StoreForm extends Form
         $user = User::find(Auth::user()->id);
         $shippingAddress = ShippingAddress::find($validated['shipping_address_id']);
         $package = Package::create([
+            'status' => 'Bodega USA',
             'tracking_number' => $validated['tracking_number'],
             'courier_name' => $user->franchisee->courier_name,
             'logo' => $user->franchisee->logo ?? 'No registrado',
@@ -65,7 +66,6 @@ class StoreForm extends Form
             'weight' => $validated['weight'],
             'items_count' => $validated['items_count'],
             'description' => $validated['description'],
-            'status' => 'Bodega USA',
             'package_id' => $package->id,
         ]);
         $personal_data = [];

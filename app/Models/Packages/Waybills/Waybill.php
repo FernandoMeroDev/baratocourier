@@ -3,6 +3,7 @@
 namespace App\Models\Packages\Waybills;
 
 use App\Models\Packages\Package;
+use App\Models\Shipments\ShippingBag;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -15,8 +16,8 @@ class Waybill extends Model
         'weight',
         'items_count',
         'description',
-        'status',
         'package_id',
+        'shipping_bag_id'
     ];
 
     public $timestamps = false;
@@ -29,5 +30,10 @@ class Waybill extends Model
     public function package(): BelongsTo
     {
         return $this->belongsTo(Package::class);
+    }
+
+    public function shippingBag(): BelongsTo
+    {
+        return $this->belongsTo(ShippingBag::class);
     }
 }

@@ -18,6 +18,7 @@ class PackageSeeder extends Seeder
         $franchisee = Franchisee::all()->get(0);
         // $shippingAddress = ShippingAddress::find($validated['shipping_address_id']);
         $package = Package::create([
+            'status' => 'Bodega USA',
             'tracking_number' => '1Z999AA10123456784',
             'courier_name' => 'CourierA',
             'logo' => 'example.webp',
@@ -46,7 +47,6 @@ class PackageSeeder extends Seeder
             'weight' => 4.5,
             'items_count' => 5,
             'description' => 'Texto descriptivo detallando el contenido.',
-            'status' => 'Bodega USA',
             'package_id' => $package->id,
         ]);
         $personal_data = [];

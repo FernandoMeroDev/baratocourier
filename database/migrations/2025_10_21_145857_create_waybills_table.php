@@ -17,7 +17,6 @@ return new class extends Migration
             $table->decimal('weight', 7, 2);
             $table->unsignedInteger('items_count');
             $table->string('description', 1000);
-            $table->string('status', 50);
             $table->unsignedBigInteger('waybill_number');
 
             $table->foreignId('package_id')->constrained();

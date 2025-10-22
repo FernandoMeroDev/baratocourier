@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Package extends Model
 {
     protected $fillable = [
+        'status',
         'tracking_number',
         'courier_name',
         'logo',
