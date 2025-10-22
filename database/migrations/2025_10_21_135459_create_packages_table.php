@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('guide_domain', 20);
             $table->string('client_domain', 20);
             $table->unsignedBigInteger('client_code');
+            $table->string('client_identity_card', 30);
+            $table->string('client_name');
+            $table->string('client_lastname');
             $table->timestamps();
 
             $table->foreignId('shop_id')->constrained()->cascadeOnDelete();
