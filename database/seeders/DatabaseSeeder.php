@@ -8,6 +8,7 @@ use App\Models\Province;
 use App\Models\Shop;
 use Database\Seeders\Data\ECProvinces;
 use Database\Seeders\Packages\CategorySeeder;
+use Database\Seeders\Packages\PackageSeeder;
 use Database\Seeders\Packages\ShippingMethodSeeder;
 use Illuminate\Database\Seeder;
 
@@ -30,7 +31,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CategorySeeder::class,
-            ShippingMethodSeeder::class
+            ShippingMethodSeeder::class,
+            PackageSeeder::class,
         ]);
     }
 }

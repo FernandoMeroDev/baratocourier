@@ -24,26 +24,20 @@ class UserSeeder extends Seeder
             RolePermissionSeeder::class
         ]);
 
+        // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ 
+        // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ 
+        //
+        // DEBES dejar al menos 1 usuario franquiciado (un [User] y un [Franchisee] relacionados) de prueba para generar la 'Guía de ejemplo'
+        //
+        // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ 
+        // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ // /!\ IMPORTANTE /!\ 
         $franchisee_user = User::factory()->create([
             'name' => 'Franquiciado A',
             'email' => 'franquiciado@baratocourier.com',
         ]);
         $franchisee_user->assignRole('franchisee');
-        Franchisee::create([
-            'phone_number' => '0999999999',
-            'courier_name' => 'CourierA',
-            'logo' => null,
-            'address' => Franchisee::makeJSONAddress(
-                'Calle X Avenida Y, Intersección Z',
-                'CiudadA',
-                'Estado',
-                '132222'
-            ),
-            'guide_domain' => 'BTC',
-            'client_domain' => 'BTA',
-            'waybill_text_reference' => '1 DE 1 MTC',
-            'user_id' => $franchisee_user->id,
-            'logo' => 'VqR8UmnaxKxSceFCQ4DOqYR6i1i5bMjQiI3xG15g.webp'
+        Franchisee::factory()->create([
+            'user_id' => $franchisee_user->id
         ]);
 
         $employee_user = User::factory()->create([
@@ -61,21 +55,8 @@ class UserSeeder extends Seeder
             'email' => 'franquiciado.b@baratocourier.com',
         ]);
         $franchisee_b_user->assignRole('franchisee');
-        Franchisee::create([
-            'phone_number' => '0999999999',
-            'courier_name' => 'CourierB',
-            'logo' => null,
-            'address' => Franchisee::makeJSONAddress(
-                'Calle X Avenida Y, Intersección Z',
-                'CiudadB',
-                'Estado',
-                '132222'
-            ),
-            'guide_domain' => 'TVC',
-            'client_domain' => 'VTA',
-            'waybill_text_reference' => '1 DE 1 MTC',
+        Franchisee::factory()->create([
             'user_id' => $franchisee_b_user->id,
-            'logo' => 'VqR8UmnaxKxSceFCQ4DOqYR6i1i5bMjQiI3xG15g.webp'
         ]);
     }
 

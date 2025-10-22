@@ -1,9 +1,9 @@
-@props(['title'])
+@props(['title', 'wireIgnoreSelf' => false])
 
 <div class="px-5 max-w-full">
 	<div class="grid divide-y mt-8">
 		<div class="py-5">
-			<details class="group">
+			<details @if($wireIgnoreSelf) wire:ignore.self @endif class="group">
 				<summary class="flex justify-between items-center font-medium cursor-pointer list-none">
 					<span>
                         {{ $title }}

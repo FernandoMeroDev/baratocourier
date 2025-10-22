@@ -57,7 +57,7 @@ class StoreForm extends Form
             'user_id' => $user->id
         ]);
         $waybill = Waybill::create([
-            'waybill_number' => $this->calcWaybillNumber($user->franchisee),
+            'waybill_number' => Franchisee::calcWaybillNumber($user->franchisee),
             'price' => $validated['price'],
             'weight' => $validated['weight'],
             'items_count' => $validated['items_count'],
@@ -90,13 +90,5 @@ class StoreForm extends Form
         $personal_data['waybill_id'] = $waybill->id;
         PersonalData::create($personal_data);
         return $package;
-    }
-
-    private function calcWaybillNumber(Franchisee $franchisee): int
-    {
-        $current = $franchisee->next_waybill_number;
-        $franchisee->next_waybill_number++;
-        $franchisee->save();
-        return $current;
     }
 }

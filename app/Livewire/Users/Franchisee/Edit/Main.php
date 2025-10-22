@@ -27,6 +27,7 @@ class Main extends Component
     public function update()
     {
         $this->form->update();
+        $this->dispatch('edited-franchisee');
     }
 
     public function delete()

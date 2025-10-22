@@ -4,14 +4,25 @@ namespace App\Http\Controllers\Packages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Packages\Package;
+use App\Models\Packages\Waybills\Fields;
 use App\Models\Packages\Waybills\PersonalData;
+use App\Models\Packages\Waybills\Styles;
+use App\Models\User\Franchisee;
 use Dompdf\Dompdf;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class DownloadController extends Controller
 {
-    public function __invoke(Package $package)
+    private ?Franchisee $styler = null;
+
+    public function __invoke(Package $package, Request $request)
     {
+        if(! is_null($request->get('use_styles_of')) ){
+            if($styler = Franchisee::find($request->get('use_styles_of')))
+                $this->styler = $styler;
+        }
+
         $dompdf = new Dompdf();
         $dompdf->setPaper([0, 0, 432, 288], 'landscape');
 
@@ -27,13 +38,19 @@ class DownloadController extends Controller
 
     private function generateHTML(Package $package): string
     {
+        $user = $package->user;
+        $styles = is_null($this->styler)
+            ? json_decode($user->franchisee->waybill_styles)
+            : json_decode($this->styler->waybill_styles);
+
         $template = Storage::get('templates/waybill_base_template.html');
 
-        $user = $package->user;
+        $template = $this->stylize($template, $styles);
+
         $count = $package->waybills->count();
         $i = 0;
         foreach($package->waybills as $waybill){
-            $waybill_template = Storage::get('templates/waybill_template.html');
+            $waybill_template = $this->buildWaybillTemplate($styles);
             // Load logo
             if($package->logo){
                 $logo_path = "/users/franchisee/logos/$package->logo";
@@ -79,6 +96,65 @@ class DownloadController extends Controller
         
         $template .= '</body></html>';
 
+        return $template;
+    }
+
+    private function buildWaybillTemplate(object $styles): string
+    {
+        $template = '';
+        $fields = collect([]);
+        foreach($styles as $field => $style)
+            $fields->push(['name' => $field,'position' => $style->position]);
+        $fields = $fields->sortBy('position');
+        $template .= '<div class="root">';
+        foreach($fields as $field){
+            $template .= Fields::$html[$field['name']];
+        }
+        $template .= '</div>';
+        return $template;
+    }
+
+    private function stylize(string $template, object $styles): string
+    {
+        $template = $this->stylizeBlock('logo', $template, $styles);
+        $template = $this->stylizeText('courier_name', $template, $styles);
+        $template = $this->stylizeText('address', $template, $styles);
+        $template = $this->stylizeText('phone_number', $template, $styles);
+        $template = $this->stylizeText('guide_domain', $template, $styles);
+        $template = $this->stylizeText('waybill_number', $template, $styles);
+        $template = $this->stylizeText('waybill_text_reference', $template, $styles);
+        $template = $this->stylizeText('weight', $template, $styles);
+        $template = $this->stylizeText('created_at', $template, $styles);
+        $template = $this->stylizeText('tracking_number', $template, $styles);
+        $template = $this->stylizeText('reference', $template, $styles);
+        $template = $this->stylizeText('category', $template, $styles);
+        $template = $this->stylizeText('shipping_address', $template, $styles);
+        $template = $this->stylizeText('shipping_method', $template, $styles);
+        $template = $this->stylizeText('client_code', $template, $styles);
+        $template = $this->stylizeText('client_name', $template, $styles);
+        return $template . '</style>';
+    }
+
+    private function stylizeText(string $field, string $template, object $styles): string
+    {
+        $class = str_replace('_', '-', $field);
+        $template .= " .$class { "
+            . "font-size: " . $styles->{$field}->size . "px;"
+            . "text-align: " . $styles->{$field}->align . ";"
+            . "margin-top: " . $styles->{$field}->margin_top . "px;"
+            . "margin-bottom: " . $styles->{$field}->margin_bottom . "px;"
+            . "font-style: " . $styles->{$field}->font_style . ";"
+            . "font-weight: " . $styles->{$field}->font_weight . ";"
+            . "}";
+        return $template;
+    }
+
+    private function stylizeBlock(string $field, string $template, object $styles): string
+    {
+        $template = str_replace('{{'.$field.'_size}}', $styles->{$field}->size, $template);
+        $template = str_replace('{{'.$field.'_align}}', Styles::alignBlock($styles->{$field}->align), $template);
+        $template = str_replace('{{'.$field.'_margin_top}}', $styles->{$field}->margin_top, $template);
+        $template = str_replace('{{'.$field.'_margin_bottom}}', $styles->{$field}->margin_bottom, $template);
         return $template;
     }
     

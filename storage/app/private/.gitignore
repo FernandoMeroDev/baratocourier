@@ -2,3 +2,7 @@
 !.gitignore
 !templates/
 !templates/**
+!users/
+!users/franchisee/
+!users/franchisee/logos/
+!users/franchisee/logos/example.webp

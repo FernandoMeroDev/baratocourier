@@ -1,7 +1,7 @@
 @use('Database\Seeders\Data\USAStates')
 
 <div>
-    <form wire:submit="update" class="space-y-6">
+    <form x-on:edited-franchisee.window="$refresh" wire:submit="update" class="space-y-6">
         
         <x-users.update.base-form />
 
@@ -102,4 +102,13 @@
 
         <flux:error name="form.*" />
     </form>
+
+    <hr class="my-10">
+
+    <div>
+        <flux:heading size="lg">Personalizar diseño de Guía</flux:heading>
+        <flux:text class="mt-2">Personalize el diseño de la guía del franquiciado.</flux:text>
+
+        <livewire:users.franchisee.edit.waybill :franchisee="$form->franchisee" />
+    </div>
 </div>

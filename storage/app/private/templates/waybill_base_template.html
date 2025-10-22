@@ -16,102 +16,27 @@
         /* General Styles */
         .root {
             text-align: center;
-        }
-
-        .root > p, .root > div {
-            margin-top: 5px;
-            margin-bottom: 5px;
+            padding: 5px;
         }
 
         /* Logo */
         .logo-container {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto;
+            width: {{logo_size}}px;
+            height: {{logo_size}}px;
+            {{logo_align}}
         }
 
         .logo, .no-logo {
-            margin-top: 0;
-            width: 150px;
-            height: 150px;
+            margin-top: {{logo_margin_top}};
+            margin-bottom: {{logo_margin_bottom}};
+            width: {{logo_size}}px;
+            height: {{logo_size}}px;
         }
 
-        .logo { border-radius: 10px; }
+        /* .logo { border-radius: 10px; } */
 
         .no-logo {
             font-size: 30px;
             font-weight: 600;
             margin: 0;
         }
-
-        /* Text variables */
-        .courier-name {
-            font-size: 20px;
-        }
-
-        .address {
-            font-size: 10px;
-        }
-
-        .phone-number {
-            font-size: 15px;
-        }
-
-        .barcode {
-            font-size: 20px;
-        }
-
-        .guide-domain {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .waybill-number {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .waybill-text-reference {
-            font-size: 15px;
-        }
-
-        .weight {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .created_at {
-            font-size: 10px;
-        }
-
-        .tracking-number {
-            font-size: 10px;
-        }
-
-        .reference {
-            font-size: 15px;
-        }
-
-        .category {
-            font-size: 15px;
-        }
-
-        .shipping-address {
-            font-size: 15px;
-            font-weight: bold;
-        }
-
-        .shipping-method {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .client-code {
-            font-size: 20px;
-            font-weight: bold;
-        }
-
-        .client-name {
-            font-size: 15px;
-        }
-    </style>

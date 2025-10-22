@@ -39,6 +39,7 @@ class StoreForm extends BaseStoreForm
             $validated['zip_code']
         );
         $validated['logo'] = $this->saveLogo();
+        $validated['waybill_styles'] = json_encode(Franchisee::defaultWaybillStyles());
         Franchisee::create($validated);
     }
 
