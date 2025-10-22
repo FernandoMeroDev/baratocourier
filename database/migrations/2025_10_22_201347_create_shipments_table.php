@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('shipments', function (Blueprint $table) {
             $table->id();
             $table->string('number', 50);
-            $table->dateTime('shipment_datetime');
-            $table->dateTime('upshipment_datetime');
+            $table->date('shipping_date');
+            $table->string('reference');
+            $table->dateTime('shipment_datetime')->nullable();
+            $table->dateTime('upshipment_datetime')->nullable();
             $table->string('status', 50);
             $table->date('arrival_min_date');
             $table->date('arrival_max_date');

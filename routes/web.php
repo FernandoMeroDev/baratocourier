@@ -14,6 +14,7 @@ use App\Livewire\Clients\Edit\Main as ClientEdit;
 use App\Livewire\Packages\Create\Main as PackageCreate;
 use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
+use App\Livewire\Shipments\Create as ShipmentCreate;
 use App\Livewire\Shipments\Index as ShipmentIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
@@ -75,5 +76,5 @@ Route::middleware(['auth', 'can:packages'])->group(function () {
 
 Route::middleware(['auth', 'can:shipments'])->group(function () {
     Route::get('/embarques', ShipmentIndex::class)->name('shipments.index');
-    Route::get('/embarques/crear', fn() => 'Crear Embarque...')->name('shipments.create');
+    Route::get('/embarques/crear', ShipmentCreate::class)->name('shipments.create');
 });

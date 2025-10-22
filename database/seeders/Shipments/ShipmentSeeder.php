@@ -14,7 +14,7 @@ class ShipmentSeeder extends Seeder
      */
     public function run(): void
     {
-        $shipment = Shipment::factory()->create();
+        $shipment = Shipment::factory(20)->create()->get(0);
         $bag = ShippingBag::create([
             'number' => 1,
             'shipment_id' => $shipment->id

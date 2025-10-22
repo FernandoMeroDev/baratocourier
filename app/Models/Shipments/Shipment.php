@@ -14,6 +14,8 @@ class Shipment extends Model
 
     protected $fillable = [
         'number',
+        'shipping_date',
+        'reference',
         'shipment_datetime',
         'upshipment_datetime',
         'status',
@@ -21,6 +23,12 @@ class Shipment extends Model
         'arrival_max_date',
         'shipment_type_id',
         'user_id',
+    ];
+
+    public static array $valid_statuses = [
+        'shipment' => 'Embarcado', 
+        'unshipment' => 'Sin Embarcar', 
+        'landed' => 'Desembarcado'
     ];
 
     public function user(): BelongsTo

@@ -1,3 +1,5 @@
+@use('App\Models\Shipments\Shipment')
+
 <div>
     <flux:heading size="lg">Embarques</flux:heading>
 
@@ -35,15 +37,16 @@
                     {{$shipment->number}}
                 </td>
                 <td class="p-3">
-                    {{$shipment->shipment_datetime}}
+                    {{$shipment->shipping_date}}
                 </td>
                 <td class="p-3">
                     {{$shipment->user->name}}
                 </td>
                 <td class="p-3">
                     <span
-                        @if($shipment->status == 'Embarcado') class="bg-green-500 text-white p-1 rounded" 
-                        @elseif($shipment->status == 'Desembarcado') class="bg-black text-white p-1 rounded" @endif
+                        @if($shipment->status == Shipment::$valid_statuses['shipment']) class="bg-green-500 text-white p-1 rounded" 
+                        @elseif($shipment->status == Shipment::$valid_statuses['unshipment']) class="bg-blue-500 text-white p-1 rounded" 
+                        @elseif($shipment->status == Shipment::$valid_statuses['landed']) class="bg-black text-white p-1 rounded" @endif
                     >{{$shipment->status}}</span>
                 </td>
                 <td class="p-3">
