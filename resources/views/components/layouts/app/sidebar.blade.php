@@ -1,3 +1,4 @@
+@use('App\Permissions\Data')
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
@@ -11,7 +12,7 @@
                 <x-app-logo />
             </a>
 
-            @canany(['clients', 'packages'])
+            @canany(Data::$permissions)
             <flux:navlist variant="outline">
                 @can('packages')
                 <flux:navlist.group 
@@ -20,6 +21,19 @@
                 >
                     <flux:navlist.item icon="plus" :href="route('packages.create')" :current="request()->routeIs('packages.create')">
                         Registro de Paquetes
+                    </flux:navlist.item>
+                </flux:navlist.group>
+                @endcan
+                @can('shipments')
+                <flux:navlist.group 
+                    heading="Embarques" expandable class="grid"
+                    :expanded="request()->routeIs(['shipments.*'])"
+                >
+                    <flux:navlist.item icon="plus" :href="route('shipments.create')" :current="request()->routeIs('shipments.create')">
+                        Crear Embarque
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="plus" :href="route('shipments.index')" :current="request()->routeIs('shipments.index')">
+                        Archivos de Embarques
                     </flux:navlist.item>
                 </flux:navlist.group>
                 @endcan

@@ -14,6 +14,7 @@ use App\Livewire\Clients\Edit\Main as ClientEdit;
 use App\Livewire\Packages\Create\Main as PackageCreate;
 use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
+use App\Livewire\Shipments\Index as ShipmentIndex;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Livewire\Users\Franchisee\Edit\Main as UserFranchiseeEdit;
@@ -70,4 +71,9 @@ Route::middleware(['auth', 'can:packages'])->group(function () {
     Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
     Route::get('/paquetes/crear-multiples', PackageCreateMultiple::class)->name('packages.create-multiple');
     Route::get('/paquetes/{package}/descargar', PackageDownloadController::class)->name('packages.download');
+});
+
+Route::middleware(['auth', 'can:shipments'])->group(function () {
+    Route::get('/embarques', ShipmentIndex::class)->name('shipments.index');
+    Route::get('/embarques/crear', fn() => 'Crear Embarque...')->name('shipments.create');
 });

@@ -5,8 +5,6 @@ namespace Database\Seeders\Shipments;
 use App\Models\Packages\Waybills\Waybill;
 use App\Models\Shipments\Shipment;
 use App\Models\Shipments\ShippingBag;
-use App\Models\User\Franchisee;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ShipmentSeeder extends Seeder

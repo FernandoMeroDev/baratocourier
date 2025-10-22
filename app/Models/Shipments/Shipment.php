@@ -30,7 +30,7 @@ class Shipment extends Model
 
     public function type(): BelongsTo
     {
-        return $this->belongsTo(ShipmentType::class);
+        return $this->belongsTo(ShipmentType::class, 'shipment_type_id', 'id');
     }
 
     public function bags(): HasMany
