@@ -15,7 +15,7 @@ class Waybills extends Component
 
     public Collection $waybills;
 
-    #[Validate('required|exists:waybills,id', attribute: 'Número de Guía')]
+    #[Validate('required|string', attribute: 'Número de Guía')]
     public $waybill_id;
 
     public function render()
@@ -33,8 +33,8 @@ class Waybills extends Component
     public function addWaybill()
     {
         $this->validate();
-        if($this->waybills->contains($this->waybill_id)) return;
-        $waybill = Waybill::find($this->waybill_id);
+        $waybill = Waybill::findReadableNumber($this->waybill_id);
+        if($this->waybills->contains($waybill)) return;
         if( ! is_null($waybill->shipping_bag_id)) return;
         $waybill->update([
             'shipping_bag_id' => $this->bag->id

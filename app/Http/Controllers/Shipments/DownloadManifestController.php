@@ -7,7 +7,7 @@ use App\Models\Packages\Package;
 use App\Models\Shipments\Shipment;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xls; // o Xlsx
+use PhpOffice\PhpSpreadsheet\Writer\Xls;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 
@@ -45,7 +45,7 @@ class DownloadManifestController extends Controller
         $i = 2;
         foreach($shipment->waybills() as $waybill){
             // Client Code
-            $sheet->setCellValue('A'.$i, $waybill->package->guide_domain . $waybill->package->client_code);
+            $sheet->setCellValue('A'.$i, $waybill->package->client_domain . $waybill->package->client_code);
             // Bag Number
             $sheet->setCellValue('B'.$i, $waybill->shippingBag->number);
             // Tracking Number

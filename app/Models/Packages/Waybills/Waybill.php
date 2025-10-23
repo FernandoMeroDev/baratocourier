@@ -26,6 +26,11 @@ class Waybill extends Model
 
     public $timestamps = false;
 
+    public static function findReadableNumber(string $readable_number): ?Waybill
+    {
+        return Waybill::find(substr($readable_number, -6));
+    }
+
     public function readable_number(): string
     {
         return $this->package->guide_domain . $this->formatSequential($this->waybill_number);

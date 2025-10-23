@@ -29,22 +29,6 @@ class Main extends Component
         $error = null;
         if($waybills->isEmpty())
             $error = ['type' => 'empty'];
-        elseif($waybills->isNotEmpty()){
-            // Obtenemos todos los paquetes que han sido embarcados
-            $packages = $this->shipment->packages();
-            foreach($packages as $package){
-                foreach($package->waybills as $package_waybill){
-                    // Recorremos las guias de cada paquete para verificar
-                    // que han sido embarcadas.
-                    // Si han sido embarcadas
-                    if( ! $waybills->contains($package_waybill)){
-                        $error['type'] = 'missed_waybill';
-                        $error['message'] = 'La Guía ' . $package_waybill->readable_number() . ' no ha sido embarcada.';
-                        break 2;
-                    }
-                }
-            }
-        }
         if( ! is_null($error)){
             $error = match($error['type']){
                 'empty' => 'No ha embarcado ninguna guía',
@@ -57,7 +41,8 @@ class Main extends Component
                 'shipment_datetime' => now(),
                 'status' => Shipment::$valid_statuses['shipment']
             ]);
-            // Cambia el estado de las guias a 'en transito' 
+            // Cambia el estado de las guias (paquete) a 'en transito' 
+            $packages = $this->shipment->packages();
             foreach($packages as $package)
                 $package->update(['status' => Package::$valid_statuses['transit']]);
             $this->redirect(route('shipments.index'));

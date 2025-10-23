@@ -45,7 +45,7 @@ class DownloadController extends Controller
     {
         $barcodeGenerator = new BarcodeGeneratorPNG();
         $barcodeBinary = $barcodeGenerator->getBarcode(
-            $this->formatSequential($waybill->id, 6), $barcodeGenerator::TYPE_CODE_128
+            $waybill->readable_number(), $barcodeGenerator::TYPE_CODE_128
         );
         $base64 = base64_encode($barcodeBinary);
         $data = 'data:image/png;base64,' . $base64;
