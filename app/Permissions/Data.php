@@ -15,6 +15,7 @@ class Data
         'clients',
         'packages',
         'shipments',
+        'waybills',
     ];
 
     public static array $roleTranslations = [
@@ -28,5 +29,6 @@ class Data
         'clients' => 'Clientes',
         'packages' => 'Paquetes',
         'shipments' => 'Embarques',
+        'waybills' => 'Guías',
     ];
 }

@@ -14,14 +14,21 @@
 
             @canany(Data::$permissions)
             <flux:navlist variant="outline">
-                @can('packages')
+                @canany(['packages', 'waybills'])
                 <flux:navlist.group 
                     heading="Bodega" expandable class="grid"
-                    :expanded="request()->routeIs(['packages.*'])"
+                    :expanded="request()->routeIs(['packages.*', 'waybills.*'])"
                 >
+                    @can('packages')
                     <flux:navlist.item icon="plus" :href="route('packages.create')" :current="request()->routeIs('packages.create')">
                         Registro de Paquetes
                     </flux:navlist.item>
+                    @endcan
+                    @can('waybills')
+                    <flux:navlist.item icon="folder-open" :href="route('waybills.index')" :current="request()->routeIs('waybills.index')">
+                        Archivo de Guías
+                    </flux:navlist.item>
+                    @endcan
                 </flux:navlist.group>
                 @endcan
                 @can('shipments')
@@ -32,8 +39,8 @@
                     <flux:navlist.item icon="plus" :href="route('shipments.create')" :current="request()->routeIs('shipments.create')">
                         Crear Embarque
                     </flux:navlist.item>
-                    <flux:navlist.item icon="plus" :href="route('shipments.index')" :current="request()->routeIs('shipments.index')">
-                        Archivos de Embarques
+                    <flux:navlist.item icon="folder-open" :href="route('shipments.index')" :current="request()->routeIs('shipments.index')">
+                        Archivo de Embarques
                     </flux:navlist.item>
                 </flux:navlist.group>
                 @endcan

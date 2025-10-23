@@ -21,6 +21,7 @@ use App\Livewire\Shipments\Ship\Main as ShipmentShip;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Livewire\Users\Franchisee\Edit\Main as UserFranchiseeEdit;
+use App\Livewire\Waybills\Index as WaybillIndex;
 use Illuminate\Support\Facades\Storage;
 
 Route::get('/', fn () => redirect('/login'))->name('home');
@@ -74,6 +75,10 @@ Route::middleware(['auth', 'can:packages'])->group(function () {
     Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
     Route::get('/paquetes/crear-multiples', PackageCreateMultiple::class)->name('packages.create-multiple');
     Route::get('/paquetes/{package}/descargar', PackageDownloadController::class)->name('packages.download');
+});
+
+Route::middleware(['auth', 'can:waybills'])->group(function () {
+    Route::get('/paquetes/guias', WaybillIndex::class)->name('waybills.index');
 });
 
 Route::middleware(['auth', 'can:shipments'])->group(function () {

@@ -1,7 +1,7 @@
 @use('App\Models\Shipments\Shipment')
 
 <div>
-    <flux:heading size="lg">Embarques</flux:heading>
+    <flux:heading size="lg">Archivo de Embarques</flux:heading>
 
     <flux:input type="text" placeholder="Buscar" wire:model.live="search" class="mt-3" />
 
