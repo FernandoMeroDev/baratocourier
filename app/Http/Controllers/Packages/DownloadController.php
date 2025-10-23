@@ -7,13 +7,18 @@ use App\Models\Packages\Package;
 use App\Models\Packages\Waybills\Fields;
 use App\Models\Packages\Waybills\PersonalData;
 use App\Models\Packages\Waybills\Styles;
+use App\Models\Packages\Waybills\Waybill;
+use App\Models\traits\SequentialFormater;
 use App\Models\User\Franchisee;
 use Dompdf\Dompdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Picqer\Barcode\BarcodeGeneratorPNG;
 
 class DownloadController extends Controller
 {
+    use SequentialFormater;
+
     private ?Franchisee $styler = null;
 
     public function __invoke(Package $package, Request $request)
@@ -34,6 +39,17 @@ class DownloadController extends Controller
         return response($dompdf->output(), 200)
             ->header('Content-Type', 'application/pdf')
             ->header('Content-Disposition', 'inline; filename="'.$filename.'"');
+    }
+
+    private function barcode(Waybill $waybill): string
+    {
+        $barcodeGenerator = new BarcodeGeneratorPNG();
+        $barcodeBinary = $barcodeGenerator->getBarcode(
+            $this->formatSequential($waybill->id, 6), $barcodeGenerator::TYPE_CODE_128
+        );
+        $base64 = base64_encode($barcodeBinary);
+        $data = 'data:image/png;base64,' . $base64;
+        return "<img class=\"barcode\" src=\"$data\" />";
     }
 
     private function generateHTML(Package $package): string
@@ -67,9 +83,9 @@ class DownloadController extends Controller
             $waybill_template = str_replace(
                 '{{phone_number}}', $waybill->personalData->phone_number, $waybill_template
             );
-            // [TODO] Add Barcode here
+            $waybill_template = str_replace('{{barcode}}', $this->barcode($waybill), $waybill_template);
             $waybill_template = str_replace('{{guide_domain}}', $package->guide_domain, $waybill_template);
-            $waybill_template = str_replace('{{waybill_number}}', $this->formatSequeltial($waybill->waybill_number, 6), $waybill_template);
+            $waybill_template = str_replace('{{waybill_number}}', $this->formatSequential($waybill->waybill_number, 6), $waybill_template);
             $waybill_template = str_replace('{{waybill_text_reference}}', $user->franchisee->waybill_text_reference, $waybill_template);
             $waybill_template = str_replace('{{weight}}', $waybill->weight, $waybill_template);
             $waybill_template = str_replace('{{created_at}}', $package->created_at, $waybill_template);
@@ -120,6 +136,7 @@ class DownloadController extends Controller
         $template = $this->stylizeText('courier_name', $template, $styles);
         $template = $this->stylizeText('address', $template, $styles);
         $template = $this->stylizeText('phone_number', $template, $styles);
+        $template = $this->stylizeBlock('barcode', $template, $styles);
         $template = $this->stylizeText('guide_domain', $template, $styles);
         $template = $this->stylizeText('waybill_number', $template, $styles);
         $template = $this->stylizeText('waybill_text_reference', $template, $styles);
@@ -169,10 +186,5 @@ class DownloadController extends Controller
         $firstname = preg_split('/\s+/', $data->name)[0];
         $lastname = preg_split('/\s+/', $data->lastname)[0];
         return $firstname . ' ' . $lastname;
-    }
-
-    private function formatSequeltial(int $number, int $padding): string 
-    {
-        return mb_str_pad((string) $number, $padding, '0', STR_PAD_LEFT);
     }
 }

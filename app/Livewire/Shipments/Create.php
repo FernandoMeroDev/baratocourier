@@ -19,6 +19,7 @@ class Create extends Component
 
     public function store()
     {
-        $this->form->store();
+        $shipment = $this->form->store();
+        $this->redirect(route('shipments.ship', $shipment->id));
     }
 }

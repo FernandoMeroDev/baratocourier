@@ -22,6 +22,6 @@ class PersonalData extends Model
 
     public function waybill(): BelongsTo
     {
-        return $this->belongsTo(Waybill::class);
+        return $this->belongsTo(Waybill::class, 'waybill_id');
     }
 }

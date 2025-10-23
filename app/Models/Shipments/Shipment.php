@@ -2,7 +2,11 @@
 
 namespace App\Models\Shipments;
 
+use App\Models\Packages\Package;
+use App\Models\Packages\Waybills\Waybill;
+use App\Models\traits\SequentialFormater;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -10,7 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shipment extends Model
 {
-    use HasFactory;
+    use HasFactory, SequentialFormater;
 
     protected $fillable = [
         'number',
@@ -31,6 +35,11 @@ class Shipment extends Model
         'landed' => 'Desembarcado'
     ];
 
+    public function readable_number(): string
+    {
+        return $this->user->franchisee->client_domain . $this->formatSequential($this->number);
+    }
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
@@ -44,5 +53,31 @@ class Shipment extends Model
     public function bags(): HasMany
     {
         return $this->hasMany(ShippingBag::class);
+    }
+
+    public function packages(): Collection
+    {
+        return Package::join('waybills', 'waybills.package_id', '=','packages.id')
+            ->join('shipping_bags', 'shipping_bags.id', '=', 'waybills.shipping_bag_id')
+            ->join('shipments', 'shipments.id', '=', 'shipping_bags.shipment_id')
+            ->select('packages.*')->groupBy('packages.id')
+            ->where('shipments.id', $this->id)->get();
+    }
+
+    public function waybills(): Collection
+    {
+        return Waybill::join('shipping_bags', 'shipping_bags.id', '=', 'waybills.shipping_bag_id')
+            ->join('shipments', 'shipments.id', '=', 'shipping_bags.shipment_id')
+            ->select('waybills.*')->groupBy('waybills.id')
+            ->where('shipments.id', $this->id)->get();
+    }
+
+    public function checkWaybill(Waybill $waybill): bool
+    {
+        $waybills = Waybill::join('shipping_bags', 'shipping_bags.id', '=', 'waybills.shipping_bag_id')
+            ->join('shipments', 'shipments.id', '=', 'shipping_bags.shipment_id')
+            ->select('waybills.*')->groupBy('waybills.id')
+            ->where('shipments.id', $this->id)->get();
+        return $waybills->contains($waybill->id);
     }
 }

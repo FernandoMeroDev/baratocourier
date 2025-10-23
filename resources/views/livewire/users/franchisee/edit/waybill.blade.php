@@ -32,7 +32,7 @@
             :field="'phone_number'"
             :label="'Número de teléfono'"
         />
-        <livewire:users.franchisee.edit.waybills.text
+        <livewire:users.franchisee.edit.waybills.block
             :$franchisee
             :field="'barcode'"
             :label="'Código de Barras'"

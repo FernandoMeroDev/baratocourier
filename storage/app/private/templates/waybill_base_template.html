@@ -26,17 +26,21 @@
             {{logo_align}}
         }
 
-        .logo, .no-logo {
+        .logo {
             margin-top: {{logo_margin_top}};
             margin-bottom: {{logo_margin_bottom}};
             width: {{logo_size}}px;
             height: {{logo_size}}px;
         }
 
-        /* .logo { border-radius: 10px; } */
+        /* Logo */
+        .barcode-container {
+            width: {{barcode_size}}px;
+            {{barcode_align}}
+        }
 
-        .no-logo {
-            font-size: 30px;
-            font-weight: 600;
-            margin: 0;
+        .barcode {
+            margin-top: {{barcode_margin_top}};
+            margin-bottom: {{barcode_margin_bottom}};
+            width: {{barcode_size}}px;
         }

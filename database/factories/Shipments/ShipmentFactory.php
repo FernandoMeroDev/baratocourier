@@ -19,12 +19,12 @@ class ShipmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'number' => fake()->randomNumber(),
+            'number' => fake()->numberBetween(1, 999999),
             'shipping_date' => fake()->date(),
             'reference' => fake()->sentence(),
             'shipment_datetime' => fake()->dateTime(),
             'upshipment_datetime' => fake()->dateTime(),
-            'status' => fake()->randomElement(Shipment::$valid_statuses),
+            'status' => Shipment::$valid_statuses['unshipment'],
             'arrival_min_date' => fake()->date(),
             'arrival_max_date' => fake()->date(),
             'shipment_type_id' => 1,

@@ -32,7 +32,7 @@ class StoreForm extends Form
     public function store()
     {
         $validated = $this->validate();
-        Shipment::create([
+        return Shipment::create([
             'number' => 1, // Como generar secuencial de los embarques?
             'shipping_date' => $validated['shipping_date'],
             'reference' => $validated['reference'],
@@ -42,6 +42,5 @@ class StoreForm extends Form
             'shipment_type_id' => $validated['shipment_type_id'],
             'user_id' => Auth::user()->id,
         ]);
-        $this->reset();
     }
 }

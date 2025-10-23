@@ -11,7 +11,7 @@ class ShippingBag extends Model
 {
     public $timestamps = false;
 
-    protected $fillable = ['number'];
+    protected $fillable = ['number', 'shipment_id'];
 
     public function shipment(): BelongsTo
     {

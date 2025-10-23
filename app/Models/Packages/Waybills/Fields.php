@@ -8,7 +8,7 @@ class Fields {
         'courier_name' => '<p class="courier-name">{{courier_name}}</p>',
         'address' => '<p class="address">{{address}}</p>',
         'phone_number' => '<p class="phone-number">{{phone_number}}</p>',
-        'barcode' => '<div class="barcode">{{barcode}}</div>',
+        'barcode' => '<div class="barcode-container">{{barcode}}</div>',
         'guide_domain' => '<p><span class="guide-domain">{{guide_domain}}</span>',
         'waybill_number' => '<span class="waybill-number">{{waybill_number}}</span></p>',
         'waybill_text_reference' => '<p class="waybill-text-reference">{{waybill_text_reference}}</p>',

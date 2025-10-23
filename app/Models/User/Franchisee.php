@@ -46,7 +46,7 @@ class Franchisee extends Model
             'courier_name' => (new TextStyles(2, 20))->buildArray(),
             'address' => (new TextStyles(3, 10))->buildArray(),
             'phone_number' => (new TextStyles(4, 15))->buildArray(),
-            'barcode' => (new TextStyles(5, 20))->buildArray(),
+            'barcode' => (new Styles(5, 200, margin_top: 0))->buildArray(),
             'guide_domain' => (new TextStyles(6, 20, font_weight: 'bold'))->buildArray(),
             'waybill_number' => (new TextStyles(7, 20, font_weight: 'bold'))->buildArray(),
             'waybill_text_reference' => (new TextStyles(8, 15))->buildArray(),

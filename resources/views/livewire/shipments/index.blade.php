@@ -7,7 +7,6 @@
 
     <x-table class="w-full my-3">
         <x-slot:thead>
-            <x-table.th></x-table.th>
             <x-table.th>
                 Nr. Embarque
             </x-table.th>
@@ -23,18 +22,13 @@
             <x-table.th>
                 Tipo
             </x-table.th>
+            <x-table.th>Acciones</x-table.th>
         </x-slot:thead>
 
         @forelse ($shipments as $shipment)
             <x-table.tr>
-                <td class="w-5 px-3 py-1">
-                    {{-- <a href="{{route('shipments.edit', $shipment->id)}}"> --}}
-                    <a href="#">
-                        <flux:button icon="pencil"></flux:button>
-                    </a>
-                </td>
                 <td class="p-3">
-                    {{$shipment->number}}
+                    {{$shipment->readable_number()}}
                 </td>
                 <td class="p-3">
                     {{$shipment->shipping_date}}
@@ -51,6 +45,24 @@
                 </td>
                 <td class="p-3">
                     {{$shipment->type->name}}
+                </td>
+                <td class="w-5 px-3 py-1">
+                    <div class="flex">
+                        <a 
+                            @if($shipment->status == Shipment::$valid_statuses['unshipment'])
+                                href="{{route('shipments.ship', $shipment->id)}}"
+                            @endif
+                            class="mr-2"
+                        >
+                            <flux:button
+                                :disabled="$shipment->status != Shipment::$valid_statuses['unshipment']"
+                                 variant="filled">Embarcar</flux:button>
+                        </a>
+                        {{-- <a href="{{route('shipments.edit', $shipment->id)}}"> --}}
+                        <a href="#">
+                            <flux:button icon="pencil"></flux:button>
+                        </a>
+                    </a>
                 </td>
             </x-table.tr>
         @empty
