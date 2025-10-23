@@ -58,7 +58,10 @@
                                 :disabled="$shipment->status != Shipment::$valid_statuses['unshipment']"
                                  variant="filled">Embarcar</flux:button>
                         </a>
-                        {{-- <a href="{{route('shipments.edit', $shipment->id)}}"> --}}
+                        <flux:button 
+                            :disabled="$shipment->status == Shipment::$valid_statuses['unshipment']"
+                            x-on:click="window.open('{{route('shipments.manifest', $shipment->id)}}')"
+                            icon="arrow-down-tray" class="mr-2"></flux:button>
                         <a href="#">
                             <flux:button icon="pencil"></flux:button>
                         </a>

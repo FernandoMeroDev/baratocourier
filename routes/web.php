@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Packages\DownloadController as PackageDownloadController;
+use App\Http\Controllers\Shipments\DownloadManifestController as ShipmentManifest;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -79,4 +80,5 @@ Route::middleware(['auth', 'can:shipments'])->group(function () {
     Route::get('/embarques', ShipmentIndex::class)->name('shipments.index');
     Route::get('/embarques/crear', ShipmentCreate::class)->name('shipments.create');
     Route::get('/embarques/{shipment}/embarcar', ShipmentShip::class)->name('shipments.ship');
+    Route::get('/embarques/{shipment}/manifiesto', ShipmentManifest::class)->name('shipments.manifest');
 });

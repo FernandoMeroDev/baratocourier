@@ -54,6 +54,7 @@ class Main extends Component
         } else {
             // Cambia el estado a embarcado
             $this->shipment->update([
+                'shipment_datetime' => now(),
                 'status' => Shipment::$valid_statuses['shipment']
             ]);
             // Cambia el estado de las guias a 'en transito' 

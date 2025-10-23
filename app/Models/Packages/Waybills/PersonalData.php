@@ -20,6 +20,11 @@ class PersonalData extends Model
 
     public $timestamps = false;
 
+    public function complete_name(): string
+    {
+        return $this->name . ' ' . $this->lastname;
+    }
+
     public function waybill(): BelongsTo
     {
         return $this->belongsTo(Waybill::class, 'waybill_id');

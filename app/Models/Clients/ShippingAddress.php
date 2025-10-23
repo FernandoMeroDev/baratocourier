@@ -59,6 +59,12 @@ class ShippingAddress extends Model
             'city_name' => $this->city_name,
             'province_name' => $this->province->name,
             'zip_code' => $this->zip_code,
+            'target' => [
+                'name' => $this->target->name,
+                'lastname' => $this->target->lastname,
+                'identity_card' => $this->target->identity_card,
+                'phone_number' => $this->target->phone_number
+            ]
         ]);
     }
 }

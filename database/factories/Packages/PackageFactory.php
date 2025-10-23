@@ -28,6 +28,12 @@ class PackageFactory extends Factory
                 'city_name' => 'Portoviejo',
                 'province_name' => 'Manabí',
                 'zip_code' => '132222',
+                'target' => [
+                    'name' => 'Nombre1 Nombre2',
+                    'lastname' => 'Apellido1 Apellido2',
+                    'identity_card' => '1350000000',
+                    'phone_number' => '0999999999'
+                ]
             ]),
             'reference'  => 'Texto de Referencia',
             'guide_domain' => 'BTC',

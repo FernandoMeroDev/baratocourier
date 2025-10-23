@@ -38,6 +38,16 @@ class Package extends Model
         'transit' => 'En Transito'
     ];
 
+    public function decodeShippingAddress(): object
+    {
+        return json_decode($this->shipping_address);
+    }
+
+    public function client_complete_name(): string
+    {
+        return $this->client_name . ' ' . $this->client_lastname;
+    }
+
     public function shop(): BelongsTo
     {
         return $this->belongsTo(Shop::class);
