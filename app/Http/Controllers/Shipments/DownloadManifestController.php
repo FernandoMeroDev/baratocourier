@@ -15,6 +15,8 @@ class DownloadManifestController extends Controller
 {
     use Columns;
 
+    protected Worksheet $sheet;
+
     public function __invoke(Shipment $shipment)
     {
         $filename = 'Manifiesto';
@@ -44,69 +46,87 @@ class DownloadManifestController extends Controller
         $this->writeHeaders($sheet);
         $i = 2;
         foreach($shipment->waybills() as $waybill){
+            // Client complete names
+            $this->writeCell($i, $waybill->package->client_complete_name());
+            // Client identity card
+            $this->writeCell($i, $waybill->package->client_identity_card);
             // Client Code
-            $sheet->setCellValue('A'.$i, $waybill->package->client_domain . $waybill->package->client_code);
+            $this->writeCell($i, $waybill->package->client_domain . $waybill->package->client_code);
             // Bag Number
-            $sheet->setCellValue('B'.$i, $waybill->shippingBag->number);
+            $this->writeCell($i, $waybill->shippingBag->number);
             // Tracking Number
-            $sheet->setCellValue('C'.$i, $waybill->package->tracking_number);
+            $this->writeCell($i, $waybill->package->tracking_number);
             // Waybill Number
-            $sheet->setCellValue('D'.$i, $waybill->readable_number());
+            $this->writeCell($i, $waybill->readable_number());
             // Package Category
-            $sheet->setCellValue('E'.$i, $waybill->package->category->name);
+            $this->writeCell($i, $waybill->package->category->name);
             if($waybill->package->category->code == 'g'){
                 // Sender identity card
-                $sheet->setCellValue('F'.$i, $waybill->package->client_identity_card);
+                $this->writeCell($i, $waybill->package->client_identity_card);
                 // Sender complete names
-                $sheet->setCellValue('G'.$i, $waybill->package->client_complete_name());
-            } else $sheet->setCellValue('F'.$i, '------------'); $sheet->setCellValue('G'.$i, '------------');
+                $this->writeCell($i, $waybill->package->client_complete_name());
+            } else {
+                $this->writeCell($i, '------------');
+                $this->writeCell($i, '------------');
+            }
             // Receiver identity card
-            $sheet->setCellValue('H'.$i, $waybill->personalData->identity_card);
+            $this->writeCell($i, $waybill->personalData->identity_card);
             // Receiver complete names
-            $sheet->setCellValue('I'.$i, $waybill->personalData->complete_name());
+            $this->writeCell($i, $waybill->personalData->complete_name());
             // Waybill Description
-            $sheet->setCellValue('J'.$i, $waybill->description);
+            $this->writeCell($i, $waybill->description);
             // Waybill items count
-            $sheet->setCellValue('K'.$i, $waybill->items_count);
+            $this->writeCell($i, $waybill->items_count);
             // Waybill price
-            $sheet->setCellValue('L'.$i, '$'.$waybill->price);
+            $this->writeCell($i, '$'.$waybill->price);
             // Shipping City - Province
             $address = $waybill->package->decodeShippingAddress();
-            $sheet->setCellValue('M'.$i, $address->city_name . ' - ' . $address->province_name);
+            $this->writeCell($i, $address->city_name . ' - ' . $address->province_name);
             // Shipping Method
-            $sheet->setCellValue('N'.$i, $waybill->package->shippingMethod->name);
+            $this->writeCell($i, $waybill->package->shippingMethod->name);
             // Shipping Address Line
-            $sheet->setCellValue('O'.$i, $address->line_1);
+            $this->writeCell($i, $address->line_1);
             // Shipping Target complete name
-            $sheet->setCellValue('P'.$i, $address->target->name . ' ' . $address->target->lastname);
+            $this->writeCell($i, $address->target->name . ' ' . $address->target->lastname);
             // Shipping Target identity card
-            $sheet->setCellValue('Q'.$i, $address->target->identity_card);
+            $this->writeCell($i, $address->target->identity_card);
             // Shipping Target phone number
-            $sheet->setCellValue('R'.$i, $address->target->phone_number);
+            $this->writeCell($i, $address->target->phone_number);
             // Shipment date
-            $sheet->setCellValue('S'.$i, date('d/m/Y', strtotime($shipment->shipment_datetime)));
+            $this->writeCell($i, date('d/m/Y', strtotime($shipment->shipment_datetime)));
             // Shipment time
-            $sheet->setCellValue('T'.$i, date("H:i:s", strtotime($shipment->shipment_datetime)));
+            $this->writeCell($i, date("H:i:s", strtotime($shipment->shipment_datetime)));
             // Unshipment date
             if( ! is_null($shipment->unshipment_datetime))
-                $sheet->setCellValue('U'.$i, date('d/m/Y', strtotime($shipment->unshipment_datetime)));
-            else $sheet->setCellValue('U'.$i, '------------');
+                $this->writeCell($i, date('d/m/Y', strtotime($shipment->unshipment_datetime)));
+            else $this->writeCell($i, '------------');
             // Unshipment time
             if( ! is_null($shipment->unshipment_datetime))
-                $sheet->setCellValue('V'.$i, date("H:i:s", strtotime($shipment->unshipment_datetime)));
-            else $sheet->setCellValue('V'.$i, '------------');
+                $this->writeCell($i, date("H:i:s", strtotime($shipment->unshipment_datetime)));
+            else $this->writeCell($i, '------------');
             // Shipment Status
-            $sheet->setCellValue('W'.$i, $shipment->status);
-            $this->styleShipmentStatus($sheet, $shipment->status, 'W'.$i);
+            $this->styleShipmentStatus($shipment->status, $i);
+            $this->writeCell($i, $shipment->status);
             // Package Status
-            $sheet->setCellValue('X'.$i, $waybill->package->status);
-            $this->stylePackageStatus($sheet, $waybill->package->status, 'X'.$i);
+            $this->stylePackageStatus($waybill->package->status, $i);
+            $this->writeCell($i, $waybill->package->status);
+            $this->current_letter_i = 0;
             $i++;
         }
     }
 
-    private function stylePackageStatus(Worksheet $sheet, string $satus, string $field): void
+    private function writeCell($i, $content)
     {
+        $this->sheet->setCellValue(
+            $this->letters[$this->current_letter_i].$i,
+            $content
+        );
+        $this->current_letter_i++;
+    }
+
+    private function stylePackageStatus(string $satus, int $i): void
+    {
+        $field = $this->letters[$this->current_letter_i] . $i;
         if($satus == Package::$valid_statuses['eeuu_warehouse']){
             $color = 'FF4BA5D1';
             $text_color = Color::COLOR_WHITE;
@@ -115,20 +135,21 @@ class DownloadManifestController extends Controller
             $text_color = Color::COLOR_BLACK;
         } else
             return; // Cancel operation
-        $sheet->getStyle($field)->getFont()->getColor()->setARGB($text_color);
-        $sheet->getStyle($field)->getFill()->setFillType(Fill::FILL_SOLID)
+        $this->sheet->getStyle($field)->getFont()->getColor()->setARGB($text_color);
+        $this->sheet->getStyle($field)->getFill()->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB($color); 
     }
 
-    private function styleShipmentStatus(Worksheet $sheet, string $satus, string $field): void
+    private function styleShipmentStatus(string $satus, int $i): void
     {
+        $field = $this->letters[$this->current_letter_i] . $i;
         if($satus == Shipment::$valid_statuses['unshipment'])
             $color = 'FF2B7FFF';
         elseif($satus == Shipment::$valid_statuses['shipment'])
             $color = 'FF00C951';
         else $color = 'FF000000';
-        $sheet->getStyle($field)->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
-        $sheet->getStyle($field)->getFill()->setFillType(Fill::FILL_SOLID)
+        $this->sheet->getStyle($field)->getFont()->getColor()->setARGB(Color::COLOR_WHITE);
+        $this->sheet->getStyle($field)->getFill()->setFillType(Fill::FILL_SOLID)
             ->getStartColor()->setARGB($color); 
     }
 
@@ -142,5 +163,6 @@ class DownloadManifestController extends Controller
             $i++;
         }
         $sheet->getStyle('A1:'.$col.'1')->getFont()->setBold(true);
+        $this->sheet = $sheet;
     }
 }

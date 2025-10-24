@@ -33,7 +33,7 @@ class Waybills extends Component
     public function addWaybill()
     {
         $this->validate();
-        $waybill = Waybill::findReadableNumber($this->waybill_id);
+        if(is_null($waybill = Waybill::findReadableNumber($this->waybill_id))) return;
         if($this->waybills->contains($waybill)) return;
         if( ! is_null($waybill->shipping_bag_id)) return;
         $waybill->update([
