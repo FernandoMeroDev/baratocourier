@@ -23,6 +23,9 @@
                     <flux:navlist.item icon="plus" :href="route('packages.create')" :current="request()->routeIs('packages.create')">
                         Registro de Paquetes
                     </flux:navlist.item>
+                    <flux:navlist.item icon="wallet" :href="route('packages.index')" :current="request()->routeIs('packages.index')">
+                        Mis Paquetes
+                    </flux:navlist.item>
                     @endcan
                     @can('waybills')
                     <flux:navlist.item icon="folder-open" :href="route('waybills.index')" :current="request()->routeIs('waybills.index')">

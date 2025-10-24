@@ -42,9 +42,12 @@ class Main extends Component
                 'status' => Shipment::$valid_statuses['shipment']
             ]);
             // Cambia el estado de las guias (paquete) a 'en transito' 
-            $packages = $this->shipment->packages();
+            $packages = $this->shipment->packagesByWaybills();
             foreach($packages as $package)
-                $package->update(['status' => Package::$valid_statuses['transit']]);
+                $package->update([
+                    'status' => Package::$valid_statuses['transit'],
+                    'shipment_id' => $this->shipment
+                ]);
             $this->redirect(route('shipments.index'));
         }
     }

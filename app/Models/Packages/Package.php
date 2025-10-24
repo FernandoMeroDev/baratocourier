@@ -3,6 +3,7 @@
 namespace App\Models\Packages;
 
 use App\Models\Packages\Waybills\Waybill;
+use App\Models\Shipments\Shipment;
 use App\Models\Shop;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -71,5 +72,10 @@ class Package extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+    
+    public function shipment(): BelongsTo
+    {
+        return $this->belongsTo(Shipment::class);
     }
 }

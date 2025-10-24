@@ -54,8 +54,13 @@ class Shipment extends Model
     {
         return $this->hasMany(ShippingBag::class);
     }
+    
+    public function packages(): HasMany
+    {
+        return $this->hasMany(Package::class);
+    }
 
-    public function packages(): Collection
+    public function packagesByWaybills(): Collection
     {
         return Package::join('waybills', 'waybills.package_id', '=','packages.id')
             ->join('shipping_bags', 'shipping_bags.id', '=', 'waybills.shipping_bag_id')

@@ -15,6 +15,7 @@ use App\Livewire\Clients\Edit\Main as ClientEdit;
 use App\Livewire\Packages\Create\Main as PackageCreate;
 use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
+use App\Livewire\Packages\Index as PackageIndex;
 use App\Livewire\Shipments\Create as ShipmentCreate;
 use App\Livewire\Shipments\Index as ShipmentIndex;
 use App\Livewire\Shipments\Ship\Main as ShipmentShip;
@@ -71,6 +72,7 @@ Route::middleware(['auth', 'can:clients'])->group(function () {
 });
 
 Route::middleware(['auth', 'can:packages'])->group(function () {
+    Route::get('/paquetes', PackageIndex::class)->name('packages.index');
     Route::get('/paquetes/seleccionar-cliente', PackageChooseClient::class)->name('packages.choose-client');
     Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
     Route::get('/paquetes/crear-multiples', PackageCreateMultiple::class)->name('packages.create-multiple');

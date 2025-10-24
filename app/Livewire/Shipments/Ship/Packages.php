@@ -15,7 +15,7 @@ class Packages extends Component
     public function mount(Shipment $shipment)
     {
         $this->shipment = $shipment;
-        $this->packages = $shipment->packages();
+        $this->packages = $shipment->packagesByWaybills();
     }
 
     public function render()
@@ -25,6 +25,6 @@ class Packages extends Component
 
     public function refreshPackages()
     {
-        $this->packages = $this->shipment->packages();
+        $this->packages = $this->shipment->packagesByWaybills();
     }
 }
