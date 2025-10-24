@@ -85,6 +85,7 @@ class StoreForm extends Form
                 $person = FamilyCoreMember::find($validated['person_id']);
                 $personal_data['name'] = $person->names;
                 $personal_data['lastname'] = $person->lastnames;
+                $person->update(['last_use_at' => now()]);
                 break;
         }
         $personal_data['phone_number'] = $user->franchisee->phone_number;

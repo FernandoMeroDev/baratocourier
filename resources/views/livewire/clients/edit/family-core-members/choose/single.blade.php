@@ -1,6 +1,14 @@
 <div>
-    <div class="mb-6">
+    <div class="mb-3">
         <flux:text class="mt-2">Carpeta de núcleo familiar del Cliente.</flux:text>
+    </div>
+
+    <div class="mb-3">
+        <flux:field variant="inline">
+            <flux:checkbox wire:model.live="use_all" />
+            <flux:label>Buscar los miembros de todos los clientes.</flux:label>
+            <flux:error name="terms" />
+        </flux:field>
     </div>
 
     <div class="flex mb-3">
@@ -8,8 +16,8 @@
         <flux:select title="Seleccione para ordenar y buscar por campo" wire:model.live="search_field" placeholder="Ordenar por...">
             <flux:select.option value="names">Nombres</flux:select.option>
             <flux:select.option value="lastnames">Apellidos</flux:select.option>
-            <flux:select.option selected value="identity_card">Cédula</flux:select.option>
-            <flux:select.option selected value="last_use_at">Último uso</flux:select.option>
+            <flux:select.option value="identity_card">Cédula</flux:select.option>
+            <flux:select.option value="last_use_at">Último uso</flux:select.option>
         </flux:select>
     </div>
 

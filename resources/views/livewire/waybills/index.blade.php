@@ -25,7 +25,6 @@
         @forelse ($waybills as $waybill)
             <x-table.tr>
                 <td class="p-3">
-                    {{-- {{date('Y-m-d H:i:s', )}} --}}
                     {{$waybill->package->created_at}}
                 </td>
                 <td class="p-3 text-blue-500 underline">
@@ -39,6 +38,10 @@
                 </td>
                 <td class="w-5 px-3 py-1">
                     <div class="flex">
+                        <flux:button 
+                            x-on:click="window.open('{{route('packages.download', $waybill->package->id)}}')"
+                            icon="arrow-down-tray" class="mr-2"
+                        ></flux:button>
                         <a href="#" class="mr-2">
                             <flux:button icon="pencil"></flux:button>
                         </a>
