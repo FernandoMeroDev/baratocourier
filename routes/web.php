@@ -15,6 +15,7 @@ use App\Livewire\Clients\Edit\Main as ClientEdit;
 use App\Livewire\Packages\Create\Main as PackageCreate;
 use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
+use App\Livewire\Packages\Edit as EditPackage;
 use App\Livewire\Packages\Index as PackageIndex;
 use App\Livewire\Shipments\Create as ShipmentCreate;
 use App\Livewire\Shipments\Index as ShipmentIndex;
@@ -77,6 +78,7 @@ Route::middleware(['auth', 'can:packages'])->group(function () {
     Route::get('/paquetes/crear', PackageCreate::class)->name('packages.create');
     Route::get('/paquetes/crear-multiples', PackageCreateMultiple::class)->name('packages.create-multiple');
     Route::get('/paquetes/{package}/descargar', PackageDownloadController::class)->name('packages.download');
+    Route::get('/paquetes/{package}/editar', EditPackage::class)->name('packages.edit');
 });
 
 Route::middleware(['auth', 'can:waybills'])->group(function () {

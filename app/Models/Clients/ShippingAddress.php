@@ -26,6 +26,33 @@ class ShippingAddress extends Model
 
     public $timestamps = false;
 
+    public static function buildJSONAddress(
+        $line_1,
+        $line_2,
+        $city_name,
+        $province_name,
+        $zip_code,
+        $target_name,
+        $target_lastname,
+        $target_identity_card,
+        $target_phone_number
+    ): string
+    {
+        return json_encode([
+            'line_1' => $line_1,
+            'line_2' => $line_2,
+            'city_name' => $city_name,
+            'province_name' => $province_name,
+            'zip_code' => $zip_code,
+            'target' => [
+                'name' => $target_name,
+                'lastname' => $target_lastname,
+                'identity_card' => $target_identity_card,
+                'phone_number' => $target_phone_number
+            ]
+        ]);
+    }
+
     public function province(): BelongsTo
     {
         return $this->belongsTo(Province::class);

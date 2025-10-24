@@ -29,7 +29,7 @@
                     @endforeach
                 </flux:select>
 
-                <flux:error name="form.state" />
+                <flux:error name="form.province_id" />
             </flux:field>
 
             <flux:input wire:model="form.city_name" label="Ciudad" maxlength="255" />
