@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Packages\DownloadController as PackageDownloadController;
 use App\Http\Controllers\Shipments\DownloadManifestController as ShipmentManifest;
+use App\Http\Controllers\Shipments\Land\DownloadReportController as ShipmentLandReport;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -94,5 +95,5 @@ Route::middleware(['auth', 'can:shipments'])->group(function () {
     Route::get('/embarques/{shipment}/embarcar', ShipmentShip::class)->name('shipments.ship');
     Route::get('/embarques/{shipment}/manifiesto', ShipmentManifest::class)->name('shipments.manifest');
     Route::get('/embarques/{shipment}/desembarcar', ShipmentLand::class)->name('shipments.land');
-    Route::get('/embarques/{shipment}/reporte-desembarque', fn() => 'Reporte desembarque.')->name('shipments.landed-report');
+    Route::get('/embarques/{shipment}/reporte-desembarque', ShipmentLandReport::class)->name('shipments.landed-report');
 });

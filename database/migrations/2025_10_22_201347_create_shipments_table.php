@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('shipping_date');
             $table->string('reference');
             $table->dateTime('shipment_datetime')->nullable()->default(null);
-            $table->dateTime('upshipment_datetime')->nullable()->default(null);
+            $table->dateTime('unshipment_datetime')->nullable()->default(null);
             $table->string('status', 50);
             $table->date('arrival_min_date');
             $table->date('arrival_max_date');

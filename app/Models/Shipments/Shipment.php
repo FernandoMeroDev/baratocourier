@@ -21,7 +21,7 @@ class Shipment extends Model
         'shipping_date',
         'reference',
         'shipment_datetime',
-        'upshipment_datetime',
+        'unshipment_datetime',
         'status',
         'arrival_min_date',
         'arrival_max_date',

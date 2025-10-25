@@ -23,7 +23,7 @@ class ShipmentFactory extends Factory
             'shipping_date' => fake()->date(),
             'reference' => fake()->sentence(),
             // 'shipment_datetime' => fake()->dateTime(),
-            // 'upshipment_datetime' => fake()->dateTime(),
+            // 'unshipment_datetime' => fake()->dateTime(),
             'status' => Shipment::$valid_statuses['unshipment'],
             'arrival_min_date' => fake()->date(),
             'arrival_max_date' => fake()->date(),

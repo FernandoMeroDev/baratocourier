@@ -28,7 +28,12 @@ class Waybill extends Model
 
     public static function findReadableNumber(string $readable_number): ?Waybill
     {
-        return Waybill::find(substr($readable_number, -6));
+        // return Waybill::find(substr($readable_number, -6));
+        $waybill = Waybill::join('packages', 'packages.id', '=', 'waybills.package_id')
+            ->where('waybills.waybill_number', (int) substr($readable_number, -6))
+            ->where('packages.guide_domain', substr($readable_number, 0, -6))
+            ->first();
+        return $waybill;
     }
 
     public function readable_number(): string
