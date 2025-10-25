@@ -119,7 +119,7 @@
     </x-fieldset.simple>
 
     <div class="flex my-3">
-        <flux:button wire:click="land" variant="primary">Desembarcar</flux:button>
+        <flux:button wire:click="makeLand" variant="primary">Desembarcar</flux:button>
 
         <flux:spacer />
     </div>

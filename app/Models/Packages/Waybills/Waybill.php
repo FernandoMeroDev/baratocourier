@@ -2,6 +2,7 @@
 
 namespace App\Models\Packages\Waybills;
 
+use App\Models\Lands\Land;
 use App\Models\Packages\Package;
 use App\Models\Shipments\ShippingBag;
 use App\Models\traits\SequentialFormater;
@@ -22,7 +23,8 @@ class Waybill extends Model
         'items_count',
         'description',
         'package_id',
-        'shipping_bag_id'
+        'shipping_bag_id',
+        'land_id'
     ];
 
     public $timestamps = false;
@@ -62,5 +64,10 @@ class Waybill extends Model
     public function shippingBag(): BelongsTo
     {
         return $this->belongsTo(ShippingBag::class);
+    }
+
+    public function land(): BelongsTo
+    {
+        return $this->belongsTo(Land::class);
     }
 }

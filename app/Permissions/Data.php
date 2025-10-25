@@ -15,6 +15,7 @@ class Data
         'clients',
         'packages',
         'shipments',
+        'lands',
         'waybills',
     ];
 
@@ -29,6 +30,7 @@ class Data
         'clients' => 'Clientes',
         'packages' => 'Paquetes',
         'shipments' => 'Embarques',
+        'lands' => 'Desembarques',
         'waybills' => 'Guías',
     ];
 }

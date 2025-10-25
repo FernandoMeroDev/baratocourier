@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\Lands\DownloadReportController as LandReport;
 use App\Http\Controllers\Packages\DownloadController as PackageDownloadController;
 use App\Http\Controllers\Shipments\DownloadManifestController as ShipmentManifest;
-use App\Http\Controllers\Shipments\Land\DownloadReportController as ShipmentLandReport;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -13,6 +13,9 @@ use App\Livewire\Users\Index as UserIndex;
 use App\Livewire\Clients\Index as ClientIndex;
 use App\Livewire\Clients\Create as ClientCreate;
 use App\Livewire\Clients\Edit\Main as ClientEdit;
+use App\Livewire\Lands\Create as LandCreate;
+use App\Livewire\Lands\Index as LandIndex;
+use App\Livewire\Lands\Land\Main as Land;
 use App\Livewire\Packages\Create\Main as PackageCreate;
 use App\Livewire\Packages\CreateMultiple\Main as PackageCreateMultiple;
 use App\Livewire\Packages\ChooseClient as PackageChooseClient;
@@ -21,8 +24,6 @@ use App\Livewire\Packages\Index as PackageIndex;
 use App\Livewire\Shipments\Create as ShipmentCreate;
 use App\Livewire\Shipments\Index as ShipmentIndex;
 use App\Livewire\Shipments\Ship\Main as ShipmentShip;
-use App\Livewire\Shipments\Land\Main as ShipmentLand;
-use App\Livewire\Shipments\Land\Landeables as ShipmentLandeables;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Livewire\Users\Franchisee\Edit\Main as UserFranchiseeEdit;
@@ -90,10 +91,17 @@ Route::middleware(['auth', 'can:waybills'])->group(function () {
 
 Route::middleware(['auth', 'can:shipments'])->group(function () {
     Route::get('/embarques', ShipmentIndex::class)->name('shipments.index');
-    Route::get('/embarques/desembarcables', ShipmentLandeables::class)->name('shipments.landables');
+    // Route::get('/embarques/desembarcables', ShipmentLandeables::class)->name('shipments.landables');
     Route::get('/embarques/crear', ShipmentCreate::class)->name('shipments.create');
     Route::get('/embarques/{shipment}/embarcar', ShipmentShip::class)->name('shipments.ship');
     Route::get('/embarques/{shipment}/manifiesto', ShipmentManifest::class)->name('shipments.manifest');
-    Route::get('/embarques/{shipment}/desembarcar', ShipmentLand::class)->name('shipments.land');
-    Route::get('/embarques/{shipment}/reporte-desembarque', ShipmentLandReport::class)->name('shipments.landed-report');
+    // Route::get('/embarques/{shipment}/desembarcar', ShipmentLand::class)->name('shipments.land');
+    // Route::get('/embarques/{shipment}/reporte-desembarque', ShipmentLandReport::class)->name('shipments.landed-report');
+});
+
+Route::middleware(['auth', 'can:lands'])->group(function () {
+    Route::get('/desembarques', LandIndex::class)->name('lands.index');
+    Route::get('/desembarques/crear', LandCreate::class)->name('lands.create');
+    Route::get('/desembarques/{land}/desembarcar', Land::class)->name('lands.land');
+    Route::get('/desembarques/{land}/reporte-desembarque', LandReport::class)->name('lands.land-report');
 });

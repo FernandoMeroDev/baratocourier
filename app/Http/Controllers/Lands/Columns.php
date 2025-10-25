@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Shipments\Land;
+namespace App\Http\Controllers\Lands;
 
 trait Columns
 {

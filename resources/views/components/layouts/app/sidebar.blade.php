@@ -34,22 +34,25 @@
                     @endcan
                 </flux:navlist.group>
                 @endcan
-                @can('shipments')
+                @canany(['shipments', 'lands'])
                 <flux:navlist.group 
                     heading="Embarques" expandable class="grid"
-                    :expanded="request()->routeIs(['shipments.*'])"
+                    :expanded="request()->routeIs(['shipments.*', 'lands.*'])"
                 >
                     <flux:navlist.item icon="plus" :href="route('shipments.create')" :current="request()->routeIs('shipments.create')">
                         Crear Embarque
                     </flux:navlist.item>
                     <flux:navlist.item icon="folder-open" :href="route('shipments.index')" :current="request()->routeIs('shipments.index')">
-                        Archivo de Embarques
+                        Archivo Embarques
                     </flux:navlist.item>
-                    <flux:navlist.item icon="folder-arrow-down" :href="route('shipments.landables')" :current="request()->routeIs('shipments.landables')">
-                        Cerrar Embarques
+                    <flux:navlist.item icon="plus" :href="route('lands.create')" :current="request()->routeIs('lands.create')">
+                        Desembarcar
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="folder-open" :href="route('lands.index')" :current="request()->routeIs('lands.index')">
+                        Archivo Desembarques
                     </flux:navlist.item>
                 </flux:navlist.group>
-                @endcan
+                @endcanany
                 @can('clients')
                 <flux:navlist.group 
                     heading="Clientes" expandable class="grid"

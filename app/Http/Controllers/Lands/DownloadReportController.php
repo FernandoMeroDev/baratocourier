@@ -1,15 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Shipments\Land;
+namespace App\Http\Controllers\Lands;
 
 use App\Http\Controllers\Controller;
-use App\Models\Packages\Package;
+use App\Models\Lands\Land;
 use App\Models\Shipments\Shipment;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xls;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\Color;
 
 class DownloadReportController extends Controller
 {
@@ -17,14 +15,14 @@ class DownloadReportController extends Controller
 
     protected Worksheet $sheet;
 
-    public function __invoke(Shipment $shipment)
+    public function __invoke(Land $land)
     {
         $filename = 'Reporte Desembarque';
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        $this->writeSheet($sheet, $shipment);
+        $this->writeSheet($sheet, $land);
 
         $xls = new Xls($spreadsheet);
 
@@ -41,11 +39,11 @@ class DownloadReportController extends Controller
             ->header('Content-Disposition', 'attacthment; filename="'.$filename.'.xls"');
     }
     
-    private function writeSheet(Worksheet $sheet, Shipment $shipment): void
+    private function writeSheet(Worksheet $sheet, Land $land): void
     {
         $this->writeHeaders($sheet);
         $i = 2;
-        foreach($shipment->waybills() as $waybill){
+        foreach($land->waybills as $waybill){
             // Package creation date
             $this->writeCell($i, $waybill->package->created_at);
             // Franchisee complete name
@@ -80,8 +78,8 @@ class DownloadReportController extends Controller
             // Shipping Target phone number
             $this->writeCell($i, $address->target->phone_number);
             // Unshipment datetime
-            if( ! is_null($shipment->unshipment_datetime))
-                $this->writeCell($i, date('Y-m-d H:i:s', strtotime($shipment->unshipment_datetime)));
+            if( ! is_null($land->created_at))
+                $this->writeCell($i, date('Y-m-d H:i:s', strtotime($land->created_at)));
             else $this->writeCell($i, '------------');
 
             $this->current_letter_i = 0;

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Lands\Land;
 use App\Models\Packages\Package;
 use App\Models\Shipments\Shipment;
 use App\Models\User\Employee;
@@ -93,5 +94,10 @@ class User extends Authenticatable
     public function shipments(): HasMany
     {
         return $this->hasMany(Shipment::class);
+    }
+
+    public function lands(): HasMany
+    {
+        return $this->hasMany(Land::class);
     }
 }

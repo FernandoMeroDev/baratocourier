@@ -28,6 +28,7 @@ class RolePermissionSeeder extends Seeder
         $franchisee_role->givePermissionTo('users');
         $franchisee_role->givePermissionTo('packages');
         $franchisee_role->givePermissionTo('shipments');
+        $franchisee_role->givePermissionTo('lands');
         $franchisee_role->givePermissionTo('waybills');
 
         $employee_role = Role::create(['name' => 'employee']);

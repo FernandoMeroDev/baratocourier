@@ -96,13 +96,13 @@ class DownloadManifestController extends Controller
             $this->writeCell($i, date('d/m/Y', strtotime($shipment->shipment_datetime)));
             // Shipment time
             $this->writeCell($i, date("H:i:s", strtotime($shipment->shipment_datetime)));
-            // Unshipment date
-            if( ! is_null($shipment->unshipment_datetime))
-                $this->writeCell($i, date('d/m/Y', strtotime($shipment->unshipment_datetime)));
+            // Land date
+            if( ! is_null($waybill->land?->created_at))
+                $this->writeCell($i, date('d/m/Y', strtotime($waybill->land?->created_at)));
             else $this->writeCell($i, '------------');
-            // Unshipment time
-            if( ! is_null($shipment->unshipment_datetime))
-                $this->writeCell($i, date("H:i:s", strtotime($shipment->unshipment_datetime)));
+            // Land time
+            if( ! is_null($waybill->land?->created_at))
+                $this->writeCell($i, date("H:i:s", strtotime($waybill->land?->created_at)));
             else $this->writeCell($i, '------------');
             // Shipment Status
             $this->styleShipmentStatus($shipment->status, $i);
