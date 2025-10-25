@@ -20,6 +20,8 @@ use App\Livewire\Packages\Index as PackageIndex;
 use App\Livewire\Shipments\Create as ShipmentCreate;
 use App\Livewire\Shipments\Index as ShipmentIndex;
 use App\Livewire\Shipments\Ship\Main as ShipmentShip;
+use App\Livewire\Shipments\Land\Main as ShipmentLand;
+use App\Livewire\Shipments\Land\Landeables as ShipmentLandeables;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Features;
 use App\Livewire\Users\Franchisee\Edit\Main as UserFranchiseeEdit;
@@ -87,7 +89,10 @@ Route::middleware(['auth', 'can:waybills'])->group(function () {
 
 Route::middleware(['auth', 'can:shipments'])->group(function () {
     Route::get('/embarques', ShipmentIndex::class)->name('shipments.index');
+    Route::get('/embarques/desembarcables', ShipmentLandeables::class)->name('shipments.landables');
     Route::get('/embarques/crear', ShipmentCreate::class)->name('shipments.create');
     Route::get('/embarques/{shipment}/embarcar', ShipmentShip::class)->name('shipments.ship');
     Route::get('/embarques/{shipment}/manifiesto', ShipmentManifest::class)->name('shipments.manifest');
+    Route::get('/embarques/{shipment}/desembarcar', ShipmentLand::class)->name('shipments.land');
+    Route::get('/embarques/{shipment}/reporte-desembarque', fn() => 'Reporte desembarque.')->name('shipments.landed-report');
 });

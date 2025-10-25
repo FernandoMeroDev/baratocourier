@@ -6,6 +6,7 @@ use App\Models\Packages\Waybills\Waybill;
 use App\Models\Shipments\Shipment;
 use App\Models\Shop;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,12 +32,14 @@ class Package extends Model
         'shop_id',
         'package_category_id',
         'shipping_method_id',
-        'user_id'
+        'user_id',
+        'shipment_id'
     ];
 
     public static array $valid_statuses = [
         'eeuu_warehouse' => 'Bodega USA',
-        'transit' => 'En Transito'
+        'transit' => 'En Transito',
+        'ecuador_warehouse' => 'Bodega Ecuador'
     ];
 
     public function decodeShippingAddress(): object
@@ -67,6 +70,11 @@ class Package extends Model
     public function waybills(): HasMany
     {
         return $this->hasMany(Waybill::class);
+    }
+
+    public function waybillsInBag(): Collection
+    {
+        return $this->waybills()->whereNot('shipping_bag_id', null)->get();
     }
 
     public function user(): BelongsTo

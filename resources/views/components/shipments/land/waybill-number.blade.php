@@ -1,0 +1,19 @@
+@props([
+    'waybillsCount',
+    'waybillNumber',
+    'loopLast',
+    'landed'
+])
+
+@php
+$classes = $landed ? 'text-green-500' : 'text-red-500'
+@endphp
+@if($waybillsCount > 1)
+    @if( ! $loopLast)
+        <span class="{{$classes}}">{{$waybillNumber . ', '}}</span>
+    @else
+        <span class="{{$classes}}">{{$waybillNumber . '.'}}</span>
+    @endif
+@else
+    <span class="{{$classes}}">{{$waybillNumber}}</span>
+@endif

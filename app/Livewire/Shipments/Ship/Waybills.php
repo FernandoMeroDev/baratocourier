@@ -2,7 +2,9 @@
 
 namespace App\Livewire\Shipments\Ship;
 
+use App\Models\Packages\Package;
 use App\Models\Packages\Waybills\Waybill;
+use App\Models\Shipments\Shipment;
 use App\Models\Shipments\ShippingBag;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
@@ -36,6 +38,7 @@ class Waybills extends Component
         if(is_null($waybill = Waybill::findReadableNumber($this->waybill_id))) return;
         if($this->waybills->contains($waybill)) return;
         if( ! is_null($waybill->shipping_bag_id)) return;
+        if( ! is_null($waybill->package->shipment)) return;
         $waybill->update([
             'shipping_bag_id' => $this->bag->id
         ]);

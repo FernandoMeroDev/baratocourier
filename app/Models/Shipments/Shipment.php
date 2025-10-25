@@ -37,7 +37,7 @@ class Shipment extends Model
 
     public function readable_number(): string
     {
-        return $this->user->franchisee->client_domain . $this->formatSequential($this->number);
+        return $this->user->franchisee->client_domain . $this->formatSequential($this->id);
     }
 
     public function user(): BelongsTo

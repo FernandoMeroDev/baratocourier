@@ -50,7 +50,7 @@
                     </x-table.tr>
                 @empty
                     <x-table.tr>
-                        <td class="p-3">No hay Guías en la saca...</td>
+                        <td class="p-3">No hay Paquetes...</td>
                     </x-table.tr>
                 @endforelse
             </x-table>

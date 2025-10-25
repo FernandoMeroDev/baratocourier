@@ -45,6 +45,9 @@
                     <flux:navlist.item icon="folder-open" :href="route('shipments.index')" :current="request()->routeIs('shipments.index')">
                         Archivo de Embarques
                     </flux:navlist.item>
+                    <flux:navlist.item icon="folder-arrow-down" :href="route('shipments.landables')" :current="request()->routeIs('shipments.landables')">
+                        Cerrar Embarques
+                    </flux:navlist.item>
                 </flux:navlist.group>
                 @endcan
                 @can('clients')

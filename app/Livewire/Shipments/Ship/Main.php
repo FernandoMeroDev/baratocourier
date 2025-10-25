@@ -46,7 +46,7 @@ class Main extends Component
             foreach($packages as $package)
                 $package->update([
                     'status' => Package::$valid_statuses['transit'],
-                    'shipment_id' => $this->shipment
+                    'shipment_id' => $this->shipment->id
                 ]);
             $this->redirect(route('shipments.index'));
         }

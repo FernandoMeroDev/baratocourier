@@ -127,7 +127,10 @@ class DownloadManifestController extends Controller
     private function stylePackageStatus(string $satus, int $i): void
     {
         $field = $this->letters[$this->current_letter_i] . $i;
-        if($satus == Package::$valid_statuses['eeuu_warehouse']){
+        if(
+            $satus == Package::$valid_statuses['eeuu_warehouse']
+            || $satus == Package::$valid_statuses['ecuador_warehouse']
+        ){
             $color = 'FF4BA5D1';
             $text_color = Color::COLOR_WHITE;
         } elseif($satus == Package::$valid_statuses['transit']){

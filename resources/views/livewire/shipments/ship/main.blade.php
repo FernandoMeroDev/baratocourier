@@ -1,6 +1,6 @@
 <div>
     <flux:heading size="xl">
-        Embarque de EABC000185
+        Reguistrar Embarque
     </flux:heading>
 
     <div class="sm:grid grid-cols-2 gap-4 mt-3 space-y-3">

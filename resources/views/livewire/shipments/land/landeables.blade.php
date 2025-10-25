@@ -11,7 +11,7 @@
                 Nr. Embarque
             </x-table.th>
             <x-table.th>
-                F. Embarque
+                F. Desembarque
             </x-table.th>
             <x-table.th>
                 Embarcado por
@@ -31,7 +31,7 @@
                     {{$shipment->readable_number()}}
                 </td>
                 <td class="p-3">
-                    {{$shipment->shipment_datetime ?? '---------'}}
+                    {{$shipment->unshipment_datetime ?? '---------'}}
                 </td>
                 <td class="p-3">
                     {{$shipment->user->name}}
@@ -49,22 +49,20 @@
                 <td class="w-5 px-3 py-1">
                     <div class="flex">
                         <a 
-                            @if($shipment->status == Shipment::$valid_statuses['unshipment'])
-                                href="{{route('shipments.ship', $shipment->id)}}"
+                            @if($shipment->status == Shipment::$valid_statuses['shipment'])
+                                href="{{route('shipments.land', $shipment->id)}}"
                             @endif
                             class="mr-2"
                         >
                             <flux:button
-                                :disabled="$shipment->status != Shipment::$valid_statuses['unshipment']"
-                                 variant="filled">Embarcar</flux:button>
+                                :disabled="$shipment->status != Shipment::$valid_statuses['shipment']"
+                                 variant="filled">Cerrar Embarque</flux:button>
                         </a>
                         <flux:button 
-                            :disabled="$shipment->status == Shipment::$valid_statuses['unshipment']"
-                            x-on:click="window.open('{{route('shipments.manifest', $shipment->id)}}')"
-                            icon="arrow-down-tray" class="mr-2"></flux:button>
-                        <a href="#">
-                            <flux:button icon="pencil"></flux:button>
-                        </a>
+                            :disabled="$shipment->status != Shipment::$valid_statuses['landed']"
+                            x-on:click="window.open('{{route('shipments.landed-report', $shipment->id)}}')"
+                            icon="arrow-down-tray" class="mr-2"
+                        ></flux:button>
                     </a>
                 </td>
             </x-table.tr>
@@ -76,20 +74,6 @@
                 </td>
             </x-table.tr>
         @endforelse
-        <x-table.tr>
-            <td class="p-3">
-                <a href="{{route('shipments.create')}}">
-                    <flux:button icon="plus"></flux:button>
-                </a>
-            </td>
-            <td class="p-3">
-                Nuevo Registro
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </x-table.tr>
     </x-table>
 
     <x-pagination :paginator="$shipments" />

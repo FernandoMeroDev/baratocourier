@@ -12,7 +12,7 @@ class StoreForm extends Form
 
     public $reference;
 
-    public $shipment_type_id;
+    public $shipment_type_id = 1;
 
     public $arrival_min_date;
 
