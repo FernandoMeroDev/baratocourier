@@ -17,8 +17,8 @@
         >
             <flux:select.option value="created_at">Fecha de Registro de Paquete</flux:select.option>
             <flux:select.option value="shop_name">Tienda</flux:select.option>
-            <flux:select.option value="estimated_date">F. Estimada</flux:select.option>
-            <flux:select.option selected value="registered_date">F. Registrada</flux:select.option>
+            <flux:select.option value="waybill_redable_number">Número de guía</flux:select.option>
+            <flux:select.option value="estimated_date">F. de Envío</flux:select.option>
             <flux:select.option selected value="tracking_number">Tracking</flux:select.option>
             <flux:select.option selected value="status">Estado</flux:select.option>
         </flux:select>
@@ -32,13 +32,13 @@
                 Tienda
             </x-table.th>
             <x-table.th>
+                Número de Guía
+            </x-table.th>
+            <x-table.th>
                 Cliente
             </x-table.th>
             <x-table.th>
-                F. Estimada
-            </x-table.th>
-            <x-table.th>
-                F. Registrada
+                F. de Envío
             </x-table.th>
             <x-table.th>
                 Tracking
@@ -52,9 +52,13 @@
         </x-slot:thead>
 
         @forelse ($packages as $package)
+            @foreach($package->waybills as $waybill)
             <x-table.tr>
                 <td class="p-3">
                     {{$package->shop->name}}
+                </td>
+                <td class="p-3">
+                    {{$waybill->readable_number()}}
                 </td>
                 <td class="p-3">
                     {{$package->client_name . ' ' . $package->client_lastname}}
@@ -63,13 +67,10 @@
                     {{$package->shipment()->shipping_date ?? '---------'}}
                 </td>
                 <td class="p-3">
-                    {{$package->shipment()->shipment_datetime ?? '---------'}}
-                </td>
-                <td class="p-3">
                     {{$package->tracking_number ?? '---------'}}
                 </td>
                 <td class="p-3">
-                    {{$package->status}}
+                    {{$waybill->status}}
                 </td>
                 <td class="w-5 px-3 py-1">
                     <div class="flex">
@@ -82,6 +83,7 @@
                     </a>
                 </td>
             </x-table.tr>
+            @endforeach
         @empty
             <x-table.tr>
                 <td></td>

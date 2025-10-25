@@ -17,7 +17,6 @@ class Package extends Model
     use HasFactory;
 
     protected $fillable = [
-        'status',
         'tracking_number',
         'courier_name',
         'logo',

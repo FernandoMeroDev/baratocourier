@@ -43,7 +43,6 @@ class StoreForm extends Form
         $user = User::find(Auth::user()->id);
         $shippingAddress = ShippingAddress::find($validated['shipping_address_id']);
         $package = Package::create([
-            'status' => 'Bodega USA',
             'tracking_number' => $validated['tracking_number'],
             'courier_name' => $user->franchisee->courier_name,
             'logo' => $user->franchisee->logo ?? 'No registrado',
@@ -62,6 +61,7 @@ class StoreForm extends Form
         ]);
         for($i = 0; $i < count($validated['weights']); $i++){
             $waybill = Waybill::create([
+                'status' => Waybill::$valid_statuses['eeuu_warehouse'],
                 'waybill_number' => $this->calcWaybillNumber($user->franchisee),
                 'price' => $validated['prices'][$i],
                 'weight' => $validated['weights'][$i],

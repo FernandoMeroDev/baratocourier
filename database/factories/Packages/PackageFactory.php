@@ -18,7 +18,6 @@ class PackageFactory extends Factory
     public function definition(): array
     {
         return [
-            'status' => Package::$valid_statuses['eeuu_warehouse'],
             'tracking_number' => '1Z999AA10123456784',
             'courier_name' => 'CourierA',
             'logo' => 'example.webp',

@@ -2,6 +2,7 @@
 
 namespace Database\Factories\Packages\Waybills;
 
+use App\Models\Packages\Waybills\Waybill;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class WaybillFactory extends Factory
     {
         return [
             // 'waybill_number' => Franchisee::calcWaybillNumber($franchisee),
+            'status' => Waybill::$valid_statuses['eeuu_warehouse'],
             'price' => fake()->randomNumber(3),
             'weight' => fake()->randomNumber(2),
             'items_count' => fake()->randomNumber(1),

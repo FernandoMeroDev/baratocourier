@@ -15,6 +15,7 @@ class Waybill extends Model
     use HasFactory, SequentialFormater;
 
     protected $fillable = [
+        'status',
         'waybill_number',
         'price',
         'weight',
@@ -26,12 +27,19 @@ class Waybill extends Model
 
     public $timestamps = false;
 
+    public static array $valid_statuses = [
+        'eeuu_warehouse' => 'Bodega USA',
+        'transit' => 'En Transito',
+        'ecuador_warehouse' => 'Bodega Ecuador'
+    ];
+
     public static function findReadableNumber(string $readable_number): ?Waybill
     {
         // return Waybill::find(substr($readable_number, -6));
         $waybill = Waybill::join('packages', 'packages.id', '=', 'waybills.package_id')
             ->where('waybills.waybill_number', (int) substr($readable_number, -6))
             ->where('packages.guide_domain', substr($readable_number, 0, -6))
+            ->select('waybills.*')
             ->first();
         return $waybill;
     }

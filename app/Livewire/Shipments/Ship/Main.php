@@ -3,6 +3,7 @@
 namespace App\Livewire\Shipments\Ship;
 
 use App\Models\Packages\Package;
+use App\Models\Packages\Waybills\Waybill;
 use App\Models\Shipments\Shipment;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
@@ -41,13 +42,20 @@ class Main extends Component
                 'shipment_datetime' => now(),
                 'status' => Shipment::$valid_statuses['shipment']
             ]);
-            // Cambia el estado de las guias (paquete) a 'en transito' 
+            // Enlaza el envío con el paquete
             $packages = $this->shipment->packagesByWaybills();
             foreach($packages as $package)
                 $package->update([
-                    'status' => Package::$valid_statuses['transit'],
+                    // 'status' => Package::$valid_statuses['transit'],
                     'shipment_id' => $this->shipment->id
                 ]);
+            // Cambia el estado de las guias a 'en transito' 
+            foreach($this->shipment->bags as $shippingBag){
+                foreach($shippingBag->waybills ?? [] as $waybill)
+                    $waybill->update([
+                        'status' => Waybill::$valid_statuses['transit']
+                    ]);
+            }
             $this->redirect(route('shipments.index'));
         }
     }

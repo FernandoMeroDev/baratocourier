@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('waybills', function (Blueprint $table) {
             $table->id();
+            $table->string('status', 50);
             $table->decimal('price', 7, 2);
             $table->decimal('weight', 7, 2);
             $table->unsignedInteger('items_count');

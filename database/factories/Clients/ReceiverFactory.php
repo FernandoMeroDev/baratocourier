@@ -22,7 +22,7 @@ class ReceiverFactory extends Factory
         return [
             'names' => fake()->name(),
             'lastnames' => fake()->lastName(),
-            'identity_card' => $this->randomNumber(10),
+            'identity_card' => 13 . $this->randomNumber(8),
             // 'client_id' => null
         ];
     }

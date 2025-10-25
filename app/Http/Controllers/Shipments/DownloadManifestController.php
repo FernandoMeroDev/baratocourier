@@ -108,8 +108,8 @@ class DownloadManifestController extends Controller
             $this->styleShipmentStatus($shipment->status, $i);
             $this->writeCell($i, $shipment->status);
             // Package Status
-            $this->stylePackageStatus($waybill->package->status, $i);
-            $this->writeCell($i, $waybill->package->status);
+            $this->stylePackageStatus($waybill->status, $i);
+            $this->writeCell($i, $waybill->status);
             $this->current_letter_i = 0;
             $i++;
         }

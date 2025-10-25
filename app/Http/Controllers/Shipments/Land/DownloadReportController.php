@@ -19,7 +19,7 @@ class DownloadReportController extends Controller
 
     public function __invoke(Shipment $shipment)
     {
-        $filename = 'Manifiesto';
+        $filename = 'Reporte Desembarque';
 
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();

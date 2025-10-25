@@ -31,6 +31,7 @@ class Index extends Component
         $search_field = $this->validateColumn($this->search_field);
         $query = Package::join('shops', 'shops.id', '=', 'packages.shop_id')
             ->join('users', 'packages.user_id', '=', 'users.id')
+            ->join('waybills', 'waybills.package_id', '=', 'packages.id')
             ->leftJoin('shipments', 'packages.shipment_id', '=', 'shipments.id')
             ->where(function($query) {
                 $query->where('shops.name', 'LIKE', "%$this->search%")
@@ -39,11 +40,15 @@ class Index extends Component
                     ->orWhere("shipments.shipping_date", 'LIKE', "%$this->search%")
                     ->orWhere("shipments.shipment_datetime", 'LIKE', "%$this->search%")
                     ->orWhere("packages.tracking_number", 'LIKE', "%$this->search%")
-                    ->orWhere("packages.status", 'LIKE', "%$this->search%");
+                    ->orWhere("waybills.status", 'LIKE', "%$this->search%")
+                    ->orWhereRaw("CONCAT(
+                        packages.guide_domain,
+                        LPAD(waybills.waybill_number, 6, '0')
+                    ) LIKE ?", ["%$this->search%"]);
             });
         
         if( ! is_null($this->search_package_status) && $this->search_package_status !== '')
-                $query = $query->where('packages.status', Package::$valid_statuses[$this->search_package_status]);
+                $query = $query->where('waybills.status', Package::$valid_statuses[$this->search_package_status]);
         if($current_user->hasRole('franchisee'))
             $query = $query->where('packages.user_id', $current_user->id);
 
@@ -61,9 +66,9 @@ class Index extends Component
         return match($column){
             'created_at' => 'created_at',
             'shop_name' => 'shops.name',
+            'waybill_redable_number' => 'waybills.waybill_number',
             'client_name' => 'client_name',
             'estimated_date' => 'shipments.shipping_date',
-            'registered_date' => 'shipments.shipment_datetime',
             'tracking_number' => 'tracking_number',
             'status' => 'status',
             default => 'created_at'
